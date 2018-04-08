@@ -1,5 +1,97 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+  background-color: #f7f6f6
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+a {
+  color: #3f8c83;
+}
+
+.btn {
+  color: white;
+  background-color: #e86c6d;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 20px;
+  padding: 10px;
+}
+
+/* Login / Register */
+
+.login-register-container {
+  padding: 40px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-register-logo {
+  height: 100px;
+}
+
+.login-register-header-container {
+  color: #e86c6d;
+}
+
+.login-register-header {
+  margin: 10px;
+}
+
+.login-register-form-container {
+  background-color: white;
+  margin-top: 30px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.login-register-form-header {
+  margin: 0;
+  background-color: #e86c6d;
+  padding: 20px;
+}
+
+form {
+  padding: 30px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-register-form-content p{
+  margin: 0;
+}
+
+.login-register-form-input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f1f1f1;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.footer-text {
+  margin: 0;
 }
