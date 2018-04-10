@@ -113,10 +113,11 @@ form {
 
 /* Add Listing */
 
-.add-listing-container-background {
+.background {
   background-image: url('./images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   background-position: 50% 40%;
   width: 100%;
 }
@@ -266,4 +267,9 @@ form {
   padding: 0;
   border-radius: 0;
   margin-left: 10px;
+}
+
+/* Thank you page */
+.thank-you p {
+  color: black;
 }

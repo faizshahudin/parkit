@@ -112,7 +112,7 @@ class AddListing extends Component {
                     </div>
                     <div className="add-listing-form-input">
                       <div className="label-container">
-                        <label>Lease Period</label>
+                        <label>Minimum rental</label>
                       </div>
                       <div className="checkbox-container step3">
                         <div className="checkbox">
@@ -141,9 +141,6 @@ class AddListing extends Component {
                       : <button className="btn add-listing-form-button">Submit</button>
                     }
                   </div>
-
-
-
               </form>
             </div>
           </div>
