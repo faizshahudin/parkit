@@ -113,19 +113,35 @@ form {
 
 /* Add Listing */
 
+.add-listing-container-background {
+  background-image: url('./images/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 40%;
+  width: 100%;
+}
+
 .add-listing-container {
   display: grid;
   grid-gap: 40px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
+
 }
 
 .add-listing-form-container {
   /* background-color: white; */
   box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
   background-color: #f7f6f6;
-  width: 100%;
-  margin-left: auto;
+  width: 90%;
   margin-right: auto;
+}
+
+.add-listing-form-header h1 {
+  margin: 0;
+}
+
+.add-listing-form-header p {
+  margin: 10px 0;
 }
 
 .add-listing-form-content {
@@ -161,9 +177,20 @@ form {
   margin-top: 10px;
 }
 
+.step3{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .add-listing-form-fields h3 {
   margin: 5px 0;
 }
+
+.add-listing-form-fields p{
+  color: black;
+  margin: 0;
+}
+
 
 .add-listing-form-input-container {
   display: grid;
@@ -179,6 +206,7 @@ form {
   border: none;
   font-size: 14px;
   background-color: white;
+  color: #8a8888;
 }
 
 .add-listing-form-input-container select {
@@ -222,10 +250,20 @@ form {
   margin-bottom: 15px;
 }
 
-.checkbox {
+/* .checkbox {
   width: 100%;
+} */
+
+.checkbox input[type="checkbox"] {
+  width: 10px !important;
 }
 
-.checkbox input {
-  width: 10px !important;
+.checkbox input[type="text"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 100px;
+  padding: 0;
+  border-radius: 0;
+  margin-left: 10px;
 }
