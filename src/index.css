@@ -1,3 +1,9 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -17,13 +23,17 @@ a {
   color: #3f8c83;
 }
 
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .btn {
   color: white;
   background-color: #e86c6d;
-  border-radius: 15px;
   border: none;
   font-size: 20px;
-  width: 60%;
   margin-left: auto;
   margin-right: auto;
   margin: 20px;
@@ -71,7 +81,7 @@ a {
 
 form {
   padding: 30px;
-  width: 70%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -92,6 +102,130 @@ form {
   text-align: center;
 }
 
+.login-register-button {
+  width: 60%;
+  border-radius: 15px;
+}
+
 .footer-text {
   margin: 0;
+}
+
+/* Add Listing */
+
+.add-listing-container {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.add-listing-form-container {
+  /* background-color: white; */
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  background-color: #f7f6f6;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-listing-form-content {
+  padding: 20px 40px;
+}
+
+.add-listing-form-content h1{
+  color: #e86c6d;
+}
+
+.add-listing-form-content p{
+  color: #8a8888;
+}
+
+.add-listing-form-content hr{
+  width: 25%;
+  margin-left: 0;
+  height: 5px;
+  border: 0;
+  border-top: 4px solid #e86c6d;
+  padding: 0;
+}
+
+.add-listing-form-fields {
+  display: grid;
+  margin: 0;
+  padding: 10px;
+  grid-template-rows: 1fr;
+  grid-gap: 20px;
+}
+
+.checkbox-container {
+  margin-top: 10px;
+}
+
+.add-listing-form-fields h3 {
+  margin: 5px 0;
+}
+
+.add-listing-form-input-container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 15px;
+}
+
+.add-listing-form-input-container input, select {
+  padding: 15px;
+  width: 100%;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  background-color: white;
+}
+
+.add-listing-form-input-container select {
+  appearance: none;
+  font-size: 14px;
+}
+
+.add-listing-form-button {
+  margin: 10px;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.add-listing-message-container {
+  margin-top: 5em;
+  width: 90%;
+  margin-left: auto;
+  text-align: right;
+}
+
+.add-listing-message-content {
+  margin-top: 4em;
+}
+
+.add-listing-message-content h1 {
+  color: #3f8c83;
+  margin-bottom: 5px;
+}
+
+.add-listing-message-content p {
+  margin-left: auto;
+  width: 60%;
+  font-size: 18px;
+}
+
+.add-listing-form-input-header {
+  margin: 20px 0;
+}
+
+.label-container {
+  margin-bottom: 15px;
+}
+
+.checkbox {
+  width: 100%;
+}
+
+.checkbox input {
+  width: 10px !important;
 }

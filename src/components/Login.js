@@ -20,7 +20,7 @@ class Login extends Component {
             </label>
             <input className="login-register-form-input" type="text"></input>
             <p><a>Forgot Password?</a></p>
-            <button className="btn">Log In</button>
+            <button className="btn login-register-button">Log In</button>
             <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
           </form>
         </div>

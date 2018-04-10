@@ -36,7 +36,7 @@ class Register extends Component {
               Confirm Password:
             </label>
             <input className="login-register-form-input" type="text"></input>
-            <button className="btn">Register</button>
+            <button className="btn login-register-button">Register</button>
             <p className="footer-text">Already have an account? <Link to="/login">Login</Link> here.</p>
           </form>
         </div>
