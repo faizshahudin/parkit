@@ -445,7 +445,11 @@ button:disabled {
   margin-bottom: 40px;
 }
 
-.enquire button {
+.enquire {
+  text-align: center;
+}
+
+.enquire button, .thank-you button {
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
@@ -453,11 +457,32 @@ button:disabled {
   margin-bottom: 0;
 }
 
-.enquire .button {
+.enquire .button, .thank-you .button {
   margin-left: auto;
   margin-right: auto;
 }
 
 .map {
   margin: 30px 0;
+}
+
+.thank-you {
+  display: grid;
+  grid-gap: 10px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thank-you .header {
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+.thank-you .message p {
+  margin: 20px;
+}
+
+.thank-you .redirect p {
+  font-size: 10px;
 }

@@ -12,7 +12,7 @@ class FindParking extends Component {
           <hr />
         </div>
         <Route path={`/find-parking/search`} component={Search}/>
-        <Route path={`/find-parking/no-parking`} component={NoParking}/>
+        <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
       </div>
     )
   }
@@ -56,37 +56,65 @@ class Search extends Component {
 }
 
 class NoParking extends Component {
+  state = {
+    submit: true
+  }
   render() {
+    let {submit} = this.state
     return(
       <div className="enquire body box">
-        <div className="header">
-          <h3>ParkIt Locations</h3>
-          <p>No parking available? Let us sort you out</p>
-        </div>
-        <form className="form">
+        {!submit &&
           <div>
-            <label>Where do you require carpark?</label>
-            <input type="text" placeholder="Area/Location"></input>
+            <div className="header">
+              <h3>ParkIt Locations</h3>
+              <p>No parking available? Let us sort you out</p>
+            </div>
+            <form className="form">
+              <div>
+                <label>Where do you require carpark?</label>
+                <input type="text" placeholder="Area/Location"></input>
+              </div>
+              <div>
+                <label>When do you want to start parking</label>
+                <input type="text" placeholder="Area/Location"></input>
+              </div>
+              <div>
+                <label>What is your expected budget?</label>
+                <select>
+                  <option> RM300 </option>
+                  <option> RM500 </option>
+                </select>
+              </div>
+              <div className="button">
+                <button className="btn">Send Enquiry</button>
+              </div>
+            </form>
           </div>
-          <div>
-            <label>When do you want to start parking</label>
-            <input type="text" placeholder="Area/Location"></input>
+        }
+        {submit &&
+          <div className="thank-you">
+            <div className="header">
+              <h3>Thank You, Jao Ern!</h3>
+            </div>
+            <div className="message">
+              <p>Your enquiry has been sent to ParkIt.</p>
+              <p>A confirmation email has been sent to parkitmsia@gmail.com</p>
+              <p>Our team will be in touch with you.</p>
+            </div>
+            <div className="redirect">
+              <p>Redirecting you to the homepage</p>
+              <p>in 10 seconds.</p>
+            </div>
+            <div className="button">
+              <button className="btn">Go To Homepage</button>
+            </div>
           </div>
-          <div>
-            <label>What is your expected budget?</label>
-            <select>
-              <option> RM300 </option>
-              <option> RM500 </option>
-            </select>
-          </div>
-          <div className="button">
-            <button className="btn">Send Enquiry</button>
-          </div>
-        </form>
+        }
       </div>
     )
   }
 }
+
 
 
 const Map = withScriptjs(withGoogleMap((props) =>
