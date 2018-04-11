@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 class Register extends Component {
   render() {
     return(
-      <div className="login-register-container">
+      <div className="login-register-container container">
         <LoginRegisterHeader />
         <div className="login-register-form-container">
           <h3 className="login-register-form-header">Register</h3>

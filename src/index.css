@@ -8,8 +8,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
-  background-color: #f7f6f6
+  background-color: #f7f6f6;
 }
+
+.main {
+  background-image: url('./images/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: 50% 40%;
+}
+
 
 h1 {
   font-size: 40px;
@@ -23,10 +32,21 @@ a {
   color: #3f8c83;
 }
 
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  text-decoration: none;
+}
+
 .container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 40px;
 }
 
 .btn {
@@ -40,10 +60,25 @@ a {
   padding: 10px;
 }
 
+.btn-transparent {
+  color: #e86c6d !important;
+  background: none;
+  border: solid;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn-transparent:hover {
+  color: white !important;
+  background: #e86c6d;
+  border: solid;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 /* Login / Register */
 
 .login-register-container {
-  padding: 40px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -112,15 +147,6 @@ form {
 }
 
 /* Add Listing */
-
-.background {
-  background-image: url('./images/background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: 50% 40%;
-  width: 100%;
-}
 
 .add-listing-container {
   display: grid;
@@ -222,9 +248,14 @@ form {
 }
 
 .add-listing-message-container {
-  margin-top: 5em;
-  width: 90%;
+  display: grid;
+  grid-template-rows: 0.2fr 1.8fr;
+  /* top:0;
+  bottom: 0;
+  left: 0;
+  right: 0; */
   margin-left: auto;
+  width: 90%;
   text-align: right;
 }
 
@@ -270,6 +301,64 @@ form {
 }
 
 /* Thank you page */
-.thank-you p {
+.add-listing-form-content.thank-you {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 30px;
+}
+
+.add-listing-form-body.thank-you h4 {
+  font-size: 20px;
+  width: 80%;
+}
+
+.add-listing-container.thank-you p {
   color: black;
 }
+
+/* Navigation */
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-decoration: none;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-container li {
+  display: inline;
+}
+
+.nav-container.two {
+  margin-left: auto;
+}
+
+.nav-container li a {
+  color: #8a8888;
+  text-decoration: none;
+}
+
+.nav-container li .active {
+  color: #e86c6d;
+}
+
+.nav-logo {
+  height: 50px;
+}
+
+.nav-menu-icon {
+  height: 40px;
+}
+
+
+
+/* .nav li:first-child {
+  padding-left: 0;
+} */
