@@ -7,8 +7,12 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
   background-color: #f7f6f6;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 .main {
@@ -46,10 +50,12 @@ input {
 
 h1 {
   font-size: 35px;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 h3 {
   font-size: 20px;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 a {
@@ -156,10 +162,14 @@ button:disabled {
   margin-right: auto;
 }
 
-.login-register-form-content p{
-  margin: 0;
+.login-register-form-content {
+  padding: 40px;
 }
 
+.login-register-form-content p{
+  margin: 0;
+  font-size: 12px;
+}
 
 .login-register-form-input {
   width: 100%;
@@ -352,6 +362,7 @@ button:disabled {
   padding-top: 10px;
   padding-bottom: 20px;
   text-transform: uppercase;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 .nav-container {
@@ -441,6 +452,10 @@ button:disabled {
   margin: 7px 0;
 }
 
+.find-parking-container .search-body select {
+  margin: 5px 0;
+}
+
 .find-parking-container .body .header {
   margin-bottom: 40px;
 }
@@ -449,7 +464,7 @@ button:disabled {
   text-align: center;
 }
 
-.enquire button, .thank-you button {
+.find-parking-container .enquire button, .find-parking-container .thank-you button {
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
@@ -457,7 +472,7 @@ button:disabled {
   margin-bottom: 0;
 }
 
-.enquire .button, .thank-you .button {
+.find-parking-container .enquire .button, .find-parking-container .thank-you .button {
   margin-left: auto;
   margin-right: auto;
 }
@@ -466,7 +481,7 @@ button:disabled {
   margin: 30px 0;
 }
 
-.thank-you {
+.find-parking-container .thank-you {
   display: grid;
   grid-gap: 10px;
   width: 80%;
@@ -474,15 +489,15 @@ button:disabled {
   margin-right: auto;
 }
 
-.thank-you .header {
+.find-parking-container .thank-you .header {
   margin-top: 10px !important;
   margin-bottom: 0 !important;
 }
 
-.thank-you .message p {
+.find-parking-container .thank-you .message p {
   margin: 20px;
 }
 
-.thank-you .redirect p {
+.find-parking-container .thank-you .redirect p {
   font-size: 10px;
 }

@@ -11,7 +11,7 @@ class Register extends Component {
         <LoginRegisterHeader />
         <div className="login-register-form-container">
           <h3 className="login-register-form-header">Register</h3>
-          <form>
+          <form className="login-register-form-content">
             <label>
               First Name:
             </label>

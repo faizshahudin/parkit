@@ -10,7 +10,6 @@ export default function Nav () {
         <li>
           <NavLink to='/' activeClassName='active'>
           <img className="nav-logo" src={Logo}></img>
-
           </NavLink>
         </li>
         <li>
@@ -19,7 +18,7 @@ export default function Nav () {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/parkers' activeClassName='active'>
+          <NavLink to='/parkers/search' activeClassName='active'>
             Parkers
           </NavLink>
         </li>

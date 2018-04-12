@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import {BrowserRouter as Router, Route} from "react-router-dom"
+import { NavLink } from 'react-router-dom'
 
 
 class FindParking extends Component {
@@ -11,16 +12,59 @@ class FindParking extends Component {
           <h1>Find Us Where You Are</h1>
           <hr />
         </div>
-        <Route path={`/find-parking/search`} component={Search}/>
-        <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
+        <Route path={`/parkers/search`} component={Search}/>
+        <Route exact path={`/parkers/no-parking`} component={NoParking}/>
       </div>
     )
   }
 }
 
 class Search extends Component {
+  state = {
+    currentLocation: "klSentral",
+    klSentral: {
+      center: { lat: 3.1342819, lng: 101.6839707 },
+      markers: [
+        {
+          name: "Suasana Loft",
+          lat: 3.131425,
+          lng: 101.6818833
+        },
+        {
+          name: "Suasana Sentral",
+          lat: 3.1315919,
+          lng: 101.6830183
+        }
+      ]
+    },
+    sunway: {
+      center: {lat: 3.073659, lng: 101.6038753},
+      markers: [
+        {
+          name: "Shell",
+          lat: 3.0743554,
+          lng: 101.6059031
+        },
+        {
+          name: "Ah Foong",
+          lat: 3.076633,
+          lng: 101.6020203
+        }
+      ]
+    }
+  }
+
+  handleChange = (e) => {
+   let value = e.target.value
+   this.setState((state) => ({
+     currentLocation: value
+   }))
+   const location = this.state.klSentral.markers.map((place) => place)
+   console.log(location)
+ }
   render() {
-    return(
+    let {currentLocation} = this.state
+    return (
       <div>
         <div className="body box">
           <div className="header">
@@ -33,6 +77,7 @@ class Search extends Component {
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `400px` }} />}
               mapElement={<div style={{ height: `100%` }} />}
+              currentLocation={this.state[currentLocation]}
             />
           </div>
           <div className="search">
@@ -40,14 +85,17 @@ class Search extends Component {
               <p>Find us here:</p>
             </div>
             <form className="search-body">
-              <select >
-                <option>KL Sentral</option>
+              <select value={this.state.value} onChange={this.handleChange}>
+                <option value="klSentral">KL Sentral</option>
+                <option value="sunway">Sunway</option>
               </select>
               <button>Search</button>
             </form>
           </div>
           <div>
-            <p>Can't find the location? Let us know.</p>
+            <NavLink to="/parkers/no-parking">
+              <p>Can't find the location? Let us know.</p>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -57,8 +105,30 @@ class Search extends Component {
 
 class NoParking extends Component {
   state = {
-    submit: true
+    submit: false
   }
+
+  handleChange = (e) => {
+    let value = e.target.value
+    let name = e.target.name
+    this.setState((state) => ({
+      [name]: value
+    }))
+  }
+
+   handleSubmit = (e) => {
+     e.preventDefault()
+     this.setState({submit: true})
+   }
+
+   isDisabled = () => {
+     const {carparkLocation, startDate, budget} = this.state
+
+     return !carparkLocation
+      || !startDate
+      || !budget
+   }
+
   render() {
     let {submit} = this.state
     return(
@@ -72,21 +142,22 @@ class NoParking extends Component {
             <form className="form">
               <div>
                 <label>Where do you require carpark?</label>
-                <input type="text" placeholder="Area/Location"></input>
+                <input name="carparkLocation" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Area/Location"></input>
               </div>
               <div>
                 <label>When do you want to start parking</label>
-                <input type="text" placeholder="Area/Location"></input>
+                <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
               </div>
               <div>
                 <label>What is your expected budget?</label>
-                <select>
-                  <option> RM300 </option>
-                  <option> RM500 </option>
+                <select name="budget" value={this.state.value} onChange={this.handleChange} style={this.state.budget ? {color: "black"} : {color: "#8a8888"}}>
+                  <option value="">Select</option>
+                  <option value="RM300">RM300</option>
+                  <option value="RM500">RM500</option>
                 </select>
               </div>
               <div className="button">
-                <button className="btn">Send Enquiry</button>
+                <button onClick={this.handleSubmit} className="btn" disabled={this.isDisabled()}>Send Enquiry</button>
               </div>
             </form>
           </div>
@@ -119,9 +190,18 @@ class NoParking extends Component {
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    defaultZoom={14}
+    center={props.currentLocation.center}
   >
+    {props.currentLocation.markers.map((place, index) => (
+      <Marker
+        key={index}
+        position={{lat: place.lat, lng: place.lng}}
+      />
+    ))}
+
+
+
   </GoogleMap>
 ))
 

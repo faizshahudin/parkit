@@ -7,9 +7,9 @@ class AddListing extends Component {
     submit: false,
   }
 
-  handleChange = (event) => {
-   let value = event.target.value
-   let name = event.target.name
+  handleChange = (e) => {
+   let value = e.target.value
+   let name = e.target.name
    this.setState((state) => ({
      [name]: value
    }))
