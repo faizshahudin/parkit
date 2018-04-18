@@ -15,6 +15,10 @@ a {
   text-decoration: none;
 }
 
+.white-background {
+  background-color: white;
+}
+
 .main {
   background-image: url('./images/background.png');
   background-repeat: no-repeat;
@@ -114,6 +118,111 @@ select {
 
 button:disabled {
   opacity: 0.6;
+}
+
+/* Home */
+.home {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 60px;
+}
+
+.home h1 {
+  font-weight: 900;
+  font-size: 45px;
+}
+
+.home h3 {
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 35px;
+  font-weight: 500 !important;
+}
+
+.home .hero p {
+  font-family: 'Raleway', sans-serif !important;
+  color: #e86c6d;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.home .hero {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.home .hero.one {
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.background-grey {
+  background-color: #f7f6f6;
+}
+
+.home .hero .content {
+  width: 80%;
+}
+
+.home .hero.four .content {
+  margin-left: auto;
+}
+
+.home .hero.two {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.hero.three {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.home .hero.four {
+  grid-template-columns: 0.7fr 1.3fr;
+}
+
+.home .hero .content {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.home .hero .hero-img {
+  width: 100%;
+}
+
+.home .hero-right .hero-img {
+  width: 100%;
+}
+
+.home .partners {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: #f3e3e3;
+  padding: 40px;
+}
+
+
+.home .logo {
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home .signup {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: #e86c6d;
+  color: white;
+  padding: 40px;
+}
+
+.home .signup button {
+  background-color: white;
+  color: #e86c6d;
+  padding: 20px 60px;
 }
 
 /* Login / Register */
