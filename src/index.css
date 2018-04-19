@@ -97,6 +97,7 @@ select {
   margin-right: auto;
   margin: 20px 0;
   padding: 10px;
+  border-radius: 5px;
 }
 
 .btn-transparent {
@@ -130,6 +131,7 @@ button:disabled {
 .home h1 {
   font-weight: 900;
   font-size: 45px;
+  margin: 5px 0;
 }
 
 .home h3 {
@@ -143,6 +145,10 @@ button:disabled {
   color: #e86c6d;
   font-weight: 500;
   font-size: 20px;
+}
+
+.home button {
+  padding: 10px 30px;
 }
 
 .home .hero {
@@ -187,7 +193,19 @@ button:disabled {
 
 .home .hero .hero-img {
   width: 100%;
+  padding: 50px 0;
 }
+
+
+.home .hero.two .hero-img {
+  padding: initial;
+}
+
+.home .hero.four .content {
+  text-align: right;
+}
+
+
 
 .home .hero-right .hero-img {
   width: 100%;
@@ -205,6 +223,12 @@ button:disabled {
 
 .home .logo {
   height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home .cloud {
+  height: 120px;
   margin-left: auto;
   margin-right: auto;
 }

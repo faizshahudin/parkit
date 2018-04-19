@@ -4,6 +4,7 @@ import hero2 from "../images/hero-image2.png"
 import hero3 from "../images/hero-image3.png"
 import hero4 from "../images/hero-image4.png"
 import logos from "../images/logos.png"
+import cloud from "../images/clouds.png"
 
 
 class Home extends Component {
@@ -48,6 +49,7 @@ class Home extends Component {
         </section>
         <section className="hero three container">
           <div className="content">
+            <img className="cloud" src={cloud}></img>
             <h1>Looking for a season parking space?</h1>
             <p>
               Send us an enquiry and we will connect you to our available parking spaces
@@ -64,6 +66,7 @@ class Home extends Component {
             <img className="hero-img" src={hero4}></img>
           </div>
           <div className="content">
+            <img className="cloud" src={cloud}></img>
             <h1>Do you have a parking space you do not use?</h1>
             <p>
               Sign up here and put it up for rent on ParkIt! We'll rent it out to a driver
