@@ -6,6 +6,7 @@ import AddListing from "./AddListing"
 import ThankYou from "./ThankYou"
 import Nav from "./Nav"
 import FindParking from "./FindParking"
+import Footer from "./Footer"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/add-listing" component={AddListing} />
           <Route path="/add-listing/thank-you" component={ThankYou} />
         </div>
+        <Footer />
 
       </div>
     );

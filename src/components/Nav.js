@@ -5,7 +5,7 @@ import MenuIcon from "../images/menu-icon.png"
 
 export default function Nav () {
   return (
-    <nav className="nav container">
+    <nav className="nav">
       <ul className="nav-container one">
         <li>
           <NavLink to='/' activeClassName='active'>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import hero1 from "../images/hero-image1.png"
 import hero2 from "../images/hero-image2.png"
 import hero3 from "../images/hero-image3.png"
@@ -13,7 +14,7 @@ class Home extends Component {
       <div className="home">
         <section className="hero one background-grey">
           <div className="content container">
-            <h1>Connecting drivers to unused parking spaces</h1>
+            <h1><span>Connecting</span> drivers to unused parking spaces</h1>
             <p>It's easier than building new ones. Park with ParkIt for all your parking needs.</p>
           </div>
           <div className="container">
@@ -79,7 +80,7 @@ class Home extends Component {
         <section className="signup">
           <div className="container">
             <h3>We're here for all your parking needs. Sign up now!</h3>
-            <button className="btn">GET STARTED</button>
+            <Link to="/register"><button className="btn">GET STARTED</button></Link>
           </div>
         </section>
       </div>
