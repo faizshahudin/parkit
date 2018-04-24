@@ -1,8 +1,13 @@
 {
-  "main.css": "static/css/main.c7353bff.css",
-  "main.css.map": "static/css/main.c7353bff.css.map",
-  "main.js": "static/js/main.15cc61a5.js",
-  "main.js.map": "static/js/main.15cc61a5.js.map",
+  "main.css": "static/css/main.2b8162b9.css",
+  "main.css.map": "static/css/main.2b8162b9.css.map",
+  "main.js": "static/js/main.bc7b1bf1.js",
+  "main.js.map": "static/js/main.bc7b1bf1.js.map",
   "static/media/background.png": "static/media/background.dc927132.png",
+  "static/media/hero-image1.png": "static/media/hero-image1.a58ec807.png",
+  "static/media/hero-image2.png": "static/media/hero-image2.146b0d3a.png",
+  "static/media/hero-image3.png": "static/media/hero-image3.aa113cae.png",
+  "static/media/hero-image4.png": "static/media/hero-image4.2edf5343.png",
+  "static/media/logos.png": "static/media/logos.33291198.png",
   "static/media/parkit-logo.png": "static/media/parkit-logo.9c10cdf2.png"
 }
