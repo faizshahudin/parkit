@@ -1,5 +1,5 @@
 export const register = (data) =>
-    fetch(`https://cors-anywhere.herokuapp.com/http://127.0.0.1:8000/register/`, {
+    fetch(`http://127.0.0.1:8000/register/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
