@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import LoginRegisterHeader from "./LoginRegisterHeader"
 import { Link } from 'react-router-dom'
 import * as Api from "./Api"
+import { connect } from "react-redux"
+import {login} from "../actions/AuthedUser"
 
 class Login extends Component {
   constructor(props) {
@@ -21,23 +23,20 @@ class Login extends Component {
   }
 
   handleSubmit = (e) => {
+    const {dispatch, AuthedUser} = this.props
     e.preventDefault()
     let data = this.state
-    Api.login(data).then(response => {
-      const key = response.key
-      localStorage.setItem("auth", key)
-      this.setState({ IsAuthenticated: key })
-    })
-    console.log(localStorage.auth)
+    dispatch(login(data))
+    this.setState({IsAuthenticated: AuthedUser})
   }
 
   logout = () => {
     localStorage.removeItem("auth")
     this.setState({ IsAuthenticated: null })
-    console.log(localStorage)
   }
 
   render() {
+    const { AuthedUser } = this.props
     return(
       <div className="login-register-container container">
         <LoginRegisterHeader />
@@ -82,7 +81,7 @@ class Login extends Component {
             <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
           </form>
         </div>
-        {(localStorage.auth ?
+        {(AuthedUser ?
           <div onClick={this.logout}>Logout</div>
           : <div>No</div>
         )}
@@ -129,4 +128,9 @@ class Register extends Component {
   }
 }
 
-export default Login
+function mapStateToProps({AuthedUser}) {
+  return {AuthedUser}
+}
+
+
+export default connect(mapStateToProps)(Login)
