@@ -56,8 +56,9 @@ MIDDLEWARE = [
     'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = DEBUG
-CORS_REPLACE_HTTPS_REFERER = DEBUG
+
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = 'Parkit.urls'
 
