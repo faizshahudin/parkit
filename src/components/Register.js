@@ -34,10 +34,12 @@ class Register extends Component {
         <div className="login-register-form-container">
           <h3 className="login-register-form-header">Register</h3>
           <form className="login-register-form-content" onSubmit={this.handleSubmit}>
-            <label>
+            <label htmlFor="username">
               Username
             </label>
             <input
+              required
+              id="username"
               name="username"
               className="login-register-form-input"
               type="text"
@@ -45,21 +47,26 @@ class Register extends Component {
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="fName">
               First Name:
             </label>
             <input
+              required
+              id="fName"
               name="first_name"
+              autoComplete="fname"
               className="login-register-form-input"
               type="text"
               value={this.state.value}
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="lName">
               Last Name:
             </label>
             <input
+              required
+              id="lName"
               name="last_name"
               className="login-register-form-input"
               type="text"
@@ -67,35 +74,43 @@ class Register extends Component {
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="email">
               Email:
             </label>
             <input
+              required
+              id="email"
               name="email"
               className="login-register-form-input"
-              type="text"
+              type="email"
               value={this.state.value}
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="email2">
               Confirm Email:
             </label>
             <input
+              required
+              id="email2"
               name="email2"
               className="login-register-form-input"
-              type="text"
+              type="email"
               value={this.state.value}
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="password">
               Password:
             </label>
             <input
+              required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must contain a combination of numbers, uppercase and lowercase letters, and at least 6 or more characters"
+              id="password"
               name="password"
               className="login-register-form-input"
-              type="text"
+              type="password"
               value={this.state.value}
               onChange={this.handleChange}
               >

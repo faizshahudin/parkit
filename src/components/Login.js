@@ -43,10 +43,12 @@ class Login extends Component {
         <div className="login-register-form-container">
           <h3 className="login-register-form-header">Log In</h3>
           <form className="login-register-form-content" onSubmit={this.handleSubmit}>
-            <label>
+            <label htmlFor="username">
               Username
             </label>
             <input
+              required
+              id="username"
               name="username"
               className="login-register-form-input"
               type="text"
@@ -54,24 +56,28 @@ class Login extends Component {
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="email">
               Email
             </label>
             <input
+              required
+              id="email"
               name="email"
               className="login-register-form-input"
-              type="text"
+              type="email"
               value={this.state.value}
               onChange={this.handleChange}
               >
             </input>
-            <label>
+            <label htmlFor="password">
               Password:
             </label>
             <input
+              required
+              id="password"
               name="password"
               className="login-register-form-input"
-              type="text"
+              type="password"
               value={this.state.value}
               onChange={this.handleChange}
               >
