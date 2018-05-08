@@ -7,9 +7,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f7f6f6;
   font-family: 'Roboto', sans-serif;
 }
+
 
 a {
   text-decoration: none;
@@ -23,7 +23,11 @@ button:hover {
   background-color: white;
 }
 
-.main {
+.grey-background {
+  background-color: #f7f6f6;
+}
+
+.image-background {
   background-image: url('./images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -70,7 +74,7 @@ a {
   color: #3f8c83;
 }
 
-ul {
+ul, ol {
   padding-left: 0;
 }
 
@@ -79,6 +83,7 @@ li {
   padding: 10px;
   text-decoration: none;
 }
+
 
 select {
   appearance: none;
@@ -259,6 +264,121 @@ button:disabled {
   background-color: white;
   color: #e86c6d;
   padding: 20px 60px;
+}
+
+/* Owners */
+.owners {
+  grid-gap: 30px;
+  color: #8a8888;
+}
+
+.owners .hero.one {
+  padding: 50px !important;
+}
+
+.owners .hero.one .header {
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 24px;
+}
+
+.owners .hero.one .text {
+  font-weight: initial;
+  font-size: 18px;
+}
+
+.owners h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.owners .container {
+  width: 95%;
+}
+
+.owners .hero.one {
+  padding: 0 50px;
+}
+
+.owners .hero.one img {
+  width: 90%;
+}
+
+.owners .hero.one h1 {
+  color: #e86c6d;
+}
+
+.owners .hero.two {
+  padding: 0;
+}
+
+.owners .hero.two .image {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.owners .hero.two .image img {
+  width: 90%;
+}
+
+.owners .list {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.owners .hero.two .content .bullet-points {
+  display: grid;
+  grid-template-columns: 0.2fr 1.8fr;
+  grid-gap: 10px;
+  padding: 10px 0;
+}
+
+.owners .hero.two .content .bullet-points li {
+  padding: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.owners .hero.two .content img {
+  height: 30px;
+  margin-left: auto;
+}
+
+.owners .signup {
+  background-color: white;
+  color: black;
+  padding: 0;
+}
+
+.owners .signup button {
+  background-color: #e86c6d;
+  color: white;
+  padding: 20px 60px;
+}
+
+.owners .list .images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.owners .list .images img {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.owners .signup {
+  color: #8a8888;
+}
+
+.owners .signup p {
+  font-size: 25px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Login / Register */
@@ -511,6 +631,7 @@ button:disabled {
   width: 90%;
   margin-right: auto;
   margin-left: auto;
+  background-color: white;
 }
 
 

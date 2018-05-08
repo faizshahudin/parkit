@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Home from "./Home"
+import Owners from "./Owners"
 import Login from "./Login"
 import Register from "./Register"
 import AddListing from "./AddListing"
@@ -16,8 +17,9 @@ class App extends Component {
         <Nav />
         <div className="white-background">
           <Route exact path="/" component={Home} />
+          <Route path="/owners" component={Owners} />
         </div>
-        <div className="non-main">
+        <div className="grey-background">
           <Route path="/parkers" component={FindParking} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
