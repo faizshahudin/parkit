@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ThankYou extends Component {
   render() {
     return(
-      <div className="add-listing-container thank-you container">
+      <div className="add-listing-container thank-you container image-background">
         <div className="add-listing-form-container thank-you">
           <div className="add-listing-form-content thank-you">
             <div className="add-listing-form-header thank-you">

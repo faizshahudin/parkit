@@ -19,12 +19,11 @@ class Nav extends Component {
   }
 
   render() {
-    const { AuthedUser } = this.props
     return (
       <nav className="nav">
         <ul className="nav-container one">
           <li>
-            <NavLink to='/' activeClassName='active'>
+            <NavLink exact to='/' activeClassName="active">
             <img className="nav-logo" src={Logo}></img>
             </NavLink>
           </li>
@@ -59,19 +58,10 @@ class Nav extends Component {
             <img className="nav-menu-icon" src={MenuIcon}></img>
           </li>
         </ul>
-        {AuthedUser ?
-          <div onClick={this.handleLogout}>Log Out</div>
-        : <div>None</div>
-        }
       </nav>
     )
   }
 }
 
-function mapStateToProps({AuthedUser}) {
-  return {
-    AuthedUser
-  }
-}
 
-export default connect(mapStateToProps)(Nav)
+export default Nav

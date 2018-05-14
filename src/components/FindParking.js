@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 class FindParking extends Component {
   render() {
     return(
-      <div className="find-parking-container container">
+      <div className="find-parking-container container grey-background">
         <div className="header">
           <h1>Find Us Where You Are</h1>
           <hr />

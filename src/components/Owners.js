@@ -13,7 +13,7 @@ import three from "../images/3.png"
 class Owners extends Component {
   render() {
     return(
-      <div className="home owners">
+      <div className="landing owners white-background">
         <section className="hero one background-grey container">
           <div className="content">
             <p className="header">Not using your parking space?</p>
@@ -37,9 +37,9 @@ class Owners extends Component {
           <div className="content">
             <h1>How does it work?</h1>
             <ol>
-              <div className="bullet-points"><img src={one}></img><li>Provide your unused parking location details.</li></div>
-              <div className="bullet-points"><img src={two}></img><li>Agree to terms and conditions when we get in contact.</li></div>
-              <div className="bullet-points"><img src={three}></img><li>Sit back and watch your bank account grow.</li></div>
+              <div className="bullet-points one"><img src={one}></img><li>Provide your unused parking location details.</li></div>
+              <div className="bullet-points two"><img src={two}></img><li>Agree to terms and conditions when we get in contact.</li></div>
+              <div className="bullet-points three"><img src={three}></img><li>Sit back and watch your bank account grow.</li></div>
             </ol>
           </div>
         </section>

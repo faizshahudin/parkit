@@ -61,7 +61,7 @@ class AddListing extends Component {
 
     let {currentPage} = this.state
     return (
-      <div className="add-listing-container container">
+      <div className="add-listing-container container image-background">
         <div className="add-listing-form-container">
           <div className="add-listing-form-content">
             <div className="add-listing-form-header">

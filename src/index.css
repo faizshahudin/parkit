@@ -10,7 +10,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-
 a {
   text-decoration: none;
 }
@@ -132,46 +131,63 @@ button:disabled {
 
 /* Home */
 .home {
-  display: grid;
-  grid-template-rows: 1fr;
   grid-gap: 60px;
-}
-
-.home h1 {
-  font-weight: 900;
-  font-size: 45px;
   margin: 5px 0;
 }
 
-.home h3 {
+.home h1 {
+  font-size: 45px;
+}
+
+.home .signup {
+  padding: 40px;
+  background-color: #e86c6d;
+}
+
+.home .signup button {
+  background-color: white;
+  color: #e86c6d;
+}
+
+/* Landing */
+.landing {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.landing h1 {
+  font-weight: 900;
+}
+
+.landing h3 {
   font-family: 'Raleway', sans-serif !important;
   font-size: 35px;
   font-weight: 500 !important;
 }
 
-.home .hero p {
+.landing .hero p {
   font-family: 'Raleway', sans-serif !important;
   color: #e86c6d;
   font-weight: 500;
   font-size: 20px;
 }
 
-.home button {
+.landing button {
   padding: 10px 30px;
 }
 
-.home .hero {
+.landing .hero {
   display: grid;
   grid-gap: 10px;
 }
 
-.home .hero.one {
+.landing .hero.one {
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .hero.one span {
+.landing .hero.one span {
   background-color: #e86c6d;
   padding: 5px 12px;
   border-radius: 10px;
@@ -182,15 +198,12 @@ button:disabled {
   background-color: #f7f6f6;
 }
 
-.home .hero .content {
+.landing .hero .content {
   width: 80%;
 }
 
-.home .hero.four .content {
-  margin-left: auto;
-}
 
-.home .hero.two {
+.landing .hero.two {
   grid-template-columns: 1.2fr 0.8fr;
 }
 
@@ -198,37 +211,38 @@ button:disabled {
   grid-template-columns: 1.2fr 0.8fr;
 }
 
-.home .hero.four {
+.landing .hero.four .content {
+  margin-left: auto;
+}
+
+.landing .hero.four {
   grid-template-columns: 0.7fr 1.3fr;
 }
 
-.home .hero .content {
+.landing .hero .content {
   margin-top: auto;
   margin-bottom: auto;
 }
 
 
-.home .hero .hero-img {
+.landing .hero .hero-img {
   width: 100%;
   padding: 50px 0;
 }
 
-
-.home .hero.two .hero-img {
+.landing .hero.two .hero-img {
   padding: initial;
 }
 
-.home .hero.four .content {
+.landing .hero.four .content {
   text-align: right;
 }
 
-
-
-.home .hero-right .hero-img {
+.landing .hero-right .hero-img {
   width: 100%;
 }
 
-.home .partners {
+.landing .partners {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -238,31 +252,27 @@ button:disabled {
 }
 
 
-.home .logo {
+.landing .logo {
   height: 80px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .cloud {
+.landing .cloud {
   height: 120px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .signup {
+.landing .signup {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  background-color: #e86c6d;
   color: white;
-  padding: 40px;
 }
 
-.home .signup button {
-  background-color: white;
-  color: #e86c6d;
+.landing .signup button {
   padding: 20px 60px;
 }
 
@@ -342,6 +352,14 @@ button:disabled {
   margin-bottom: auto;
 }
 
+.owners .hero.two .content .bullet-points.two {
+  margin-left: 30px;
+}
+
+.owners .hero.two .content .bullet-points.three {
+  margin-left: 60px;
+}
+
 .owners .hero.two .content img {
   height: 30px;
   margin-left: auto;
@@ -356,7 +374,6 @@ button:disabled {
 .owners .signup button {
   background-color: #e86c6d;
   color: white;
-  padding: 20px 60px;
 }
 
 .owners .list .images {
