@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'accounts',
     'rent',
     'rest_auth',
+    'search',
+    'vehicle',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
