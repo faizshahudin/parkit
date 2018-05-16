@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import * as Api from "./Api"
 
 class AddListing extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/add-listing" component={Add}/>
+        <Route path="/add-listing/thank-you" component={ThankYou}/>
+      </div>
+    )
+  }
+}
+
+class Add extends Component {
   state = {
     currentPage: 1,
     submit: false,
@@ -14,6 +27,12 @@ class AddListing extends Component {
      [name]: value
    }))
  }
+
+getCookie =  (name) => {
+	var value = "; " + document.cookie;
+	var parts = value.split("; " + name + "=");
+	if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
   handleNext = (e) => {
     e.preventDefault()
@@ -28,6 +47,7 @@ class AddListing extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.setState({submit: true})
+    Api.addParking(this.state, localStorage.auth).then(res => console.log(res))
     console.log(this.state)
   }
 
@@ -53,10 +73,12 @@ class AddListing extends Component {
         || !rentalValue
     }
   }
-
   render() {
+    var cookieVal = this.getCookie('csrftoken')
+    console.log(cookieVal)
+
     if (this.state.submit === true) {
-     return <Redirect to='/add-listing/thank-you' />
+     return <Redirect to={`add-listing/thank-you`} />
    }
 
     let {currentPage} = this.state
@@ -94,11 +116,14 @@ class AddListing extends Component {
               {this.state.currentPage === 1 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input name="propertyName" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Property Name"></input>
+                    <input name="condo" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Property Name"></input>
                   </div>
                   <div className="add-listing-form-input">
-                    <input type="text" name="address" value={this.state.value} onChange={this.handleChange} placeholder="Location/Address"></input>
-                    <input type="text" placeholder="Address Line 2"></input>
+                    <select name="area" value={this.state.value} onChange={this.handleChange}>
+                      <option value="damansara">Damansara</option>
+                      <option value="KL_Sental">KL Sentral</option>
+                    </select>
+
                   </div>
                 </div>
               }
@@ -106,11 +131,11 @@ class AddListing extends Component {
               {this.state.currentPage == 2 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input type="text" name="bayNumber" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input>
-                    <select name="carparkType" value={this.state.value} onChange={this.handleChange} style={this.state.carparkType ? {color: "black"} : {color: "#8a8888"}}>
+                    <input type="text" name="bay" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input>
+                    <select name="type_select" value={this.state.value} onChange={this.handleChange} style={this.state.carparkType ? {color: "black"} : {color: "#8a8888"}}>
                       <option value="">Type of carpark</option>
-                      <option value="landed">Landed</option>
-                      <option value="apartment">Apartment</option>
+                      <option value="Landed">Landed</option>
+                      <option value="Apartment">Apartment</option>
                     </select>
                     <select name="carparkOwnership" value={this.state.value} onChange={this.handleChange} style={this.state.carparkOwnership ? {color: "black"} : {color: "#8a8888"}}>
                       <option>Ownership of carpark</option>
@@ -141,17 +166,17 @@ class AddListing extends Component {
                     </div>
                     <div className="checkbox-container step3">
                       <div className="checkbox">
-                        <input name="leasePeriod" onChange={this.handleChange} type="checkbox" value="12 months" />12 months
+                        <input name="time" onChange={this.handleChange} type="checkbox" value="12" />12 months
                       </div>
                       <div className="checkbox">
-                        <input name="leasePeriod" onChange={this.handleChange} type="checkbox" value="6 months" />6 months
+                        <input name="time" onChange={this.handleChange} type="checkbox" value="6" />6 months
                       </div>
                       <div className="checkbox">
-                        <input name="leasePeriod" onChange={this.handleChange} type="checkbox" value="3 months" />3 months
+                        <input name="time" onChange={this.handleChange} type="checkbox" value="3" />3 months
                       </div>
                       <div className="checkbox">
                         <input type="checkbox" />Any
-                        <input type="text" name="leasePeriod" onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
+                        <input type="text" name="time" onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
                       </div>
                     </div>
                   </div>
@@ -161,17 +186,17 @@ class AddListing extends Component {
                     </div>
                     <div className="checkbox-container step3">
                       <div className="checkbox">
-                        <input name="rentalValue" onChange={this.handleChange} type="checkbox" value="RM300" />RM300
+                        <input name="price" onChange={this.handleChange} type="checkbox" value="300" />RM300
                       </div>
                       <div className="checkbox">
-                        <input name="rentalValue" onChange={this.handleChange} type="checkbox" value="RM250" />RM250
+                        <input name="price" onChange={this.handleChange} type="checkbox" value="250" />RM250
                       </div>
                       <div className="checkbox">
-                        <input name="rentalValue" onChange={this.handleChange} type="checkbox" value="RM150" />RM150
+                        <input name="price" onChange={this.handleChange} type="checkbox" value="150" />RM150
                       </div>
                       <div className="checkbox">
                         <input type="checkbox" value="" />Any
-                        <input name="rentalValue" onChange={this.handleChange} value={this.state.value} type="text" placeholder="Specify here"></input>
+                        <input name="price" onChange={this.handleChange} value={this.state.value} type="text" placeholder="Specify here"></input>
                       </div>
                     </div>
                   </div>
@@ -182,8 +207,8 @@ class AddListing extends Component {
                   <button onClick={this.handlePrevious} className="btn add-listing-form-button previous">Previous</button>
                   }
                   {this.state.currentPage < 3
-                    ? <button onClick={this.handleNext} className="btn add-listing-form-button next" disabled={this.isDisabled()}>Next</button>
-                    : <button onClick={this.handleSubmit} className="btn add-listing-form-button" disabled={this.isDisabled()}>Submit</button>
+                    ? <button onClick={this.handleNext} className="btn add-listing-form-button next">Next</button>
+                    : <button onClick={this.handleSubmit} className="btn add-listing-form-button">Submit</button>
                   }
                 </div>
             </form>
@@ -203,6 +228,40 @@ class AddListing extends Component {
     )
   }
 }
+
+const ThankYou = () => (
+  <div className="add-listing-container thank-you container image-background">
+    <div className="add-listing-form-container thank-you">
+      <div className="add-listing-form-content thank-you">
+        <div className="add-listing-form-header thank-you">
+          <h1>
+            Much Appreciated!
+          </h1>
+        </div>
+        <div className="add-listing-form-body thank-you">
+          <div>
+            <h4>Thank you Jao Ern for leasing out your carpark with ParkIt.</h4>
+          </div>
+        </div>
+        <div className="add-listing-form-body thank-you">
+          <div>
+            <p>A confirmation email has been sent to to parkitmsia@gmail.com</p>
+            <p>Our team will be in touch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="add-listing-message-container">
+      <div className="empty-div"></div>
+      <div className="add-listing-message-content">
+        <h1>You have just helped one driver find a parking.</h1>
+        <p>
+          Congratulations. Join the ParkIt community to make parking great together!
+        </p>
+      </div>
+    </div>
+  </div>
+)
 
 
 export default AddListing

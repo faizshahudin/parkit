@@ -480,7 +480,6 @@ button:disabled {
   display: grid;
   grid-gap: 40px;
   grid-template-columns: 1.2fr 0.8fr;
-
 }
 
 .add-listing-form-container {
@@ -489,6 +488,8 @@ button:disabled {
   background-color: #f7f6f6;
   width: 90%;
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .add-listing-form-header h1 {
@@ -579,12 +580,14 @@ button:disabled {
 }
 
 .add-listing-message-content {
-  margin-top: 4em;
+  margin: 0;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .add-listing-message-content h1 {
   color: #3f8c83;
-  margin-bottom: 5px;
+  margin: 0;
 }
 
 .add-listing-message-content p {
@@ -620,6 +623,10 @@ button:disabled {
 }
 
 /* Thank you page */
+.add-listing-container.thank-you {
+  padding: 80px 0;
+}
+
 .add-listing-form-content.thank-you {
   display: grid;
   grid-template-rows: 1fr;

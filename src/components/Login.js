@@ -22,6 +22,13 @@ class Login extends Component {
     }))
   }
 
+  getCookie = (name) => {
+  	var value = "; " + document.cookie;
+  	var parts = value.split("; " + name + "=");
+  	if (parts.length == 2) return parts.pop().split(";").shift();
+  }
+
+
   handleSubmit = (e) => {
     const {dispatch, AuthedUser} = this.props
     e.preventDefault()
@@ -30,12 +37,15 @@ class Login extends Component {
     this.setState({IsAuthenticated: AuthedUser})
   }
 
+
   logout = () => {
     localStorage.removeItem("auth")
     this.setState({ IsAuthenticated: null })
   }
 
   render() {
+    var cookieVal = this.getCookie('csrftoken')
+    console.log(cookieVal)
     const { AuthedUser } = this.props
     return(
       <div className="login-register-container container grey-background">
