@@ -7,7 +7,6 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f7f6f6;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -23,7 +22,11 @@ button:hover {
   background-color: white;
 }
 
-.main {
+.grey-background {
+  background-color: #f7f6f6;
+}
+
+.image-background {
   background-image: url('./images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -70,7 +73,7 @@ a {
   color: #3f8c83;
 }
 
-ul {
+ul, ol {
   padding-left: 0;
 }
 
@@ -79,6 +82,7 @@ li {
   padding: 10px;
   text-decoration: none;
 }
+
 
 select {
   appearance: none;
@@ -127,46 +131,63 @@ button:disabled {
 
 /* Home */
 .home {
-  display: grid;
-  grid-template-rows: 1fr;
   grid-gap: 60px;
-}
-
-.home h1 {
-  font-weight: 900;
-  font-size: 45px;
   margin: 5px 0;
 }
 
-.home h3 {
+.home h1 {
+  font-size: 45px;
+}
+
+.home .signup {
+  padding: 40px;
+  background-color: #e86c6d;
+}
+
+.home .signup button {
+  background-color: white;
+  color: #e86c6d;
+}
+
+/* Landing */
+.landing {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.landing h1 {
+  font-weight: 900;
+}
+
+.landing h3 {
   font-family: 'Raleway', sans-serif !important;
   font-size: 35px;
   font-weight: 500 !important;
 }
 
-.home .hero p {
+.landing .hero p {
   font-family: 'Raleway', sans-serif !important;
   color: #e86c6d;
   font-weight: 500;
   font-size: 20px;
 }
 
-.home button {
+.landing button {
   padding: 10px 30px;
 }
 
-.home .hero {
+.landing .hero {
   display: grid;
   grid-gap: 10px;
 }
 
-.home .hero.one {
+.landing .hero.one {
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .hero.one span {
+.landing .hero.one span {
   background-color: #e86c6d;
   padding: 5px 12px;
   border-radius: 10px;
@@ -177,15 +198,12 @@ button:disabled {
   background-color: #f7f6f6;
 }
 
-.home .hero .content {
+.landing .hero .content {
   width: 80%;
 }
 
-.home .hero.four .content {
-  margin-left: auto;
-}
 
-.home .hero.two {
+.landing .hero.two {
   grid-template-columns: 1.2fr 0.8fr;
 }
 
@@ -193,37 +211,38 @@ button:disabled {
   grid-template-columns: 1.2fr 0.8fr;
 }
 
-.home .hero.four {
+.landing .hero.four .content {
+  margin-left: auto;
+}
+
+.landing .hero.four {
   grid-template-columns: 0.7fr 1.3fr;
 }
 
-.home .hero .content {
+.landing .hero .content {
   margin-top: auto;
   margin-bottom: auto;
 }
 
 
-.home .hero .hero-img {
+.landing .hero .hero-img {
   width: 100%;
   padding: 50px 0;
 }
 
-
-.home .hero.two .hero-img {
+.landing .hero.two .hero-img {
   padding: initial;
 }
 
-.home .hero.four .content {
+.landing .hero.four .content {
   text-align: right;
 }
 
-
-
-.home .hero-right .hero-img {
+.landing .hero-right .hero-img {
   width: 100%;
 }
 
-.home .partners {
+.landing .partners {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -233,32 +252,150 @@ button:disabled {
 }
 
 
-.home .logo {
+.landing .logo {
   height: 80px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .cloud {
+.landing .cloud {
   height: 120px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.home .signup {
+.landing .signup {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  background-color: #e86c6d;
   color: white;
-  padding: 40px;
 }
 
-.home .signup button {
-  background-color: white;
-  color: #e86c6d;
+.landing .signup button {
   padding: 20px 60px;
+}
+
+/* Owners */
+.owners {
+  grid-gap: 30px;
+  color: #8a8888;
+}
+
+.owners .hero.one {
+  padding: 50px !important;
+}
+
+.owners .hero.one .header {
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 24px;
+}
+
+.owners .hero.one .text {
+  font-weight: initial;
+  font-size: 18px;
+}
+
+.owners h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.owners .container {
+  width: 95%;
+}
+
+.owners .hero.one {
+  padding: 0 50px;
+}
+
+.owners .hero.one img {
+  width: 90%;
+}
+
+.owners .hero.one h1 {
+  color: #e86c6d;
+}
+
+.owners .hero.two {
+  padding: 0;
+}
+
+.owners .hero.two .image {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.owners .hero.two .image img {
+  width: 90%;
+}
+
+.owners .list {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.owners .hero.two .content .bullet-points {
+  display: grid;
+  grid-template-columns: 0.2fr 1.8fr;
+  grid-gap: 10px;
+  padding: 10px 0;
+}
+
+.owners .hero.two .content .bullet-points li {
+  padding: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.owners .hero.two .content .bullet-points.two {
+  margin-left: 30px;
+}
+
+.owners .hero.two .content .bullet-points.three {
+  margin-left: 60px;
+}
+
+.owners .hero.two .content img {
+  height: 30px;
+  margin-left: auto;
+}
+
+.owners .signup {
+  background-color: white;
+  color: black;
+  padding: 0;
+}
+
+.owners .signup button {
+  background-color: #e86c6d;
+  color: white;
+}
+
+.owners .list .images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.owners .list .images img {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.owners .signup {
+  color: #8a8888;
+}
+
+.owners .signup p {
+  font-size: 25px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Login / Register */
@@ -511,6 +648,7 @@ button:disabled {
   width: 90%;
   margin-right: auto;
   margin-left: auto;
+  background-color: white;
 }
 
 

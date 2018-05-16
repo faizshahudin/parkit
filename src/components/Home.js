@@ -11,7 +11,7 @@ import cloud from "../images/clouds.png"
 class Home extends Component {
   render() {
     return(
-      <div className="home">
+      <div className="landing home white-background ">
         <section className="hero one background-grey">
           <div className="content container">
             <h1><span>Connecting</span> drivers to unused parking spaces</h1>
