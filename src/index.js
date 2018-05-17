@@ -8,12 +8,12 @@ import {createStore} from "redux"
 import {Provider} from "react-redux"
 import reducer from "./reducers"
 import middleware from "./middleware"
-import {setAuthedUser} from "./actions/AuthedUser"
+import {loginSuccess} from "./actions/AuthedUser"
 
 const store = createStore(reducer, middleware)
 
 if (localStorage.auth) {
-  store.dispatch(setAuthedUser(localStorage.auth))
+  store.dispatch(loginSuccess(localStorage.auth))
 }
 
 ReactDOM.render(<BrowserRouter><Provider store={store}>

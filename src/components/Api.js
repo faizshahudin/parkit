@@ -19,7 +19,9 @@ export const login = (data) =>
       },
       body: JSON.stringify(data)
     })
-    .then(res => res.json())
+    .then(res => {
+      return res.json()
+    })
     .then(res => res)
 
 export const addParking = (data, auth) =>

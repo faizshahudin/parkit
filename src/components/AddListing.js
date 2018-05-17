@@ -5,10 +5,11 @@ import * as Api from "./Api"
 
 class AddListing extends Component {
   render() {
+    const { match } = this.props
     return (
       <div>
         <Route exact path="/add-listing" component={Add}/>
-        <Route path="/add-listing/thank-you" component={ThankYou}/>
+        <Route path={`${match.path}/thank-you`} component={ThankYou}/>
       </div>
     )
   }
@@ -27,12 +28,6 @@ class Add extends Component {
      [name]: value
    }))
  }
-
-getCookie =  (name) => {
-	var value = "; " + document.cookie;
-	var parts = value.split("; " + name + "=");
-	if (parts.length == 2) return parts.pop().split(";").shift();
-}
 
   handleNext = (e) => {
     e.preventDefault()
@@ -74,11 +69,10 @@ getCookie =  (name) => {
     }
   }
   render() {
-    var cookieVal = this.getCookie('csrftoken')
-    console.log(cookieVal)
+    const { match } = this.props
 
     if (this.state.submit === true) {
-     return <Redirect to={`add-listing/thank-you`} />
+     return <Redirect to={`${match.url}/thank-you`} />
    }
 
     let {currentPage} = this.state
