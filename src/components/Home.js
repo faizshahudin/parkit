@@ -13,7 +13,7 @@ class Home extends Component {
     return(
       <div className="landing home white-background ">
         <section className="hero one background-grey">
-          <div className="content container">
+          <div className="content main-container">
             <h1><span>Connecting</span> drivers to unused parking spaces</h1>
             <p>It's easier than building new ones. Park with ParkIt for all your parking needs.</p>
           </div>

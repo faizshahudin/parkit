@@ -32,7 +32,7 @@ class Register extends Component {
     const { AuthedUser } = this.props
     return(
       <div className="grey-background">
-        <div className="login-register-container container">
+        <div className="login-register-container main-container">
           <LoginRegisterHeader />
           <div className="login-register-form-container">
             <h3 className="login-register-form-header">Register</h3>

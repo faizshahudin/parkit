@@ -14,7 +14,7 @@ class Owners extends Component {
   render() {
     return(
       <div className="landing owners white-background">
-        <section className="hero one background-grey container">
+        <section className="hero one background-grey container main-container">
           <div className="content">
             <p className="header">Not using your parking space?</p>
             <h1>Rent it out!</h1>
@@ -43,7 +43,7 @@ class Owners extends Component {
             </ol>
           </div>
         </section>
-        <section className="list">
+        <section className="list container">
           <div className="content">
             <h1>Why list with us?</h1>
           </div>

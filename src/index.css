@@ -69,6 +69,11 @@ h3 {
   font-family: 'Raleway', sans-serif !important;
 }
 
+h5 {
+  font-size: 15px;
+  font-family: 'Raleway', sans-serif !important;
+}
+
 a {
   color: #3f8c83;
 }
@@ -93,7 +98,14 @@ select {
   width: 85%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.main-container {
+  padding-top: 40px;
   padding-bottom: 40px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .btn {
@@ -382,7 +394,7 @@ button:disabled {
 }
 
 .owners .list .images img {
-  width: 95%;
+  max-width: 95%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -858,8 +870,24 @@ button:disabled {
 
 /* Dashboard */
 .dashboard {
+  width: 90%;
   display: grid;
-  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-columns: 0.2fr 0.8fr;
+  grid-gap: 40px;
+}
+
+.dashboard p, span {
+  color: #8a8888;
+  font-size: 14px;
+}
+
+.dashboard h3 {
+  font-weight: 500;
+  margin: 10px 0 !important;
+}
+
+.dashboard h5 {
+  font-weight: 500;
 }
 
 .dashboard .user {
@@ -867,14 +895,49 @@ button:disabled {
   grid-template-rows: 0.3fr 0.7fr;
 }
 
+.dashboard .user .avatar {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.dashboard .user .avatar img {
+  max-height: 100px;
+}
+
+.dashboard .user .contact {
+  width: 80%;
+}
+
+.dashboard .parking {
+  display: grid;
+  grid-template-rows: 0.1fr 0.9fr;
+}
+
+.dashboard .parking h3, h5, p {
+  margin: 10px 0;
+}
+
 .dashboard .parking .navigation {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  text-align: center;
 }
 
-.dashboard .parking .listing {
+.dashboard .parking .navigation a {
+  font-family: 'Raleway', sans-serif !important;
+  font-weight: 500;
+  color: black;
+  padding: 20px 0;
+}
+
+.dashboard .parking .listing-container {
   display: grid;
-  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-columns: 0.4fr 0.6fr;
+  grid-gap: 30px;
+}
+
+.dashboard .parking .listing-container .thumbnail img{
+  width: 100%;
 }
 
 .dashboard .parking .details {
