@@ -4,6 +4,7 @@ import Owners from "./Owners"
 import Login from "./Login"
 import Register from "./Register"
 import AddListing from "./AddListing"
+import Dashboard from "./Dashboard"
 import Nav from "./Nav"
 import FindParking from "./FindParking"
 import Footer from "./Footer"
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/add-listing" component={AddListing} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route render={function() {
             return <p>Not Found</p>
           }} />
