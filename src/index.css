@@ -203,6 +203,7 @@ button:disabled {
   background-color: #e86c6d;
   padding: 5px 12px;
   border-radius: 10px;
+  font-size: 35px;
   color: white;
 }
 

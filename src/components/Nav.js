@@ -4,6 +4,9 @@ import Logo from "../images/parkit-logo.png"
 import MenuIcon from "../images/menu-icon.png"
 import { connect } from 'react-redux'
 import { logout } from "../actions/AuthedUser"
+import {handleLogout} from "../actions/AuthedUser"
+import { withRouter } from "react-router-dom";
+
 
 class Nav extends Component {
   constructor(props) {
@@ -13,12 +16,14 @@ class Nav extends Component {
     }
   }
 
-  handleLogout = () => {
-    const {dispatch} = this.props
-    dispatch(logout())
+  logout = () => {
+    const {dispatch, history} = this.props
+    dispatch(handleLogout())
+    history.push("/")
   }
 
   render() {
+    const {AutherUser} = this.props
     return (
       <nav className="nav">
         <ul className="nav-container one">
@@ -58,10 +63,13 @@ class Nav extends Component {
             <img className="nav-menu-icon" src={MenuIcon}></img>
           </li>
         </ul>
+        {(localStorage.getItem("auth")?
+          <div onClick={this.logout}>Logout</div>
+          : <div>No</div>
+        )}
       </nav>
     )
   }
 }
 
-
-export default Nav
+export default withRouter(Nav)

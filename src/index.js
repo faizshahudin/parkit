@@ -16,7 +16,7 @@ if (localStorage.auth) {
   store.dispatch(loginSuccess(localStorage.auth))
 }
 
-ReactDOM.render(<BrowserRouter><Provider store={store}>
+ReactDOM.render(<Provider store={store}>
   <App />
-</Provider></BrowserRouter>, document.getElementById('root'));
+</Provider>, document.getElementById('root'));
 registerServiceWorker();

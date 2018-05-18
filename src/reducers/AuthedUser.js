@@ -5,7 +5,7 @@ export default function users(state = null, action) {
     case LOGIN_SUCCESS :
       return action.id
     case LOGIN_ERROR :
-      return {}
+      return null
     case LOGOUT :
       return null
     case REGISTER_SUCCESS :

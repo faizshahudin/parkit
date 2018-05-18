@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom'
 import * as Api from "./Api"
 import { connect } from "react-redux"
 import {handleLogin, handleLogout} from "../actions/AuthedUser"
+import { Redirect } from 'react-router-dom'
+
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      IsAuthenticated: null
+      IsAuthenticated: null,
     }
   }
 
@@ -29,14 +31,16 @@ class Login extends Component {
   }
 
 
-  handleSubmit = (e) => {
+  login = (e) => {
     const {dispatch, AuthedUser} = this.props
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
-    this.setState({IsAuthenticated: AuthedUser})
+    this.setState({
+      IsAuthenticated: AuthedUser,
+    })
+    console.log(this.state)
   }
-
 
   logout = () => {
     const {dispatch} = this.props
@@ -44,16 +48,26 @@ class Login extends Component {
   }
 
   render() {
-    // var cookieVal = this.getCookie('csrftoken')
-    // console.log(cookieVal)
+    const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
     const { AuthedUser } = this.props
-    return(
+
+    if (this.state.IsAuthenticated) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
+
+    return (
       <div className="grey-background">
+        {(this.props.location.state
+          ? <p>You need to login to continue</p>
+          : null
+        )}
         <div className="login-register-container main-container">
           <LoginRegisterHeader />
           <div className="login-register-form-container ">
             <h3 className="login-register-form-header">Log In</h3>
-            <form className="login-register-form-content" onSubmit={this.handleSubmit}>
+            <form className="login-register-form-content" onSubmit={this.login}>
               <label htmlFor="username">
                 Username
               </label>
@@ -99,8 +113,8 @@ class Login extends Component {
             </form>
           </div>
           {(AuthedUser ?
-            <div onClick={this.logout}>Logout</div>
-            : <div>No</div>
+            <Redirect to={from} />
+            : null
           )}
         </div>
       </div>
