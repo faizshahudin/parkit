@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.a504cddc.css",
-  "main.css.map": "static/css/main.a504cddc.css.map",
-  "main.js": "static/js/main.ad1d308d.js",
-  "main.js.map": "static/js/main.ad1d308d.js.map",
+  "main.css": "static/css/main.2f2b4260.css",
+  "main.css.map": "static/css/main.2f2b4260.css.map",
+  "main.js": "static/js/main.c014fc9a.js",
+  "main.js.map": "static/js/main.c014fc9a.js.map",
   "static/media/background.png": "static/media/background.dc927132.png",
   "static/media/hero-image1.png": "static/media/hero-image1.a58ec807.png",
   "static/media/hero-image2.png": "static/media/hero-image2.146b0d3a.png",
@@ -12,5 +12,7 @@
   "static/media/listwithus-3.png": "static/media/listwithus-3.a2a91561.png",
   "static/media/logos.png": "static/media/logos.33291198.png",
   "static/media/owners-overview2.png": "static/media/owners-overview2.62f5f5ac.png",
-  "static/media/parkit-logo.png": "static/media/parkit-logo.9c10cdf2.png"
+  "static/media/parking-placeholder.png": "static/media/parking-placeholder.20ce4839.png",
+  "static/media/parkit-logo.png": "static/media/parkit-logo.9c10cdf2.png",
+  "static/media/profile-image.png": "static/media/profile-image.e6a2d81b.png"
 }

@@ -12,16 +12,16 @@ class Home extends Component {
   render() {
     return(
       <div className="landing home white-background ">
-        <section className="hero one background-grey">
-          <div className="content main-container">
+        <section className="hero one background-grey full-width-main">
+          <div className="content">
             <h1><span>Connecting</span> drivers to unused parking spaces</h1>
             <p>It's easier than building new ones. Park with ParkIt for all your parking needs.</p>
           </div>
-          <div className="container">
+          <div className="full-width">
             <img className="hero-img" src={hero1}></img>
           </div>
         </section>
-        <section className="partners container">
+        <section className="partners">
           <div>
             <h4>SPECIAL THANKS TO</h4>
           </div>
@@ -32,7 +32,7 @@ class Home extends Component {
             <p>READ ALL ABOUT PARKIT HERE</p>
           </div>
         </section>
-        <section className="hero two container">
+        <section className="hero two full-width">
           <div>
             <img className="hero-img" src={hero2}></img>
           </div>
@@ -48,7 +48,7 @@ class Home extends Component {
             </p>
           </div>
         </section>
-        <section className="hero three container">
+        <section className="hero three full-width">
           <div className="content">
             <img className="cloud" src={cloud}></img>
             <h1>Looking for a season parking space?</h1>
@@ -62,7 +62,7 @@ class Home extends Component {
             <img className="hero-img" src={hero3}></img>
           </div>
         </section>
-        <section className="hero four container">
+        <section className="hero four full-width">
           <div>
             <img className="hero-img" src={hero4}></img>
           </div>
@@ -78,7 +78,7 @@ class Home extends Component {
           </div>
         </section>
         <section className="signup">
-          <div className="container">
+          <div className="full-width">
             <h3>We're here for all your parking needs. Sign up now!</h3>
             <Link to="/register"><button className="btn">GET STARTED</button></Link>
           </div>

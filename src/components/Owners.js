@@ -30,7 +30,7 @@ class Owners extends Component {
             <img src={owners1}></img>
           </div>
         </section>
-        <section className="hero two container">
+        <section className="hero two">
           <div className="image">
             <img src={owners2}></img>
           </div>
@@ -43,7 +43,7 @@ class Owners extends Component {
             </ol>
           </div>
         </section>
-        <section className="list container">
+        <section className="list">
           <div className="content">
             <h1>Why list with us?</h1>
           </div>

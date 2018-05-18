@@ -100,10 +100,24 @@ select {
   margin-right: auto;
 }
 
+.full-width-main {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.full-width {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .main-container {
   padding-top: 40px;
   padding-bottom: 40px;
-  width: 85%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -197,6 +211,7 @@ button:disabled {
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 50px;
 }
 
 .landing .hero.one span {
@@ -212,7 +227,7 @@ button:disabled {
 }
 
 .landing .hero .content {
-  width: 80%;
+  width: 90%;
 }
 
 
@@ -256,7 +271,7 @@ button:disabled {
 }
 
 .landing .partners {
-  width: 80%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -334,6 +349,7 @@ button:disabled {
 
 .owners .hero.two {
   padding: 0;
+  width: 95%;
 }
 
 .owners .hero.two .image {
@@ -347,7 +363,7 @@ button:disabled {
 }
 
 .owners .list {
-  width: 100%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;

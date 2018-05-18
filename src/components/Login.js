@@ -11,9 +11,7 @@ import { Redirect } from 'react-router-dom'
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      IsAuthenticated: null,
-    }
+    this.state = {}
   }
 
   handleChange = (e) => {
@@ -36,10 +34,6 @@ class Login extends Component {
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
-    this.setState({
-      IsAuthenticated: AuthedUser,
-    })
-    console.log(this.state)
   }
 
   logout = () => {
@@ -51,9 +45,9 @@ class Login extends Component {
     const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
     const { AuthedUser } = this.props
 
-    if (this.state.IsAuthenticated) {
+    if (AuthedUser) {
       return (
-        <Redirect to="/dashboard" />
+        <Redirect to={from} />
       )
     }
 
@@ -112,10 +106,6 @@ class Login extends Component {
               <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
             </form>
           </div>
-          {(AuthedUser ?
-            <Redirect to={from} />
-            : null
-          )}
         </div>
       </div>
     )

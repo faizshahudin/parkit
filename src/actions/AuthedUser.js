@@ -42,9 +42,7 @@ export function registerError() {
 export function handleRegister(data) {
   return (dispatch) => {
     return Api.register(data).then(res => {
-      console.log(res)
       if (!res.email && !res.username) {
-        console.log("success")
         localStorage.setItem("auth", "12345")
         dispatch(registerSuccess())
       }
