@@ -47,25 +47,24 @@ class Add extends Component {
   }
 
   isDisabled = () => {
-    const {currentPage, propertyName, address, bayNumber, carparkType, carparkOwnership,
-          dedicated, leasePeriod, rentalValue
+    const {currentPage, condo, area, type_select, dedicated, time,
+          price
           } = this.state
 
     if (currentPage === 1) {
-      return !propertyName
-        || !address
+      return !condo
+        || !area
     }
 
     if (currentPage === 2) {
-      return !bayNumber
-        || !carparkType
-        || !carparkOwnership
+      return
+        !type_select
         || !dedicated
     }
 
     if (currentPage === 3) {
-      return !leasePeriod
-        || !rentalValue
+      return !time
+        || !price
     }
   }
   render() {
@@ -110,14 +109,19 @@ class Add extends Component {
               {this.state.currentPage === 1 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input name="condo" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Property Name"></input>
+                    <input name="condo" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
                   </div>
                   <div className="add-listing-form-input">
-                    <select name="area" value={this.state.value} onChange={this.handleChange}>
+                    <select id="area" name="area" value={this.state.value} onChange={this.handleChange} style={this.state.area ? {color: "black"} : {color: "#8a8888"}}>
+                      <option>Select an area</option>
                       <option value="damansara">Damansara</option>
-                      <option value="KL_Sental">KL Sentral</option>
+                      <option value="KL_Sentral">KL Sentral</option>
+                      <option value="other">Other</option>
                     </select>
-
+                    {((this.state.area !== "KL_Sentral" && this.state.area !== "damansara" && this.state.area === "other")
+                    ? <input name="area" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
+                      : null
+                    )}
                   </div>
                 </div>
               }
@@ -125,16 +129,16 @@ class Add extends Component {
               {this.state.currentPage == 2 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input type="text" name="bay" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input>
-                    <select name="type_select" value={this.state.value} onChange={this.handleChange} style={this.state.carparkType ? {color: "black"} : {color: "#8a8888"}}>
+                    {/* <input type="text" name="bay" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input> */}
+                    <select name="type_select" value={this.state.value} onChange={this.handleChange} style={this.state.type_select ? {color: "black"} : {color: "#8a8888"}}>
                       <option value="">Type of carpark</option>
                       <option value="Landed">Landed</option>
                       <option value="Apartment">Apartment</option>
                     </select>
-                    <select name="carparkOwnership" value={this.state.value} onChange={this.handleChange} style={this.state.carparkOwnership ? {color: "black"} : {color: "#8a8888"}}>
+                    {/* <select name="carparkOwnership" value={this.state.value} onChange={this.handleChange} style={this.state.carparkOwnership ? {color: "black"} : {color: "#8a8888"}}>
                       <option>Ownership of carpark</option>
                       <option value="personal">Personal</option>
-                    </select>
+                    </select> */}
                   </div>
                   <div className="add-listing-form-input">
                     <div className="label-container">
@@ -201,8 +205,8 @@ class Add extends Component {
                   <button onClick={this.handlePrevious} className="btn add-listing-form-button previous">Previous</button>
                   }
                   {this.state.currentPage < 3
-                    ? <button onClick={this.handleNext} className="btn add-listing-form-button next">Next</button>
-                    : <button onClick={this.handleSubmit} className="btn add-listing-form-button">Submit</button>
+                    ? <button onClick={this.handleNext} className="btn add-listing-form-button next" disabled={this.isDisabled()}>Next</button>
+                    : <button onClick={this.handleSubmit} className="btn add-listing-form-button" disabled={this.isDisabled()}>Submit</button>
                   }
                 </div>
             </form>
