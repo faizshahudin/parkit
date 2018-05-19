@@ -13,40 +13,41 @@ class ParkingForRentSerializer(ModelSerializer):
     class Meta:
         model = ParkingForRent
         fields = [
-            'property_name',
-            'area',
-            'new_area',
-            'bay',
-            'type_select',
-            'dedicated',
-            'time',
-            'new_time',
-            'price',
+            'db_property',
+            'db_area',
+            'sel_area',
+            'db_type',
+            'db_reserved',
+            'db_period',
+            'sel_period',
+            'db_price',
+            'sel_price',
+            'db_status',
             'timestamp',
-            'new_price'
         ]
-    def validate(self,data):
-        area = data.get('area', None)
-        new_area = data.get('new_area', None)
-        time = data.get('time', None)
-        new_time = data.get('new_time', None)
-        price = data.get('price', None)
-        new_price = data.get('new_price', None)
 
-        if area is "Other" and new_area is "":
-            raise ValidationError("User Input Required")     
-        if area is not "Other" and new_area is "":
-            data["new_area"] = data["area"]
+    def post_db (self,data):
+        sel_area   = data.get('sel_area', None)
+        db_area    = data.get('db_area', None)
+        sel_period = data.get('sel_period', None)
+        db_period  = data.get('db_period', None)
+        sel_price  = data.get('sel_price', None)
+        db_price   = data.get('db_price', None)
 
-        if time is "Any" and new_time is "":
+        if sel_area is "Other" and db_area is "":
             raise ValidationError("User Input Required")     
-        if time is not "Any" and new_time is "":
-            data["new_time"] = data["time"]
+        if sel_area is not "Other" and db_area is "":
+            data["db_area"] = data["sel_area"]
 
-        if price is "Any" and new_price is "":
+        if sel_period is "Any" and db_period is "":
             raise ValidationError("User Input Required")     
-        if price is not "Any" and new_price is "":
-            data["new_price"] = data["price"]
+        if sel_period is not "Any" and db_period is "":
+            data["db_period"] = data["sel_period"]
+
+        if sel_price is "Any" and db_price is "":
+            raise ValidationError("User Input Required")     
+        if sel_price is not "Any" and db_price is "":
+            data["db_price"] = data["sel_price"]
         return data
             
 """"
