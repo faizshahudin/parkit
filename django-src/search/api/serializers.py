@@ -15,20 +15,16 @@ class SearchForParkingSerializer(ModelSerializer):
             #'id',
             # 'user',
             #'slug',
-            'condo',
-            'area',
-            'new_area',
-            'bay',
-            'type_select',
-            'dedicated',
-            'time',
-            'new_time',
-            'price',
-            'timestamp',
-            'new_price'
+            'db_property',
+            'db_area',
+            'db_type',
+            'db_reserved',
+            'db_period',
+            'db_price',
+            'db_status',
         ]
 
-            
+     
 """"
 from posts.models import Post
 from posts.api.serializers import PostDetailSerializer

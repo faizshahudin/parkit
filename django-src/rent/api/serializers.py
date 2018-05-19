@@ -13,10 +13,7 @@ class ParkingForRentSerializer(ModelSerializer):
     class Meta:
         model = ParkingForRent
         fields = [
-            #'id',
-            # 'user',
-            #'slug',
-            'condo',
+            'property_name',
             'area',
             'new_area',
             'bay',

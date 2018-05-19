@@ -43,7 +43,7 @@ class SearchForParkingAPI(ListAPIView):
     serializer_class = SearchForParkingSerializer
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['new_area', 'status']
+    filter_fields = ['db_area', 'db_status']
 
     def get_queryset(self, *args, **kwargs):
         """
