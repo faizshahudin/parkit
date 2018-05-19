@@ -24,10 +24,13 @@ class ParkingForRentSerializer(ModelSerializer):
             'db_period',
             'db_price',
             'db_status',
+            'db_address',
+            'db_longitude',
+            'db_latitude',
             'timestamp',
             'serial_no',
         ]
-
+        
     def validate(self,data):
         unique_id  = get_random_string(length=10)
         data["serial_no"] = '#' + unique_id
