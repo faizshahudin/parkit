@@ -19,7 +19,7 @@ class ParkingForRent (models.Model):
     db_area      = models.CharField(max_length=200,blank=True)
     db_bay       = models.CharField(max_length=100,default='Please Update Bay #')
     db_type      = models.CharField(max_length=100,default='Type of Building')
-    db_reserved  = models.CharField(max_length=3,default='Yes/No')
+    db_reserved  = models.CharField(max_length=3,default='Yes')
     db_period    = models.CharField(max_length=100,blank=True)
     db_price     = models.CharField(max_length=100, blank=True)
     list_status  = (
