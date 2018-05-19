@@ -57,6 +57,7 @@ class ParkingForRent (models.Model):
     )    
     db_status = models.CharField(max_length=100, choices=list_status, default='Pending')
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    serial_no = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
-        return self.condo
+        return self.db_property
