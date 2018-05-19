@@ -42,29 +42,29 @@ class Add extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.setState({submit: true})
-    Api.addParking(this.state, localStorage.auth).then(res => console.log(res))
-    console.log(this.state)
+    Api.addParking(this.state, localStorage.auth)
+      .then(res => console.log(res))
+      .catch("There was an error processing your request.")
   }
 
   isDisabled = () => {
-    const {currentPage, condo, area, type_select, dedicated, time,
-          price
+    const {currentPage, db_property, sel_area, db_area, db_type, db_reserved, db_period,
+          db_price
           } = this.state
 
     if (currentPage === 1) {
-      return !condo
-        || !area
+      return !db_property
+        || !db_area
     }
 
     if (currentPage === 2) {
-      return
-        !type_select
-        || !dedicated
+      return !db_type
+        || !db_reserved
     }
 
     if (currentPage === 3) {
-      return !time
-        || !price
+      return !db_period
+        || !db_price
     }
   }
   render() {
@@ -109,18 +109,17 @@ class Add extends Component {
               {this.state.currentPage === 1 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input name="condo" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
+                    <input name="db_property" value={this.state.db_property} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
                   </div>
                   <div className="add-listing-form-input">
-                    <select id="area" name="area" value={this.state.value} onChange={this.handleChange} style={this.state.area ? {color: "black"} : {color: "#8a8888"}}>
+                    <select name="db_area" value={this.state.db_area} onChange={this.handleChange} style={this.state.db_area ? {color: "black"} : {color: "#8a8888"}}>
                       <option>Select an area</option>
                       <option value="damansara">Damansara</option>
                       <option value="KL_Sentral">KL Sentral</option>
                       <option value="other">Other</option>
                     </select>
-                    {((this.state.area !== "KL_Sentral" && this.state.area !== "damansara" && this.state.area === "other")
-                    ? <input name="area" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
-                      : null
+                    {(this.state.db_area && this.state.db_area !== "KL_Sentral" && this.state.db_area !== "damansara" &&
+                    <input name="db_area" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
                     )}
                   </div>
                 </div>
@@ -130,15 +129,11 @@ class Add extends Component {
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
                     {/* <input type="text" name="bay" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input> */}
-                    <select name="type_select" value={this.state.value} onChange={this.handleChange} style={this.state.type_select ? {color: "black"} : {color: "#8a8888"}}>
+                    <select name="db_type" value={this.state.db_type} onChange={this.handleChange} style={this.state.db_type ? {color: "black"} : {color: "#8a8888"}}>
                       <option value="">Type of carpark</option>
                       <option value="Landed">Landed</option>
                       <option value="Apartment">Apartment</option>
                     </select>
-                    {/* <select name="carparkOwnership" value={this.state.value} onChange={this.handleChange} style={this.state.carparkOwnership ? {color: "black"} : {color: "#8a8888"}}>
-                      <option>Ownership of carpark</option>
-                      <option value="personal">Personal</option>
-                    </select> */}
                   </div>
                   <div className="add-listing-form-input">
                     <div className="label-container">
@@ -146,10 +141,10 @@ class Add extends Component {
                     </div>
                     <div className="checkbox-container">
                       <div className="checkbox">
-                        <input name="dedicated" onChange={this.handleChange} type="checkbox" value="yes" />Yes, this is an extra carpark.
+                        <input name="db_reserved" onChange={this.handleChange} type="checkbox" value="yes" />Yes, this is an extra carpark.
                       </div>
                       <div className="checkbox">
-                        <input name="dedicated" onChange={this.handleChange} type="checkbox" value="no" />No, I park here after working hours.
+                        <input name="db_reserved" onChange={this.handleChange} type="checkbox" value="no" />No, I park here after working hours.
                       </div>
                     </div>
                   </div>
@@ -164,17 +159,17 @@ class Add extends Component {
                     </div>
                     <div className="checkbox-container step3">
                       <div className="checkbox">
-                        <input name="time" onChange={this.handleChange} type="checkbox" value="12" />12 months
+                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="12" />12 months
                       </div>
                       <div className="checkbox">
-                        <input name="time" onChange={this.handleChange} type="checkbox" value="6" />6 months
+                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="6" />6 months
                       </div>
                       <div className="checkbox">
-                        <input name="time" onChange={this.handleChange} type="checkbox" value="3" />3 months
+                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="3" />3 months
                       </div>
                       <div className="checkbox">
                         <input type="checkbox" />Any
-                        <input type="text" name="time" onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
+                        <input type="text" name="db_period" onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
                       </div>
                     </div>
                   </div>
@@ -184,17 +179,17 @@ class Add extends Component {
                     </div>
                     <div className="checkbox-container step3">
                       <div className="checkbox">
-                        <input name="price" onChange={this.handleChange} type="checkbox" value="300" />RM300
+                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="300" />RM300
                       </div>
                       <div className="checkbox">
-                        <input name="price" onChange={this.handleChange} type="checkbox" value="250" />RM250
+                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="250" />RM250
                       </div>
                       <div className="checkbox">
-                        <input name="price" onChange={this.handleChange} type="checkbox" value="150" />RM150
+                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="150" />RM150
                       </div>
                       <div className="checkbox">
                         <input type="checkbox" value="" />Any
-                        <input name="price" onChange={this.handleChange} value={this.state.value} type="text" placeholder="Specify here"></input>
+                        <input name="db_price" onChange={this.handleChange} value={this.state.value} type="text" placeholder="Specify here"></input>
                       </div>
                     </div>
                   </div>
