@@ -7,8 +7,6 @@ export const register = (data) =>
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(res => res)
-    // .catch(e => console.log(e))
 
 export const login = (data) =>
     fetch(`http://127.0.0.1:8000/login/`, {
@@ -19,10 +17,7 @@ export const login = (data) =>
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      return res.json()
-    })
-    .then(res => res)
+    .then(res => res.json())
 
 export const addParking = (data, auth) =>
 fetch(`http://127.0.0.1:8000/rent/`, {
@@ -35,4 +30,3 @@ fetch(`http://127.0.0.1:8000/rent/`, {
   body: JSON.stringify(data)
 })
 .then(res => res.json())
-.then(res => res)
