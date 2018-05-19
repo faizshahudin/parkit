@@ -10,49 +10,52 @@ from django.utils import timezone
 
 # Create your models here.
 class ParkingForRent (models.Model):
-    user  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    condo = models.CharField(max_length=100)
-    area_list = (
+    user          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    db_property   = models.CharField(max_length=100)
+    list_area = (
         ('KL_Sentral' , 'KL Sentral'),
         ('Damansara'  , 'Damansara'),
         ('Other'      , 'Other'),
     )    
-    area  = models.CharField(max_length=100, choices=area_list, default='Please Select Area')
-    new_area = models.CharField(max_length=200,blank=True)
-    bay = models.CharField(max_length=100,default='Insert Bay Info')
-    type_list = (
-        ('Landed'   , 'Landed'),
-        ('Apartment', 'Apartment'),
+    sel_area = models.CharField(max_length=100, choices=list_area, default='Please Select Area')
+    db_area  = models.CharField(max_length=200,blank=True)
+    db_bay   = models.CharField(max_length=100,default='Insert Bay Info')
+    list_type = (
+        ('Condominium'   , 'Condominium'),
+        ('Commercial'    , 'Commercial'),
+        ('Landed'        , 'Landed'),
     )
-    type_select = models.CharField(max_length=100,choices=type_list, default='Apartment')
-    option = (
+   
+    db_type = models.CharField(max_length=100,choices=list_type, default='Condominium')
+  
+    list_option = (
         ('yes', 'yes'),
         ('no' , 'no'),
     )
-    dedicated = models.CharField(max_length=100,choices=option,default='yes')
-    lease_period = (
+    db_reserved = models.CharField(max_length=100,choices=list_option,default='yes')
+    list_period = (
         ('12' , '12 Months'),
         ('6'  , '6 Months'),
         ('3'  , '4 Months'),
         ('Any', 'Any'),
     )
-    time = models.CharField(max_length=100, choices=lease_period, default=12)
-    new_time = models.CharField(max_length=100,blank=True)
-    price_list = (
+    sel_period = models.CharField(max_length=100, choices=list_period, default=12)
+    db_period = models.CharField(max_length=100,blank=True)
+    list_price = (
         ('300', 'RM300'),
         ('250', 'RM250'),
         ('150', 'RM150'),
         ('Any', 'Any'),
     )
 
-    price = models.CharField(max_length=100, choices=price_list, default=300)
-    new_price = models.CharField(max_length=100, blank=True)
-    status_list = (
+    sel_price = models.CharField(max_length=100, choices=list_price, default=300)
+    db_price = models.CharField(max_length=100, blank=True)
+    list_status = (
         ('Approved', 'Approved'),
         ('Occupied', 'Occupied'),
         ('Pending' , 'Pending'),
     )    
-    status = models.CharField(max_length=100, choices=status_list, default='Pending')
+    db_status = models.CharField(max_length=100, choices=list_status, default='Pending')
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):

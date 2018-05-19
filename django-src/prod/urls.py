@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('rest_auth.urls')),
     path('', include('accounts.api.urls', namespace='users-api')),
     path('', include('rent.api.urls', namespace='rent-api')),
+    path('', include('search.api.urls', namespace='search-api')),
     
 ]
