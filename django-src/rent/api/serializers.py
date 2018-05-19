@@ -26,9 +26,8 @@ class ParkingForRentSerializer(ModelSerializer):
         ]
 
     def validate(self,data):
-        serial_no  = data.get('serial_no', None)
         unique_id  = get_random_string(length=10)
-        data["serial_no"] = serial_no + '#' + unique_id
+        data["serial_no"] = '#' + unique_id
         
         return data
             
