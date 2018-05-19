@@ -16,9 +16,102 @@ class AddListing extends Component {
 }
 
 class Add extends Component {
-  state = {
-    currentPage: 1,
-    submit: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentPage: 1,
+      submit: false,
+    }
+    this.fields = {
+      property: {
+        name: "db_property",
+      },
+      area: {
+        name: "db_area",
+        options: [
+          {
+            title: "Damansara",
+            value: "damansara",
+          },
+          {
+            title: "KL Sentral",
+            value: "kl_sentral",
+          },
+          {
+            title: "Other",
+            value: "other"
+          },
+        ]
+      },
+      carparkType: {
+        name: "db_type",
+        options: [
+          {
+            title: "Landed",
+            value: "landed",
+          },
+          {
+            title: "Apartment",
+            value: "apartment",
+          },
+        ]
+      },
+      dedicated: {
+        name: "db_reserved",
+        options: [
+          {
+            title: "Yes, this is an extra carpark.",
+            value: "yes",
+          },
+          {
+            title: "No, I park here after working hours.",
+            value: "no",
+          }
+        ]
+      },
+      leasePeriod: {
+        name: "db_period",
+        options: [
+          {
+            title: "12 months",
+            value: "12"
+          },
+          {
+            title: "6 months",
+            value: "6"
+          },
+          {
+            title: "3 months",
+            value: "3"
+          },
+          {
+            title: "Any",
+            value: "any"
+          }
+        ]
+      },
+      rental: {
+        name: "db_price",
+        options: [
+          {
+            title: "RM300",
+            value: "300"
+          },
+          {
+            title: "RM250",
+            value: "250"
+          },
+          {
+            title: "RM150",
+            value: "150"
+          },
+          {
+            title: "Any",
+            value: "any"
+          }
+        ]
+      }
+    }
   }
 
   handleChange = (e) => {
@@ -67,8 +160,10 @@ class Add extends Component {
         || !db_price
     }
   }
+
   render() {
     const { match } = this.props
+    const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
 
     if (this.state.submit === true) {
      return <Redirect to={`${match.url}/thank-you`} />
@@ -109,17 +204,17 @@ class Add extends Component {
               {this.state.currentPage === 1 &&
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
-                    <input name="db_property" value={this.state.db_property} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
+                    <input name={property.name} value={this.state[property.name]} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
                   </div>
                   <div className="add-listing-form-input">
-                    <select name="db_area" value={this.state.db_area} onChange={this.handleChange} style={this.state.db_area ? {color: "black"} : {color: "#8a8888"}}>
+                    <select name={area.name} value={this.state[area.name]} onChange={this.handleChange} style={this.state[area.name] ? {color: "black"} : {color: "#8a8888"}}>
                       <option>Select an area</option>
-                      <option value="damansara">Damansara</option>
-                      <option value="KL_Sentral">KL Sentral</option>
-                      <option value="other">Other</option>
+                      {area.options.map(a =>
+                        <option value={a.value}>{a.title}</option>
+                      )}
                     </select>
-                    {(this.state.db_area && this.state.db_area !== "KL_Sentral" && this.state.db_area !== "damansara" &&
-                    <input name="db_area" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
+                    {(this.state.db_area && this.state.db_area !== "kl_sentral" && this.state.db_area !== "damansara" &&
+                    <input name={area.name} value={this.state[area.name]} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
                     )}
                   </div>
                 </div>
@@ -129,10 +224,11 @@ class Add extends Component {
                 <div className="add-listing-form-input-container">
                   <div className="add-listing-form-input">
                     {/* <input type="text" name="bay" value={this.state.value} onChange={this.handleChange} placeholder="Bay No."></input> */}
-                    <select name="db_type" value={this.state.db_type} onChange={this.handleChange} style={this.state.db_type ? {color: "black"} : {color: "#8a8888"}}>
+                    <select name={carparkType.name} value={this.state[carparkType.name]} onChange={this.handleChange} style={this.state[carparkType.name] ? {color: "black"} : {color: "#8a8888"}}>
                       <option value="">Type of carpark</option>
-                      <option value="Landed">Landed</option>
-                      <option value="Apartment">Apartment</option>
+                      {carparkType.options.map(c =>
+                        <option value={c.value}>{c.title}</option>
+                      )}
                     </select>
                   </div>
                   <div className="add-listing-form-input">
@@ -140,12 +236,11 @@ class Add extends Component {
                       <label>Is the carpark a dedicated space at all times?</label>
                     </div>
                     <div className="checkbox-container">
-                      <div className="checkbox">
-                        <input name="db_reserved" onChange={this.handleChange} type="checkbox" value="yes" />Yes, this is an extra carpark.
-                      </div>
-                      <div className="checkbox">
-                        <input name="db_reserved" onChange={this.handleChange} type="checkbox" value="no" />No, I park here after working hours.
-                      </div>
+                      {dedicated.options.map(d =>
+                        <div className="checkbox">
+                          <input name={dedicated.name} onChange={this.handleChange} type="checkbox" value={d.value} />{d.title}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -158,19 +253,11 @@ class Add extends Component {
                       <label>Lease Period</label>
                     </div>
                     <div className="checkbox-container step3">
-                      <div className="checkbox">
-                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="12" />12 months
-                      </div>
-                      <div className="checkbox">
-                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="6" />6 months
-                      </div>
-                      <div className="checkbox">
-                        <input name="db_period" onChange={this.handleChange} type="checkbox" value="3" />3 months
-                      </div>
-                      <div className="checkbox">
-                        <input type="checkbox" />Any
-                        <input type="text" name="db_period" onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
-                      </div>
+                      {leasePeriod.options.map(l =>
+                        <div className="checkbox">
+                          <input name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} />{l.title}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="add-listing-form-input">
@@ -178,19 +265,11 @@ class Add extends Component {
                       <label>Minimum rental</label>
                     </div>
                     <div className="checkbox-container step3">
-                      <div className="checkbox">
-                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="300" />RM300
-                      </div>
-                      <div className="checkbox">
-                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="250" />RM250
-                      </div>
-                      <div className="checkbox">
-                        <input name="db_price" onChange={this.handleChange} type="checkbox" value="150" />RM150
-                      </div>
-                      <div className="checkbox">
-                        <input type="checkbox" value="" />Any
-                        <input name="db_price" onChange={this.handleChange} value={this.state.value} type="text" placeholder="Specify here"></input>
-                      </div>
+                      {rental.options.map(r =>
+                        <div className="checkbox">
+                          <input name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} />{r.title}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
