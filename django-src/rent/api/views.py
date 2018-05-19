@@ -1,6 +1,5 @@
 # from django.db.models import Q
 
-
 from rest_framework.filters import (
         SearchFilter,
         OrderingFilter,
@@ -36,13 +35,6 @@ class ParkingForRentAPI(ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-
-
-
-
-
-
 
 
 

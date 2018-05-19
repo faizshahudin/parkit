@@ -1,4 +1,7 @@
 from django.utils.crypto import get_random_string
+from django.core.mail import EmailMessage
+from django.contrib.auth import hashers
+from django.conf import settings
 
 from rest_framework.serializers import (
     HyperlinkedIdentityField,
@@ -28,9 +31,13 @@ class ParkingForRentSerializer(ModelSerializer):
     def validate(self,data):
         unique_id  = get_random_string(length=10)
         data["serial_no"] = '#' + unique_id
-        
+#       ENCODED_PASSWORD = settings.EMAIL_HOST_PASSWORD
+#       DECODED_PASSWORD = hashers.encode(ENCODED_PASSWORD)
+#       settings.EMAIL_HOST_PASSWORD = DECODED_PASSWORD
+#       email = EmailMessage('Subject', 'abc' , to=['jaoernwong@parkitmy.com'])
+#       email.send()        
         return data
-            
+          
 """"
 from posts.models import Post
 from posts.api.serializers import PostDetailSerializer
