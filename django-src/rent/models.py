@@ -12,10 +12,10 @@ from django.utils import timezone
 # Create your models here.
 class ParkingForRent (models.Model):
     user         = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    db_property  = models.CharField(max_length=10000)
-    db_address   = models.CharField(max_length=100000, default="Address")
-    db_longitude = models.CharField(max_length=100000, default="Longitude")
-    db_latitude  = models.CharField(max_length=100000, default="Latitude")
+    db_property  = models.TextField(default="Property Name")
+    db_address   = models.TextField(default="Address")
+    db_longitude = models.CharField(max_length=255, default="Longitude")
+    db_latitude  = models.CharField(max_length=255, default="Latitude")
     db_area      = models.CharField(max_length=200,blank=True)
     db_bay       = models.CharField(max_length=100,default='Please Update Bay #')
     db_type      = models.CharField(max_length=100,default='Type of Building')
