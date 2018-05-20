@@ -12,8 +12,8 @@ class SearchForParkingSerializer(ModelSerializer):
     class Meta:
         model = ParkingForRent
         fields = [
-            #'id',
-            # 'user',
+            'id',
+            'user',
             #'slug',
             'db_property',
             'db_area',
@@ -22,6 +22,10 @@ class SearchForParkingSerializer(ModelSerializer):
             'db_period',
             'db_price',
             'db_status',
+            'db_longitude',
+            'db_latitude',
+            'db_address'
+            
         ]
 
      

@@ -53,10 +53,9 @@ class SearchForParkingAPI(ListAPIView):
         queryset_list = ParkingForRent.objects.all()
         query = self.request.GET.get("q")
         if query:
-            queryset_list = queryset_list.filter(
-                Q(new_area__icontains=query) | Q(status__icontains=query)
+            queryset_list = queryset_list.OrderingFilter(
+                Q(db_area__icontains=query) | Q(status__icontains=query)
             ).distinct()
-
         return queryset_list
 
 
