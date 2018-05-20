@@ -152,16 +152,17 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PARSER_CLASSES': (
     #     'rest_framework.parsers.JSONParser',
     # )
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    #   'rest_framework.authentication.BasicAuthentication',
-    ), 
 
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
         #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
+
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#        'rest_framework.authentication.SessionAuthentication',
+#        'rest_framework.authentication.BasicAuthentication',
+    ), 
 
     "DEFAULT_FILTER_BACKENDS": (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -169,6 +170,16 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+
+import datetime
+JWT_AUTH = {
+ 
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+ 
+}
 
 #For email
 EMAIL_USE_TLS      = True
