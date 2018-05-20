@@ -6,6 +6,7 @@ from rest_framework.serializers import (
     CharField
     )
 
+from django.conf import settings
 
 from vehicle.models import CarDatabase
 
@@ -21,9 +22,9 @@ class CarDatabaseSerializer(ModelSerializer):
             'occupied_by',
         ]
 
-    def validate(self,user,request):
-        user = request.user
-        return user
+    def validate(self,data):
+        user = settings.AUTH_USER_MODEL
+        return data
             
 """"
 from posts.models import Post

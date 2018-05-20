@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'accounts',
+    'vehicle',
+    'search',
     'rent',
     'rest_auth',
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework_jwt',
     'corsheaders',
 ]
 
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -96,7 +98,7 @@ WSGI_APPLICATION = 'prod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parkit-backend',
+        'NAME': 'parkit-backend',                      
         'USER': 'parkitadmin',
         'PASSWORD': 'qwerty123',
         'HOST': 'rds-postgresql-parkit.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
@@ -151,12 +153,11 @@ REST_FRAMEWORK = {
     #     'rest_framework.parsers.JSONParser',
     # )
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #    'rest_framework.authentication.SessionAuthentication',
+    #   'rest_framework.authentication.BasicAuthentication',
+    ), 
 
-    ),
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
         #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -166,3 +167,19 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     )
 }
+
+REST_USE_JWT = True
+
+#For email
+EMAIL_USE_TLS      = True
+DEFAULT_FROM_EMAIL = 'support@parkitmy.com'
+EMAIL_BACKEND      = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST         = 'smtp.gmail.com'
+EMAIL_HOST_USER    = 'support@parkitmy.com'
+EMAIL_HOST_PASSWORD = 'Needspeed1-'
+EMAIL_PORT = 587
+
+
+#PASSWORD_HASHERS = [
+#    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+#]

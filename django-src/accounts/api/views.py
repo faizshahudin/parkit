@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.contrib.auth import get_user_model
+import jwt
 
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -36,7 +37,7 @@ User = get_user_model()
 
 from .serializers import (
     UserCreateSerializer,
-    UserLoginSerializer,
+#    UserLoginSerializer,
     )
 
 from django.conf import settings
@@ -50,27 +51,33 @@ class UserCreateAPIView(CreateAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = [AllowAny]
 
-    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-    def create_auth_token(sender, instance=None, created=False, **kwargs):
-        if created:
-            Token.objects.create(user=instance)
+    @property
+    def token(self):
+        """
+        Allows us to get a user's token by calling `user.token` instead of
+        `user.generate_jwt_token().
 
-class UserLoginAPIView(APIView):
-    permission_classes = [AllowAny]
-    serializer_class = UserLoginSerializer
-    
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        serializer = UserLoginSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            new_data = serializer.data
-            return Response(new_data, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        The `@property` decorator above makes this possible. `token` is called
+        a "dynamic property".
+        """
+        return self._generate_jwt_token()    
 
+#    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+#    def create_auth_token(sender, instance=None, created=False, **kwargs):
+#        if created:
+#            Token.objects.create(user=instance)
 
-
-
-
+#class UserLoginAPIView(APIView):
+#    permission_classes = [AllowAny]
+#    serializer_class = UserLoginSerializer
+#    
+#    def post(self, request, *args, **kwargs):
+#        data = request.data
+#        serializer = UserLoginSerializer(data=data)
+#        if serializer.is_valid(raise_exception=True):
+#            new_data = serializer.data
+#            return Response(new_data, status=HTTP_200_OK)
+#        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 

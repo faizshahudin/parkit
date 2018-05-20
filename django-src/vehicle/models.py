@@ -14,10 +14,11 @@ from rent.models import (
 
 # Create your models here.
 class CarDatabase (models.Model):
-    user  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    occupied_by = models.ForeignKey(ParkingForRent,on_delete=models.CASCADE,blank=True,default='None')
-    car_model = models.CharField(max_length=100,default='None')
+    user          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    occupied_by   = models.ForeignKey(ParkingForRent,on_delete=models.CASCADE,blank=True,default='None')
+    car_model     = models.CharField(max_length=100,default='None')
     car_registery = models.CharField(max_length=100,default='ABC1234')
+    start_date    = models.DateTimeField(auto_now=False, auto_now_add=False, editable=True)
 
     def __str__(self):
         return self.car_registery
