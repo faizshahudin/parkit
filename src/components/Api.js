@@ -30,3 +30,7 @@ fetch(`http://127.0.0.1:8000/rent/`, {
   body: JSON.stringify(data)
 })
 .then(res => res.json())
+
+export const getLocations = (area) =>
+    fetch(`http://127.0.0.1:8000/search/?db_status=Pending&db_area=${area}`)
+    .then(res => res.json())

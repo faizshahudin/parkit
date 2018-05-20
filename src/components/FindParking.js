@@ -1,8 +1,11 @@
+/*global google*/
+
 import React, { Component } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
-
+import * as Api from "./Api"
+import one from "../images/1.png"
 
 class FindParking extends Component {
   render() {
@@ -21,37 +24,20 @@ class FindParking extends Component {
 
 class Search extends Component {
   state = {
-    currentLocation: "klSentral",
-    klSentral: {
-      center: { lat: 3.1342819, lng: 101.6839707 },
-      markers: [
-        {
-          name: "Suasana Loft",
-          lat: 3.131425,
-          lng: 101.6818833
-        },
-        {
-          name: "Suasana Sentral",
-          lat: 3.1315919,
-          lng: 101.6830183
-        }
-      ]
+    currentLocation: "bangsar",
+    bangsar: {
+      center: {
+        lat: 3.1290099,
+        lng: 101.6710076,
+      }
     },
-    sunway: {
-      center: {lat: 3.073659, lng: 101.6038753},
-      markers: [
-        {
-          name: "Shell",
-          lat: 3.0743554,
-          lng: 101.6059031
-        },
-        {
-          name: "Ah Foong",
-          lat: 3.076633,
-          lng: 101.6020203
-        }
-      ]
-    }
+    bangsar_south: {
+      center: {
+        lat: 3.1105194,
+        lng: 101.663241,
+      }
+    },
+    locations: [],
   }
 
   handleChange = (e) => {
@@ -59,11 +45,97 @@ class Search extends Component {
    this.setState((state) => ({
      currentLocation: value
    }))
-   const location = this.state.klSentral.markers.map((place) => place)
-   console.log(location)
+   this.handleInitialData(value)
  }
+
+ handleInitialData = (area) => {
+   Api.getLocations(area).then(res => {
+     let locations = res
+
+     let array = []
+     locations.map(l => {
+       array.push(l.db_property)
+     })
+     let newArray = [...new Set(array.map(a => a))]
+     let objArray = []
+     let obj = {}
+     newArray.map((key) => {
+       obj = locations.filter(l => l.db_property === key)
+      objArray.push(obj)
+     })
+
+     this.setState({
+       locations: objArray
+     })
+   })
+   // console.log(this.state)
+ }
+
+ initialize = () => {
+   let self = this
+   var defaultBounds = new google.maps.LatLngBounds(
+     new google.maps.LatLng(3.1385035, 101.6167771),
+     new google.maps.LatLng(3.2020728, 100.7790663)
+   );
+   var options = {
+     bounds: defaultBounds,
+   };
+   let autocomplete = new google.maps.places.Autocomplete(
+     (document.getElementById('autocomplete')),
+     { types: ['geocode'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
+
+
+     google.maps.event.addListener(autocomplete, 'place_changed', function() {
+       var place = autocomplete.getPlace()
+       // let location = {
+       //   lat: place.geometry.location.lat(),
+       //   lng: place.geometry.location.lng(),
+       //   name: place.name,
+       //   address: place.formatted_address
+       // }
+       self.setState({
+         userLocation: {
+           lat: place.geometry.location.lat(),
+           lng: place.geometry.location.lng(),
+         }
+       })
+       // if (self.state.userLocation !== {}) {
+       //   console.log(self.state.userLocation)
+       //   self.createUserMarker()
+       // }
+       // console.log(this.state)
+ });
+}
+
+// createUserMarker() {
+//   let image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+//   let marker = new google.maps.Marker({
+//     position: this.state.userLocation,
+//     title: "Your Location",
+//     map: this.map,
+//     icon: {
+//       path: google.maps.SymbolPath.CIRCLE,
+//       scale: 6,
+//       strokeColor: '#fbfbfb',
+//       strokeOpacity: 0.4,
+//       fillOpacity: 1.0,
+//       fillColor: '#0096d7'
+//     }
+//   })
+// }
+
+ componentDidMount = () => {
+   const refs = {}
+   this.handleInitialData(this.state.currentLocation)
+   this.initialize()
+ }
+
   render() {
+    console.log(this.state)
     let {currentLocation} = this.state
+    this.state.locations.map((location => {
+      console.log(location[0].db_latitude)
+    }))
     return (
       <div>
         <div className="body box">
@@ -71,25 +143,32 @@ class Search extends Component {
             <h3>ParkIt Locations</h3>
             <p>Let's make parking great together</p>
           </div>
-          <div className="map">
-            <Map
-              googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `400px` }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-              currentLocation={this.state[currentLocation]}
-            />
-          </div>
+          {this.state.locations.length !== 0 &&
+            <div className="map">
+              <Map
+                googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `400px` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+                currentLocation={this.state.currentLocation}
+                locations={this.state.locations}
+                userLocation={this.state.userLocation}
+                state={this.state}
+              />
+            </div>
+          }
+
           <div className="search">
             <div>
               <p>Find us here:</p>
             </div>
             <form className="search-body">
               <select value={this.state.value} onChange={this.handleChange}>
-                <option value="klSentral">KL Sentral</option>
-                <option value="sunway">Sunway</option>
+                <option value="bangsar">Bangsar</option>
+                <option value="bangsar_south">Bangsar South</option>
               </select>
               <button>Search</button>
+              <input type="text" id="autocomplete"></input>
             </form>
           </div>
           <div>
@@ -190,17 +269,23 @@ class NoParking extends Component {
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
-    defaultZoom={14}
-    center={props.currentLocation.center}
+    defaultZoom={12}
+    center={props.state[props.currentLocation].center}
+    // center={props.state[props.currentLocation].center}
   >
-    {props.currentLocation.markers.map((place, index) => (
+    {props.locations.map((place, index) => (
       <Marker
         key={index}
-        position={{lat: place.lat, lng: place.lng}}
+        position={{lat: Number(place[0].db_latitude), lng: Number(place[0].db_longitude)}}
       />
     ))}
 
+    <Marker
+      position={props.userLocation}
+      icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+      >
 
+    </Marker>
 
   </GoogleMap>
 ))

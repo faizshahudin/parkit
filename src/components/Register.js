@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import LoginRegisterHeader from "./LoginRegisterHeader"
 import { Link } from 'react-router-dom'
 import * as Api from "./Api"
-import {handleRegister} from "../actions/AuthedUser"
+import { handleRegister } from "../actions/AuthedUser"
 import { connect } from "react-redux"
 
 

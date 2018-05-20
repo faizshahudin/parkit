@@ -1,3 +1,5 @@
+/*global google*/
+
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
@@ -30,12 +32,84 @@ class Add extends Component {
         name: "db_area",
         options: [
           {
+            title: "Bangsar",
+            value: "bangsar",
+          },
+          {
+            title: "Bangsar South",
+            value: "bangsar_south",
+          },
+          {
+            title: "Bukit Jalil",
+            value: "bukit_jalil",
+          },
+          {
             title: "Damansara",
             value: "damansara",
           },
           {
+            title: "Damansara Heights",
+            value: "damansara_heights",
+          },
+          {
+            title: "Hampshire Park",
+            value: "hampshire_park",
+          },
+          {
+            title: "Jalan Tun Razak",
+            value: "jalan_tun_razak",
+          },
+          {
             title: "KL Sentral",
             value: "kl_sentral",
+          },
+          {
+            title: "KLCC",
+            value: "klcc",
+          },
+          {
+            title: "Laman Scenaria Kiara",
+            value: "laman_scenaria_kiara",
+          },
+          {
+            title: "Mid Valley",
+            value: "midvalley",
+          },
+          {
+            title: "Mont Kiara",
+            value: "mont_kiara",
+          },
+          {
+            title: "Mutiara Damansara",
+            value: "mutiara_damansara",
+          },
+          {
+            title: "Publika",
+            value: "publika",
+          },
+          {
+            title: "Pusat Bandar Damansara",
+            value: "pusat_bandar_damansara",
+          },
+          {
+            title: "TREC",
+            value: "trec",
+          },
+          {
+            title: "Sentul",
+            value: "sentul",
+          },
+          {
+            title: "Setapak",
+            value: "setapak",
+          },
+          {
+            title: "Shah Alam",
+            value: "shah_alam",
+          },
+          {
+            title: "TTDI",
+            value: "ttdi",
           },
           {
             title: "Other",
@@ -138,16 +212,16 @@ class Add extends Component {
     Api.addParking(this.state, localStorage.auth)
       .then(res => console.log(res))
       .catch("There was an error processing your request.")
+    console.log(this.state)
   }
 
   isDisabled = () => {
-    const {currentPage, db_property, sel_area, db_area, db_type, db_reserved, db_period,
+    const {currentPage, sel_area, db_area, db_type, db_reserved, db_period,
           db_price
           } = this.state
 
     if (currentPage === 1) {
-      return !db_property
-        || !db_area
+      return  !db_area
     }
 
     if (currentPage === 2) {
@@ -161,7 +235,57 @@ class Add extends Component {
     }
   }
 
+  // searchBox = () => {
+  //   var defaultBounds = new google.maps.LatLngBounds(
+  //   new google.maps.LatLng(-33.8902, 151.1759),
+  //   new google.maps.LatLng(-33.8474, 151.2631));
+  //
+  //   var input = document.getElementById('searchTextField');
+  //   var options = {
+  //     bounds: defaultBounds,
+  //     types: ['establishment']
+  //   };
+  //
+  //   var autocomplete = new google.maps.places.Autocomplete(input, options);
+  // }
+
+  initialize = () => {
+    let self = this
+    var defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(3.1385035, 101.6167771),
+      new google.maps.LatLng(3.2020728, 100.7790663)
+    );
+    var options = {
+      bounds: defaultBounds,
+    };
+    let autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete')),
+      { types: ['geocode'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
+
+
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace()
+        // let location = {
+        //   lat: place.geometry.location.lat(),
+        //   lng: place.geometry.location.lng(),
+        //   name: place.name,
+        //   address: place.formatted_address
+        // }
+        self.setState({
+          db_latitude: `${place.geometry.location.lat()}`,
+          db_longitude: `${place.geometry.location.lng()}`,
+          db_property: place.name,
+          db_address: place.formatted_address
+        })
+  });
+}
+
+  componentDidMount() {
+    this.initialize()
+  }
+
   render() {
+    console.log(this.state)
     const { match } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
 
@@ -203,8 +327,9 @@ class Add extends Component {
               {/* Page 1 */}
               {this.state.currentPage === 1 &&
                 <div className="add-listing-form-input-container">
-                  <div className="add-listing-form-input">
-                    <input name={property.name} value={this.state[property.name]} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input>
+                  <div>
+                    {/* <input name={property.name} value={this.state[property.name]} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input> */}
+                    <input type="text" id="autocomplete"></input>
                   </div>
                   <div className="add-listing-form-input">
                     <select name={area.name} value={this.state[area.name]} onChange={this.handleChange} style={this.state[area.name] ? {color: "black"} : {color: "#8a8888"}}>
@@ -258,6 +383,9 @@ class Add extends Component {
                           <input name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} />{l.title}
                         </div>
                       )}
+                      {this.state.db_period && this.state.db_period !== "12" && this.state.db_period !== "6" && this.state.db_period !== "3" &&
+                        <input type="text" name={leasePeriod.name} onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
+                      }
                     </div>
                   </div>
                   <div className="add-listing-form-input">
@@ -270,6 +398,9 @@ class Add extends Component {
                           <input name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} />{r.title}
                         </div>
                       )}
+                      {this.state.db_price && this.state.db_price !== "300" && this.state.db_price !== "250" && this.state.db_price !== "150" &&
+                        <input type="text" name={rental.name} onChange={this.handleChange} value={this.state.value} placeholder="Specify here"></input>
+                      }
                     </div>
                   </div>
                 </div>
