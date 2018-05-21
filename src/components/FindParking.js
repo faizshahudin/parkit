@@ -6,15 +6,13 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
 import * as Api from "./Api"
 import one from "../images/1.png"
+import Modal from 'react-modal';
+
 
 class FindParking extends Component {
   render() {
     return(
-      <div className="find-parking-container main-container grey-background">
-        <div className="header">
-          <h1>Find Us Where You Are</h1>
-          <hr />
-        </div>
+      <div className="find-parking-container main-container">
         <Route path={`/parkers/search`} component={Search}/>
         <Route exact path={`/parkers/no-parking`} component={NoParking}/>
       </div>
@@ -39,6 +37,7 @@ class Search extends Component {
       }
     },
     locations: [],
+    modalIsOpen: false,
   }
 
   handleChange = (e) => {
@@ -47,6 +46,18 @@ class Search extends Component {
      currentLocation: value
    }))
    // this.handleInitialData(value)
+ }
+
+ openModal = () => {
+ this.setState({modalIsOpen: true});
+ }
+
+ afterOpenModal = () => {
+   this.setState({modalIsOpen: true});
+ }
+
+ closeModal = () => {
+   this.setState({modalIsOpen: false});
  }
 
  handleInitialData = (area) => {
@@ -104,28 +115,76 @@ class Search extends Component {
 
   render() {
     let {currentLocation} = this.state
+    console.log(this.state.modalIsOpen)
     return (
       <div>
-        <div className="body box">
-          <div className="header">
-            <h3>ParkIt Locations</h3>
-            <p>Let's make parking great together</p>
-          </div>
-          {this.state.locations.length !== 0 &&
-            <div className="map">
-                <Map
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
-                  loadingElement={<div style={{ height: `100%` }} />}
-                  containerElement={<div style={{ height: `400px` }} />}
-                  mapElement={<div style={{ height: `100%` }} />}
-                  currentLocation={this.state.currentLocation}
-                  locations={this.state.locations}
-                  userLocation={this.state.userLocation}
-                  state={this.state}
-                />
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          // onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={true}
+          // overlayClassName="ReactModal__Overlay"
+          tabindex="1"
+          className="Modal"
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.4)'
+            },
+          }}
+        >
+          <RentParking />
+        </Modal>
+        <div className="body">
+            <div className="grey-background">
+              <div className="listing container">
+                <h3>ParkIt Locations</h3>
+                <form className="search-body">
+                  <select value={this.state.value} onChange={this.handleChange}>
+                    <option value="bangsar">Bangsar</option>
+                    <option value="bangsar_south">Bangsar South</option>
+                  </select>
+                  <i class="fas fa-ellipsis-v"></i>
+                  <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
+                </form>
+                <div className="listings">
+                  <ul>
+                    <li>
+                      <div className="individual-listing">
+                        <img></img>
+                        <div className="details">
+                          <h3>Suasana Loft</h3>
+                          <h5>Level 2</h5>
+                          <p>Starting from RM500</p>
+                          <button className="btn" onClick={this.openModal}>Park Here</button>
+                          <p>AHB2786</p>
+                          <p>Posted: 28/7/18</p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          }
-          <div className="search">
+            <div>
+              Map
+              {this.state.locations.length !== 0 &&
+                <div className="map">
+                    <Map
+                      googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
+                      loadingElement={<div style={{ height: `100%` }} />}
+                      containerElement={<div style={{ height: `400px` }} />}
+                      mapElement={<div style={{ height: `100%` }} />}
+                      currentLocation={this.state.currentLocation}
+                      locations={this.state.locations}
+                      userLocation={this.state.userLocation}
+                      state={this.state}
+                    />
+                </div>
+              }
+            </div>
+
+
+          {/* <div className="search">
             <div>
               <p>Find us here:</p>
             </div>
@@ -137,12 +196,12 @@ class Search extends Component {
               <button>Search</button>
               <input type="text" id="autocomplete"></input>
             </form>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <NavLink to="/parkers/no-parking">
               <p>Can't find the location? Let us know.</p>
             </NavLink>
-          </div>
+          </div> */}
         </div>
       </div>
     )
@@ -232,7 +291,58 @@ class NoParking extends Component {
   }
 }
 
-
+class RentParking extends Component {
+  render() {
+    return(
+      <div className="rent-parking container">
+        <div className="white-background container">
+          <div className="parking-information">
+            <div className="header">
+              <h3>Want to park here?</h3>
+            </div>
+            <div className="listing">
+              <div>
+                <img></img>
+              </div>
+              <div className="details">
+                <div>
+                  <h3>Suasana Loft</h3>
+                  <h5>Level 2</h5>
+                  <p>Starting from RM500</p>
+                </div>
+                <div>
+                  <p>AHB2786</p>
+                  <p>Posted: 28/7/18</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="tenure-information">
+            <div>
+              <h3>Tenure Information</h3>
+            </div>
+            <div>
+              <form>
+                <div>
+                  <label>Start date</label>
+                  <input type="text"></input>
+                </div>
+                <div>
+                  <label>Vehicle Registered</label>
+                  <div className="vehicle-registered">
+                    <input type="text"></input>
+                    <input type="text"></input>
+                  </div>
+                </div>
+                <a>+ Add Vehicle</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap

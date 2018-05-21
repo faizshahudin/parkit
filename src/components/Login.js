@@ -7,6 +7,8 @@ import { connect } from "react-redux"
 import {handleLogin, handleLogout} from "../actions/AuthedUser"
 import { Redirect } from 'react-router-dom'
 import { handleRegister } from "../actions/AuthedUser"
+import Modal from 'react-modal';
+
 
 
 
@@ -16,6 +18,7 @@ class LoginRegister extends Component {
     this.state = {
       submit: false,
       login: true,
+      modalIsOpen: props.isOpen,
     }
   }
 
@@ -27,21 +30,9 @@ class LoginRegister extends Component {
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
-    const { AuthedUser } = this.props
-
-    if (AuthedUser) {
-      return (
-        <Redirect to={from} />
-      )
-    }
+    const {dispatch, AuthedUser} = this.props
 
     return (
-      <div className="black-background">
-        {(this.props.location.state
-          ? <p>You need to login to continue</p>
-          : null
-        )}
         <div className="login-register">
           <div className="header">
             <h1>ParkIt</h1>
@@ -53,12 +44,16 @@ class LoginRegister extends Component {
               <button onClick={this.toggleNav} disabled={!this.state.login}>Sign Up</button>
             </div>
             {this.state.login
-              ? <Login />
+              ? <Login
+                dispatch={dispatch}
+                AuthedUser={AuthedUser}
+              />
               : <Register />
             }
           </div>
         </div>
-      </div>
+
+
     )
   }
 }
