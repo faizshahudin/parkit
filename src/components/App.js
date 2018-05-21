@@ -39,7 +39,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
               <Route path="/parkers" component={FindParking} />
-              <Route path="/login" component={LoginRegister} />
+              {/* <Route path="/login" component={LoginRegister} /> */}
               <Route path="/register" component={Register} />
               <Route path="/add-listing" component={AddListing} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
