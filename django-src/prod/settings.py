@@ -37,15 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+#    'allauth',
     'django_filters',
     'accounts',
     'vehicle',
     'search',
     'rent',
+    'djoser',
     'rest_auth',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -169,14 +173,15 @@ REST_FRAMEWORK = {
     )
 }
 
+FRONTEND_URL = 'http://127.0.0.1:8000'
 REST_USE_JWT = True
 
 import datetime
 JWT_AUTH = {
  
     'JWT_VERIFY': True,
-    'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+#    'JWT_VERIFY_EXPIRATION': True,
+#    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
  
 }
@@ -194,3 +199,24 @@ EMAIL_PORT = 587
 #PASSWORD_HASHERS = [
 #    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
 #]
+
+SITE_ID = 2
+
+REST_SESSION_LOGIN = True
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm?{uid}?{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {},
+    'EMAIL': {
+        'activation': 'djoser.email.ActivationEmail',
+        'confirmation': 'djoser.email.ConfirmationEmail',
+        'password_reset': 'accounts.api.emails.PasswordResetEmail',
+    },
+    
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND ': True,
+}

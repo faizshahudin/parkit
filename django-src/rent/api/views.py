@@ -28,6 +28,8 @@ from .serializers import (
     ParkingForRentSerializer, 
     )
 
+import jwt
+
 class ParkingForRentAPI(ListCreateAPIView):
     queryset = ParkingForRent.objects.all()
     serializer_class = ParkingForRentSerializer

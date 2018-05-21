@@ -55,6 +55,8 @@ class UserCreateSerializer(ModelSerializer):
         user_obj.save()
         return validated_data
 
+
+
 #lass UserLoginSerializer(ModelSerializer):
 #    username = CharField()
 #   token = CharField(allow_blank=True, read_only=True)
@@ -96,5 +98,3 @@ class UserCreateSerializer(ModelSerializer):
 #       # if user_qs.exists():
 #       #     raise ValidationError("This user has already registered.")
 #       return data
-
-

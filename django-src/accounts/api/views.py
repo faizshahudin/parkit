@@ -1,6 +1,5 @@
 from django.db.models import Q
 from django.contrib.auth import get_user_model
-import jwt
 
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -51,16 +50,18 @@ class UserCreateAPIView(CreateAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = [AllowAny]
 
-    @property
-    def token(self):
-        """
-        Allows us to get a user's token by calling `user.token` instead of
-        `user.generate_jwt_token().
 
-        The `@property` decorator above makes this possible. `token` is called
-        a "dynamic property".
-        """
-        return self._generate_jwt_token()    
+
+#    @property
+#    def token(self):
+#        """
+#        Allows us to get a user's token by calling `user.token` instead of
+#        `user.generate_jwt_token().
+#
+#        The `@property` decorator above makes this possible. `token` is called
+#        a "dynamic property".
+#        """
+#        return self._generate_jwt_token()
 
 #    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 #    def create_auth_token(sender, instance=None, created=False, **kwargs):

@@ -16,14 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from rest_framework_jwt.views import obtain_jwt_token
-
+# from rest_framework_jwt.views import obtain_jwt_token
+from django.conf.urls import url
+from rest_auth.urls import LoginView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('rest_auth.urls')),
+    path('login/', LoginView.as_view(), name='login'),
     path('', include('accounts.api.urls', namespace='users-api')),
     path('', include('rent.api.urls', namespace='rent-api')),
     path('', include('search.api.urls', namespace='search-api')),
     path('', include('vehicle.api.urls', namespace='vehicle-api')),
-    path('api-token-auth/', obtain_jwt_token),
+    url(r'^auth/', include('djoser.urls')),
+
 ]
