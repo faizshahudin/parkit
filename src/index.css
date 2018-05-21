@@ -26,6 +26,10 @@ button:hover {
   background-color: #f7f6f6;
 }
 
+.black-background {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .image-background {
   background-image: url('./images/background.png');
   background-repeat: no-repeat;
@@ -429,8 +433,7 @@ button:disabled {
 
 /* Login / Register */
 
-.login-register-container {
-  text-align: center;
+.login-register {
   margin-left: auto;
   margin-right: auto;
   padding: 40px;
@@ -440,19 +443,27 @@ button:disabled {
   height: 100px;
 }
 
-.login-register-header-container {
-  color: #e86c6d;
+.login-register .header {
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
 }
 
-.login-register-header {
+.login-register .header p {
+  font-weight: 100;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-register .header h1 {
   margin: 10px;
 }
 
-.login-register-form-container {
+.login-register .form-container {
   background-color: white;
   margin-top: 30px;
-  border-radius: 30px;
-  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
   max-width: 40%;
   margin-left: auto;
   margin-right: auto;
@@ -461,43 +472,63 @@ button:disabled {
 }
 
 
-.login-register-form-header {
+.login-register .form-container .header {
   margin: 0;
-  background-color: #e86c6d;
-  padding: 20px;
-}
-
-.add-listing-container form {
-  padding: 30px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.login-register-form-content {
-  padding: 40px;
-}
-
-.login-register-form-content p{
-  margin: 0;
-  font-size: 12px;
-}
-
-.login-register-form-input {
-  width: 100%;
-  padding: 15px;
-  margin: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #f1f1f1;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 10px;
+  color: #4a4a4a;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   text-align: center;
 }
 
-.login-register-button {
-  width: 60%;
-  border-radius: 15px;
+.login-register .form-container button {
+  border: none;
+  font-weight: 500;
+  font-size: 20px;
+  padding: 10px 0;
+}
+
+.login-register .form-container button:disabled {
+  opacity: 1;
+  color: #e86c6d;
+}
+
+.login-register .form {
+  padding: 30px 40px;
+}
+
+.login-register .form .name-container {
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-gap: 10px;
+}
+
+.login-register .form input {
+  width: 100%;
+  padding: 15px;
+  margin: 0;
+  border: 1px solid #f1f1f1;
+  border-radius: initial;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+}
+
+.login-register .submit {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: initial;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 100;
+}
+
+.login-register .form p {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 300;
 }
 
 .footer-text {
@@ -513,6 +544,12 @@ button:disabled {
   padding: 60px 0;
 }
 
+.add-listing-container form {
+  padding: 30px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .add-listing-form-container {
   box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);

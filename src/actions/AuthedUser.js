@@ -65,9 +65,9 @@ export function handleLogin(data) {
     return Api.login(data)
       .then(response => {
         if (!response.non_field_errors) {
-          const key = response.key
-          localStorage.setItem("auth", key)
-          dispatch(loginSuccess(key))
+          const token = response.token
+          localStorage.setItem("auth", token)
+          dispatch(loginSuccess(token))
         }
         else {
           alert(response.non_field_errors[0])

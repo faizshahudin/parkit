@@ -24,6 +24,7 @@ class FindParking extends Component {
 
 class Search extends Component {
   state = {
+    initialize: false,
     currentLocation: "bangsar",
     bangsar: {
       center: {
@@ -45,7 +46,7 @@ class Search extends Component {
    this.setState((state) => ({
      currentLocation: value
    }))
-   this.handleInitialData(value)
+   // this.handleInitialData(value)
  }
 
  handleInitialData = (area) => {
@@ -63,12 +64,10 @@ class Search extends Component {
        obj = locations.filter(l => l.db_property === key)
       objArray.push(obj)
      })
-
      this.setState({
        locations: objArray
      })
    })
-   // console.log(this.state)
  }
 
  initialize = () => {
@@ -84,58 +83,27 @@ class Search extends Component {
      (document.getElementById('autocomplete')),
      { types: ['geocode'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
 
-
      google.maps.event.addListener(autocomplete, 'place_changed', function() {
        var place = autocomplete.getPlace()
-       // let location = {
-       //   lat: place.geometry.location.lat(),
-       //   lng: place.geometry.location.lng(),
-       //   name: place.name,
-       //   address: place.formatted_address
-       // }
        self.setState({
          userLocation: {
            lat: place.geometry.location.lat(),
            lng: place.geometry.location.lng(),
          }
        })
-       // if (self.state.userLocation !== {}) {
-       //   console.log(self.state.userLocation)
-       //   self.createUserMarker()
-       // }
-       // console.log(this.state)
- });
+     });
+     this.setState({
+       initialize: true
+     })
 }
 
-// createUserMarker() {
-//   let image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-//   let marker = new google.maps.Marker({
-//     position: this.state.userLocation,
-//     title: "Your Location",
-//     map: this.map,
-//     icon: {
-//       path: google.maps.SymbolPath.CIRCLE,
-//       scale: 6,
-//       strokeColor: '#fbfbfb',
-//       strokeOpacity: 0.4,
-//       fillOpacity: 1.0,
-//       fillColor: '#0096d7'
-//     }
-//   })
-// }
-
  componentDidMount = () => {
-   const refs = {}
    this.handleInitialData(this.state.currentLocation)
    this.initialize()
  }
 
   render() {
-    console.log(this.state)
     let {currentLocation} = this.state
-    this.state.locations.map((location => {
-      console.log(location[0].db_latitude)
-    }))
     return (
       <div>
         <div className="body box">
@@ -145,19 +113,18 @@ class Search extends Component {
           </div>
           {this.state.locations.length !== 0 &&
             <div className="map">
-              <Map
-                googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-                currentLocation={this.state.currentLocation}
-                locations={this.state.locations}
-                userLocation={this.state.userLocation}
-                state={this.state}
-              />
+                <Map
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `400px` }} />}
+                  mapElement={<div style={{ height: `100%` }} />}
+                  currentLocation={this.state.currentLocation}
+                  locations={this.state.locations}
+                  userLocation={this.state.userLocation}
+                  state={this.state}
+                />
             </div>
           }
-
           <div className="search">
             <div>
               <p>Find us here:</p>
@@ -270,8 +237,8 @@ class NoParking extends Component {
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={12}
+    defaultCenter={{lat: 4.1278584, lng: 105.1083212}}
     center={props.state[props.currentLocation].center}
-    // center={props.state[props.currentLocation].center}
   >
     {props.locations.map((place, index) => (
       <Marker

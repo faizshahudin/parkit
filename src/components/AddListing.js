@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import * as Api from "./Api"
+import jwt from "jsonwebtoken"
 
 class AddListing extends Component {
   render() {
@@ -111,10 +112,10 @@ class Add extends Component {
             title: "TTDI",
             value: "ttdi",
           },
-          {
-            title: "Other",
-            value: "other"
-          },
+          // {
+          //   title: "Other",
+          //   value: null
+          // },
         ]
       },
       carparkType: {
@@ -194,6 +195,11 @@ class Add extends Component {
    this.setState((state) => ({
      [name]: value
    }))
+   if (e.target.value === "other") {
+     this.setState({
+       ["o" + name]: value
+     })
+   }
  }
 
   handleNext = (e) => {
@@ -265,12 +271,6 @@ class Add extends Component {
 
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace()
-        // let location = {
-        //   lat: place.geometry.location.lat(),
-        //   lng: place.geometry.location.lng(),
-        //   name: place.name,
-        //   address: place.formatted_address
-        // }
         self.setState({
           db_latitude: `${place.geometry.location.lat()}`,
           db_longitude: `${place.geometry.location.lng()}`,
@@ -285,9 +285,10 @@ class Add extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { match } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
+
+    console.log(area.options.map(a => console.log(a.value)))
 
     if (this.state.submit === true) {
      return <Redirect to={`${match.url}/thank-you`} />
@@ -335,12 +336,13 @@ class Add extends Component {
                     <select name={area.name} value={this.state[area.name]} onChange={this.handleChange} style={this.state[area.name] ? {color: "black"} : {color: "#8a8888"}}>
                       <option>Select an area</option>
                       {area.options.map(a =>
-                        <option value={a.value}>{a.title}</option>
+                        <option key={a.value} value={a.value}>{a.title}</option>
                       )}
+                      <option value="other">Other</option>
                     </select>
-                    {(this.state.db_area && this.state.db_area !== "kl_sentral" && this.state.db_area !== "damansara" &&
-                    <input name={area.name} value={this.state[area.name]} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
-                    )}
+                    {this.state["o" + area.name] === "other" &&
+                     <input name={area.name} onChange={this.handleChange} type="text" placeholder="Let us know the name of the area."></input>
+                    }
                   </div>
                 </div>
               }
@@ -352,7 +354,7 @@ class Add extends Component {
                     <select name={carparkType.name} value={this.state[carparkType.name]} onChange={this.handleChange} style={this.state[carparkType.name] ? {color: "black"} : {color: "#8a8888"}}>
                       <option value="">Type of carpark</option>
                       {carparkType.options.map(c =>
-                        <option value={c.value}>{c.title}</option>
+                        <option key={c.value} value={c.value}>{c.title}</option>
                       )}
                     </select>
                   </div>
@@ -363,7 +365,7 @@ class Add extends Component {
                     <div className="checkbox-container">
                       {dedicated.options.map(d =>
                         <div className="checkbox">
-                          <input name={dedicated.name} onChange={this.handleChange} type="checkbox" value={d.value} />{d.title}
+                          <input key={dedicated.name} name={dedicated.name} onChange={this.handleChange} type="checkbox" value={d.value} />{d.title}
                         </div>
                       )}
                     </div>
@@ -380,7 +382,7 @@ class Add extends Component {
                     <div className="checkbox-container step3">
                       {leasePeriod.options.map(l =>
                         <div className="checkbox">
-                          <input name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} />{l.title}
+                          <input key={leasePeriod.name} name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} />{l.title}
                         </div>
                       )}
                       {this.state.db_period && this.state.db_period !== "12" && this.state.db_period !== "6" && this.state.db_period !== "3" &&
@@ -395,7 +397,7 @@ class Add extends Component {
                     <div className="checkbox-container step3">
                       {rental.options.map(r =>
                         <div className="checkbox">
-                          <input name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} />{r.title}
+                          <input key={rental.name} name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} />{r.title}
                         </div>
                       )}
                       {this.state.db_price && this.state.db_price !== "300" && this.state.db_price !== "250" && this.state.db_price !== "150" &&

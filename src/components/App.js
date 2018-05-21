@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import Home from "./Home"
 import Owners from "./Owners"
-import Login from "./Login"
+import LoginRegister from "./Login"
 import Register from "./Register"
 import AddListing from "./AddListing"
 import Dashboard from "./Dashboard"
+import ResetPassword from "./ResetPassword"
 import Nav from "./Nav"
 import FindParking from "./FindParking"
 import Footer from "./Footer"
@@ -38,9 +39,10 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
               <Route path="/parkers" component={FindParking} />
-              <Route path="/login" component={Login} />
+              <Route path="/login" component={LoginRegister} />
               <Route path="/register" component={Register} />
               <Route path="/add-listing" component={AddListing} />
+              <Route path="/auth/password/reset/confirm" component={ResetPassword} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               {/* <Route path="/dashboard" component={Dashboard} /> */}
               <Route render={function() {
