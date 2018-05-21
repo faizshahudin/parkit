@@ -48,12 +48,12 @@ class LoginRegister extends Component {
                 dispatch={dispatch}
                 AuthedUser={AuthedUser}
               />
-              : <Register />
+              : <Register
+                dispatch={dispatch}
+                AuthedUser={AuthedUser}/>
             }
           </div>
         </div>
-
-
     )
   }
 }
@@ -135,12 +135,16 @@ class Register extends Component {
     this.setState((state) => ({
       [name]: value
     }))
+    this.setState({
+      username: this.state.email
+    })
   }
 
   handleSubmit = (e) => {
     const {dispatch} = this.props
     e.preventDefault()
     let data = this.state
+    console.log(data)
     dispatch(handleRegister(data))
   }
 
@@ -178,6 +182,16 @@ class Register extends Component {
             value={this.state.value}
             onChange={this.handleChange}
             placeholder="Email"
+            >
+          </input>
+          <input
+            required
+            id="contact"
+            name="contact"
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+            placeholder="Contact Number"
             >
           </input>
           <input

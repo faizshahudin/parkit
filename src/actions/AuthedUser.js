@@ -65,6 +65,8 @@ export function handleLogin(data) {
     return Api.login(data)
       .then(response => {
         if (!response.non_field_errors) {
+          const userId = response.user.pk
+          localStorage.setItem("userId", userId)
           const token = response.token
           localStorage.setItem("auth", token)
           dispatch(loginSuccess(token))

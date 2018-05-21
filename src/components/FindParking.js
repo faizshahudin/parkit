@@ -7,6 +7,8 @@ import { NavLink } from 'react-router-dom'
 import * as Api from "./Api"
 import one from "../images/1.png"
 import Modal from 'react-modal';
+import { withRouter } from "react-router-dom";
+
 
 
 class FindParking extends Component {
@@ -14,6 +16,7 @@ class FindParking extends Component {
     return(
       <div className="find-parking-container main-container">
         <Route path={`/parkers/search`} component={Search}/>
+        <Route path={`/parkers/search/rent/:id`} component={RentParking}/>
         <Route exact path={`/parkers/no-parking`} component={NoParking}/>
       </div>
     )
@@ -45,11 +48,19 @@ class Search extends Component {
    this.setState((state) => ({
      currentLocation: value
    }))
+   console.log(this.state.locations.map(location => console.log(location[0].db_property)))
+   console.log(this.state.locations)
    // this.handleInitialData(value)
  }
 
- openModal = () => {
- this.setState({modalIsOpen: true});
+ openModal = (e) => {
+  const {history} = this.props
+  console.log(e.target.name)
+  history.push(`/parkers/search/rent/${e.target.name}`)
+  this.setState({
+    modalIsOpen: true
+  });
+  console.log(this.location)
  }
 
  afterOpenModal = () => {
@@ -106,7 +117,7 @@ class Search extends Component {
      this.setState({
        initialize: true
      })
-}
+   }
 
  componentDidMount = () => {
    this.handleInitialData(this.state.currentLocation)
@@ -115,25 +126,9 @@ class Search extends Component {
 
   render() {
     let {currentLocation} = this.state
-    console.log(this.state.modalIsOpen)
     return (
       <div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          // onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={true}
-          // overlayClassName="ReactModal__Overlay"
-          tabindex="1"
-          className="Modal"
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.4)'
-            },
-          }}
-        >
-          <RentParking />
-        </Modal>
+
         <div className="body">
             <div className="grey-background">
               <div className="listing container">
@@ -147,21 +142,26 @@ class Search extends Component {
                   <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
                 </form>
                 <div className="listings">
-                  <ul>
-                    <li>
-                      <div className="individual-listing">
-                        <img></img>
-                        <div className="details">
-                          <h3>Suasana Loft</h3>
-                          <h5>Level 2</h5>
-                          <p>Starting from RM500</p>
-                          <button className="btn" onClick={this.openModal}>Park Here</button>
-                          <p>AHB2786</p>
-                          <p>Posted: 28/7/18</p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+                  {this.state.locations.length > 0 &&
+                    <ul>
+                      {this.state.locations.map(location =>
+                        <li key={location[0].id}>
+                          <div className="individual-listing">
+                            <img></img>
+                            <div className="details">
+                              <h3>{location[0].db_property}</h3>
+                              <h5>Level 2</h5>
+                              <p>RM{location[0].db_price}</p>
+                              <button className="btn" name={location[0].id} onClick={this.openModal}>Park Here</button>
+                              <p>AHB2786</p>
+                              <p>Posted: 28/7/18</p>
+                            </div>
+                          </div>
+                        </li>
+                      )}
+                    </ul>
+                  }
+
                 </div>
               </div>
             </div>
@@ -292,8 +292,50 @@ class NoParking extends Component {
 }
 
 class RentParking extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      IsAuthenticated: null,
+      modalIsOpen: false,
+    }
+  }
+  handleChange = (e) => {
+    this.setState({
+      occupied_by: this.props.match.params.id,
+      user: "3"
+    })
+    let value = e.target.value
+    let name = e.target.name
+    this.setState((state) => ({
+      [name]: value
+    }))
+    console.log(this.state)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    this.setState({submit: true})
+    Api.bookParking(this.state, localStorage.auth)
+      .then(res => console.log(res))
+      .catch("There was an error processing your request.")
+    console.log(this.state)
+  }
+
   render() {
+    console.log(this.props.match.params.id)
     return(
+      <Modal
+        // overlayClassName="ReactModal__Overlay"
+        isOpen={true}
+        tabindex="1"
+        className="Modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.4)'
+          },
+        }}
+      >
       <div className="rent-parking container">
         <div className="white-background container">
           <div className="parking-information">
@@ -322,7 +364,7 @@ class RentParking extends Component {
               <h3>Tenure Information</h3>
             </div>
             <div>
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <div>
                   <label>Start date</label>
                   <input type="text"></input>
@@ -330,18 +372,21 @@ class RentParking extends Component {
                 <div>
                   <label>Vehicle Registered</label>
                   <div className="vehicle-registered">
-                    <input type="text"></input>
-                    <input type="text"></input>
+                    <input type="text" onChange={this.handleChange} name="car_model"></input>
+                    <input type="text" onChange={this.handleChange} name="car_registery"></input>
                   </div>
                 </div>
                 <a>+ Add Vehicle</a>
+                <button className="btn" >Submit</button>
               </form>
             </div>
           </div>
         </div>
       </div>
+    </Modal>
     )
   }
+
 }
 
 const Map = withScriptjs(withGoogleMap((props) =>
