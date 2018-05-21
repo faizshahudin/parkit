@@ -218,5 +218,7 @@ DJOSER = {
         'password_reset': 'accounts.api.emails.PasswordResetEmail',
     },
     
-    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND ': True,
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
 }
