@@ -17,6 +17,7 @@ class CarDatabaseSerializer(ModelSerializer):
         fields = [
             #'id',
             #'slug',
+            'user',
             'car_model',
             'car_registery',
             'occupied_by',
