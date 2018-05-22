@@ -182,7 +182,7 @@ class Search extends Component {
                 <div className="map">
                     <Map
                       googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
-                      loadingElement={<div style={{ height: `100%` }} />}
+                      loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
                       containerElement={<div style={{ height: "500px" }} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
