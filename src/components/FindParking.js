@@ -8,14 +8,16 @@ import * as Api from "./Api"
 import one from "../images/1.png"
 import Modal from 'react-modal';
 import { withRouter } from "react-router-dom";
-
+import {connect} from "react-redux"
+import {handleGetParkings} from "../actions/Parkings"
 
 
 class FindParking extends Component {
   render() {
+    const {dispatch} = this.props
     return(
       <div className="find-parking-container main-container">
-        <Route path={`/parkers/search`} component={Search}/>
+        <Route path={`/parkers/search`} render={(props) => <Search {...props} dispatch={dispatch}/>} />
         <Route path={`/parkers/search/rent/:id`} component={RentParking}/>
         <Route exact path={`/parkers/no-parking`} component={NoParking}/>
       </div>
@@ -48,8 +50,6 @@ class Search extends Component {
    this.setState((state) => ({
      currentLocation: value
    }))
-   console.log(this.state.locations.map(location => console.log(location[0].db_property)))
-   console.log(this.state.locations)
    // this.handleInitialData(value)
  }
 
@@ -72,24 +72,8 @@ class Search extends Component {
  }
 
  handleInitialData = (area) => {
-   Api.getLocations(area).then(res => {
-     let locations = res
-
-     let array = []
-     locations.map(l => {
-       array.push(l.db_property)
-     })
-     let newArray = [...new Set(array.map(a => a))]
-     let objArray = []
-     let obj = {}
-     newArray.map((key) => {
-       obj = locations.filter(l => l.db_property === key)
-      objArray.push(obj)
-     })
-     this.setState({
-       locations: objArray
-     })
-   })
+   const {dispatch} = this.props
+   dispatch(handleGetParkings(area))
  }
 
  initialize = () => {
@@ -141,7 +125,7 @@ class Search extends Component {
                   <i class="fas fa-ellipsis-v"></i>
                   <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
                 </form>
-                <div className="listings">
+                {/* <div className="listings">
                   {this.state.locations.length > 0 &&
                     <ul>
                       {this.state.locations.map(location =>
@@ -162,7 +146,7 @@ class Search extends Component {
                     </ul>
                   }
 
-                </div>
+                </div> */}
               </div>
             </div>
             <div>
@@ -412,4 +396,8 @@ const Map = withScriptjs(withGoogleMap((props) =>
   </GoogleMap>
 ))
 
-export default FindParking
+function mapStateToProps({parkings}) {
+  return parkings
+}
+
+export default connect(mapStateToProps)(FindParking)
