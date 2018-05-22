@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'vehicle',
     'search',
     'rent',
+    'profile',
     'djoser',
     'rest_auth',
     'rest_framework',
     'rest_framework_jwt',
     'corsheaders',
+    'drf_multiple_model',
     
 ]
 
@@ -179,25 +181,22 @@ import datetime
 JWT_AUTH = {
  
     'JWT_VERIFY': True,
-#    'JWT_VERIFY_EXPIRATION': True,
-#    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=259200),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.jwt_payload_handler',    
  
 }
 
 #For email
 EMAIL_USE_TLS      = True
-DEFAULT_FROM_EMAIL = 'support@parkitmy.com'
+DEFAULT_FROM_EMAIL = 'noreply.support@parkitmy.com'
 EMAIL_BACKEND      = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST         = 'smtp.gmail.com'
-EMAIL_HOST_USER    = 'support@parkitmy.com'
-EMAIL_HOST_PASSWORD = 'Needspeed1-'
+EMAIL_HOST_USER    = 'noreply.support@parkitmy.com'
+EMAIL_HOST_PASSWORD = 'Iamsupportnoreply'
 EMAIL_PORT = 587
 
-
-#PASSWORD_HASHERS = [
-#    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-#]
 
 SITE_ID = 2
 

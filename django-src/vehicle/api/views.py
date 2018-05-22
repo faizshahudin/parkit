@@ -14,8 +14,11 @@ from rest_framework.generics import (
     ListAPIView, 
     UpdateAPIView,
     RetrieveAPIView,
-    RetrieveUpdateAPIView
+    RetrieveUpdateAPIView,
+    RetrieveUpdateDestroyAPIView,
     )
+
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 
 from rest_framework.permissions import (
     AllowAny,
@@ -40,17 +43,35 @@ class CarDatabaseAPI(ListCreateAPIView):
 #       if self.request.user.is_authenticated():
 #           form.instance.user = self.request.user
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, many=isinstance(request.data,list))
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 #   def perform_create(self, serializer):
 #       serializer.save(user=self.request.user)
 
+class UpdateCarDatabaseAPI (RetrieveUpdateDestroyAPIView):
+    queryset = CarDatabase.objects.all()
+    lookup_field = 'pk'
+    serializer_class = CarDatabaseSerializer
+    permission_classes = [AllowAny]
 
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def perform_destroy(self, instance):
+        instance.delete ()
+        return instance
+
+#    def put(self, request, *args, **kwargs):
+#        return self.update(request, *args, **kwargs)
+#
+#    def delete(self, request, *args, **kwargs):
+#        return self.destroy(request, *args, **kwargs)
+
+#   def perform_create(self, serializer):
+#       serializer.save(user=self.request.user)
 
 
 

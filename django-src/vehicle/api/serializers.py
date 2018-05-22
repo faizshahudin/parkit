@@ -15,7 +15,7 @@ class CarDatabaseSerializer(ModelSerializer):
     class Meta:
         model = CarDatabase
         fields = [
-            #'id',
+            'id',
             #'slug',
             'user',
             'car_model',

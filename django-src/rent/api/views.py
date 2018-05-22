@@ -1,5 +1,8 @@
 # from django.db.models import Q
 
+from rest_framework.response import Response
+from rest_framework import status
+
 from rest_framework.filters import (
         SearchFilter,
         OrderingFilter,
@@ -11,7 +14,8 @@ from rest_framework.generics import (
     ListAPIView, 
     UpdateAPIView,
     RetrieveAPIView,
-    RetrieveUpdateAPIView
+    RetrieveUpdateAPIView,
+    RetrieveUpdateDestroyAPIView
     )
 
 from rest_framework.permissions import (
@@ -28,7 +32,12 @@ from .serializers import (
     ParkingForRentSerializer, 
     )
 
-import jwt
+from accounts.models import User
+
+from djoser.compat import get_user_email, get_user_email_field_name
+from djoser.conf import settings
+from django.conf import settings
+
 
 class ParkingForRentAPI(ListCreateAPIView):
     queryset = ParkingForRent.objects.all()
@@ -36,7 +45,23 @@ class ParkingForRentAPI(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
+        # add in send email function
         serializer.save(user=self.request.user)
+        # check if bank details exist.
+
+class UpdateParkingForRentAPI (RetrieveUpdateDestroyAPIView):
+    queryset = ParkingForRent.objects.all()
+    lookup_field = 'pk'
+    serializer_class = ParkingForRentSerializer
+    permission_classes = [AllowAny]
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def perform_destroy(self, instance):
+        instance.delete ()
+        return instance
 
 
 
