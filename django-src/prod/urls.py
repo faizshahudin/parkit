@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-# from rest_framework_jwt.views import obtain_jwt_token
 from django.conf.urls import url
 from rest_auth.urls import LoginView,LogoutView
 urlpatterns = [
@@ -27,6 +26,7 @@ urlpatterns = [
     path('', include('rent.api.urls', namespace='rent-api')),
     path('', include('search.api.urls', namespace='search-api')),
     path('', include('vehicle.api.urls', namespace='vehicle-api')),
+     path('', include('profile.api.urls', namespace='profile-api')),
     url(r'^auth/', include('djoser.urls')),
 
 ]

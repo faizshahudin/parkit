@@ -4,7 +4,7 @@ from vehicle.models import CarDatabase
 # Register your models here.
 
 class CarDatabaseAdmin(admin.ModelAdmin):
-	list_display = ["user","car_model","car_registery","occupied_by","start_date"]
+	list_display = ["id","user","car_model","car_registery","occupied_by","start_date"]
 #	list_display_links = ["updated"]
 #	list_editable = ["title"]
 #	list_filter = ["updated", "timestamp"]

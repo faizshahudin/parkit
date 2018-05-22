@@ -29,12 +29,6 @@ class UserCreateSerializer(ModelSerializer):
         extra_kwargs = {"password":
                             {"write_only": True}
                             }
-    def validate(self, data):
-        # email = data['email']
-        # user_qs = User.objects.filter(email=email)
-        # if user_qs.exists():
-        #     raise ValidationError("This user has already registered.")
-        return data
 
     def validate_email(self, value):
         data = self.get_initial()
@@ -58,48 +52,4 @@ class UserCreateSerializer(ModelSerializer):
         
         user_obj.set_password(password)
         user_obj.save()
-        return validated_data
-
-
-
-#lass UserLoginSerializer(ModelSerializer):
-#    username = CharField()
-#   token = CharField(allow_blank=True, read_only=True)
-#   email = EmailField(required=False, allow_blank=True)
-#   #username = CharField(required=False, allow_blank=True)
-#   class Meta:
-#       model = User
-#       fields = [
-#           #'username',
-#           'email',
-#           'password',
-#           'token',     
-#       ]
-#       extra_kwargs = {"password":
-#                           {"write_only": True}
-#                           }
-#   def validate(self, data):
-#       email = data.get('email', None)
-#       username = data.get('username', None)
-#       password = data["password"]
-#       if not email and not username:
-#           raise ValidationError("Please Fill In Email")
-#       user = User.objects.filter(
-#           Q(email=email)|
-#           Q(username=username)
-#       ).distinct()
-#       if user.exists() and user.count() == 1:
-#           user_field = user.first()
-#       else:
-#           raise ValidationError("This email is not valid")
-#       
-#       if user_field:
-#           if not user_field.check_password(password):
-#               raise ValidationError("Incorrect Credentials")
-#
-#       # data["token"] = "RANDOM TOKEN"
-#       #email = data['email']
-#       #user_qs = User.objects.filter(email=email)
-#       # if user_qs.exists():
-#       #     raise ValidationError("This user has already registered.")
-#       return data
+        return validated_data        
