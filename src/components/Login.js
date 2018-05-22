@@ -10,8 +10,6 @@ import { handleRegister } from "../actions/AuthedUser"
 import Modal from 'react-modal';
 
 
-
-
 class LoginRegister extends Component {
   constructor(props) {
     super(props)
@@ -92,6 +90,13 @@ class Login extends Component {
   }
 
   render() {
+    // const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
+    const {AuthedUser} = this.props
+    if (AuthedUser) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
 
     return (
         <form className="form" onSubmit={this.login}>

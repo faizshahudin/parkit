@@ -1,4 +1,4 @@
-import {GET_PARKINGS, ADD_PARKING} from "../actions/Parkings"
+import {GET_PARKINGS, ADD_PARKING} from "../actions/parkings"
 
 export default function parkings(state = {}, action) {
   switch(action.type) {

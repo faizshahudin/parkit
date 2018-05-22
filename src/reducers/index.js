@@ -1,8 +1,11 @@
 import { combineReducers } from "redux"
 import AuthedUser from "./AuthedUser"
-import Parkings from "./Parkings"
+import parkings from "./parkings"
+import {loadingBarReducer} from "react-redux-loading"
+
 
 export default combineReducers({
   AuthedUser,
-  Parkings
+  parkings,
+  loadingBar: loadingBarReducer,
 })

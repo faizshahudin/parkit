@@ -9,17 +9,32 @@ import one from "../images/1.png"
 import Modal from 'react-modal';
 import { withRouter } from "react-router-dom";
 import {connect} from "react-redux"
-import {handleGetParkings} from "../actions/Parkings"
+import {handleGetParkings} from "../actions/parkings"
+import parkingImg from "../images/parking-placeholder.png"
+
 
 
 class FindParking extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      submit: false,
+      login: true,
+      modalIsOpen: props.isOpen,
+    }
+  }
+  // componentDidMount = () => {
+  //   const {dispatch} = this.props
+  //   dispatch(handleGetParkings())
+  // }
   render() {
-    const {dispatch} = this.props
-    return(
+    const {dispatch, parkings} = this.props
+
+    return (
       <div className="find-parking-container main-container">
-        <Route path={`/parkers/search`} render={(props) => <Search {...props} dispatch={dispatch}/>} />
-        <Route path={`/parkers/search/rent/:id`} component={RentParking}/>
-        <Route exact path={`/parkers/no-parking`} component={NoParking}/>
+        <Route path={`/find-parking/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch}/>} />
+        <Route path={`/find-parking/search/rent/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={RentParking}/>}/>
+        <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
       </div>
     )
   }
@@ -28,7 +43,13 @@ class FindParking extends Component {
 class Search extends Component {
   state = {
     initialize: false,
-    currentLocation: "bangsar",
+    currentLocation: "none",
+    none: {
+      center: {
+        lat: 3.0721369,
+        lng: 101.6047011,
+      }
+    },
     bangsar: {
       center: {
         lat: 3.1290099,
@@ -41,22 +62,20 @@ class Search extends Component {
         lng: 101.663241,
       }
     },
-    locations: [],
     modalIsOpen: false,
+    locations: [],
   }
 
   handleChange = (e) => {
    let value = e.target.value
-   this.setState((state) => ({
-     currentLocation: value
-   }))
-   // this.handleInitialData(value)
+   this.filterParking(value)
+   this.setState({currentLocation: value})
  }
 
  openModal = (e) => {
   const {history} = this.props
   console.log(e.target.name)
-  history.push(`/parkers/search/rent/${e.target.name}`)
+  history.push(`/find-parking/search/rent/${e.target.name}`)
   this.setState({
     modalIsOpen: true
   });
@@ -71,9 +90,14 @@ class Search extends Component {
    this.setState({modalIsOpen: false});
  }
 
- handleInitialData = (area) => {
-   const {dispatch} = this.props
-   dispatch(handleGetParkings(area))
+ filterParking = (currentLocation) => {
+   const {parkings} = this.props
+   let filteredParkings = Object.values(parkings)
+    .filter((parking) => parking.db_area === currentLocation)
+   this.setState({filteredParkings: filteredParkings})
+   this.forceUpdate()
+   console.log(this.state)
+   // this.setState({parkings})
  }
 
  initialize = () => {
@@ -104,39 +128,39 @@ class Search extends Component {
    }
 
  componentDidMount = () => {
-   this.handleInitialData(this.state.currentLocation)
    this.initialize()
  }
 
   render() {
     let {currentLocation} = this.state
+    const {parkings} = this.props
     return (
       <div>
-
         <div className="body">
             <div className="grey-background">
               <div className="listing container">
                 <h3>ParkIt Locations</h3>
                 <form className="search-body">
-                  <select value={this.state.value} onChange={this.handleChange}>
+                  <select onChange={this.handleChange}>
+                    <option value="none">Select an area</option>
                     <option value="bangsar">Bangsar</option>
                     <option value="bangsar_south">Bangsar South</option>
                   </select>
-                  <i class="fas fa-ellipsis-v"></i>
+                  <i className="fas fa-ellipsis-v"></i>
                   <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
                 </form>
-                {/* <div className="listings">
-                  {this.state.locations.length > 0 &&
+                <div className="listings">
+                  {this.state.filteredParkings &&
                     <ul>
-                      {this.state.locations.map(location =>
-                        <li key={location[0].id}>
+                      {this.state.filteredParkings.map(location =>
+                        <li key={location.id}>
                           <div className="individual-listing">
-                            <img></img>
+                            <img src={parkingImg}></img>
                             <div className="details">
-                              <h3>{location[0].db_property}</h3>
+                              <h3>{location.db_property}</h3>
                               <h5>Level 2</h5>
-                              <p>RM{location[0].db_price}</p>
-                              <button className="btn" name={location[0].id} onClick={this.openModal}>Park Here</button>
+                              <p>RM{location.db_price}</p>
+                              <button className="btn" name={location.id} onClick={this.openModal}>Park Here</button>
                               <p>AHB2786</p>
                               <p>Posted: 28/7/18</p>
                             </div>
@@ -145,47 +169,30 @@ class Search extends Component {
                       )}
                     </ul>
                   }
-
-                </div> */}
+                </div>
               </div>
             </div>
             <div>
-              Map
-              {this.state.locations.length !== 0 &&
+              {this.state.initialize &&
                 <div className="map">
                     <Map
                       googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
                       loadingElement={<div style={{ height: `100%` }} />}
-                      containerElement={<div style={{ height: `400px` }} />}
+                      containerElement={<div style={{ height: "500px" }} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
-                      locations={this.state.locations}
+                      locations={this.state.filteredParkings}
                       userLocation={this.state.userLocation}
                       state={this.state}
                     />
                 </div>
               }
             </div>
-
-
-          {/* <div className="search">
-            <div>
-              <p>Find us here:</p>
-            </div>
-            <form className="search-body">
-              <select value={this.state.value} onChange={this.handleChange}>
-                <option value="bangsar">Bangsar</option>
-                <option value="bangsar_south">Bangsar South</option>
-              </select>
-              <button>Search</button>
-              <input type="text" id="autocomplete"></input>
-            </form>
-          </div> */}
-          {/* <div>
-            <NavLink to="/parkers/no-parking">
+          <div>
+            <NavLink to="/find-parking/no-parking">
               <p>Can't find the location? Let us know.</p>
             </NavLink>
-          </div> */}
+          </div>
         </div>
       </div>
     )
@@ -203,6 +210,7 @@ class NoParking extends Component {
     this.setState((state) => ({
       [name]: value
     }))
+    console.log(this.state)
   }
 
    handleSubmit = (e) => {
@@ -308,7 +316,12 @@ class RentParking extends Component {
 
   render() {
     console.log(this.props.match.params.id)
-    return(
+    const id = this.props.match.params.id
+    const {parkings} = this.props
+    const parking = parkings[id]
+
+
+    return (
       <Modal
         // overlayClassName="ReactModal__Overlay"
         isOpen={true}
@@ -320,53 +333,56 @@ class RentParking extends Component {
           },
         }}
       >
-      <div className="rent-parking container">
-        <div className="white-background container">
-          <div className="parking-information">
-            <div className="header">
-              <h3>Want to park here?</h3>
-            </div>
-            <div className="listing">
-              <div>
-                <img></img>
-              </div>
-              <div className="details">
-                <div>
-                  <h3>Suasana Loft</h3>
-                  <h5>Level 2</h5>
-                  <p>Starting from RM500</p>
+        {parking &&
+          <div className="rent-parking container">
+            <div className="white-background container">
+              <div className="parking-information">
+                <div className="header">
+                  <h3>Want to park here?</h3>
                 </div>
-                <div>
-                  <p>AHB2786</p>
-                  <p>Posted: 28/7/18</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="tenure-information">
-            <div>
-              <h3>Tenure Information</h3>
-            </div>
-            <div>
-              <form onSubmit={this.handleSubmit}>
-                <div>
-                  <label>Start date</label>
-                  <input type="text"></input>
-                </div>
-                <div>
-                  <label>Vehicle Registered</label>
-                  <div className="vehicle-registered">
-                    <input type="text" onChange={this.handleChange} name="car_model"></input>
-                    <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                <div className="listing">
+                  <div>
+                    <img src={parkingImg}></img>
+                  </div>
+                  <div className="details">
+                    <div>
+                      <h3>{parking.db_property}</h3>
+                      <h5>Level 2</h5>
+                      <p>RM{parking.db_price}</p>
+                    </div>
+                    <div>
+                      <p>AHB2786</p>
+                      <p>Posted: 28/7/18</p>
+                    </div>
                   </div>
                 </div>
-                <a>+ Add Vehicle</a>
-                <button className="btn" >Submit</button>
-              </form>
+              </div>
+              <div className="tenure-information">
+                <div>
+                  <h3>Tenure Information</h3>
+                </div>
+                <div>
+                  <form onSubmit={this.handleSubmit}>
+                    <div>
+                      <label>Start date</label>
+                      <input type="text"></input>
+                    </div>
+                    <div>
+                      <label>Vehicle Registered</label>
+                      <div className="vehicle-registered">
+                        <input type="text" onChange={this.handleChange} name="car_model"></input>
+                        <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                      </div>
+                    </div>
+                    {/* <a>+ Add Vehicle</a> */}
+                    <button className="btn">Submit</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        }
+
     </Modal>
     )
   }
@@ -376,16 +392,17 @@ class RentParking extends Component {
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={12}
-    defaultCenter={{lat: 4.1278584, lng: 105.1083212}}
     center={props.state[props.currentLocation].center}
   >
-    {props.locations.map((place, index) => (
-      <Marker
-        key={index}
-        position={{lat: Number(place[0].db_latitude), lng: Number(place[0].db_longitude)}}
-      />
-    ))}
-
+    {props.locations ?
+      props.locations.map((place, index) => (
+        <Marker
+          key={index}
+          position={{lat: Number(place.db_latitude), lng: Number(place.db_longitude)}}
+        />
+      ))
+      : null
+    }
     <Marker
       position={props.userLocation}
       icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
@@ -397,7 +414,7 @@ const Map = withScriptjs(withGoogleMap((props) =>
 ))
 
 function mapStateToProps({parkings}) {
-  return parkings
+  return {parkings}
 }
 
 export default connect(mapStateToProps)(FindParking)
