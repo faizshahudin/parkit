@@ -725,14 +725,20 @@ button:disabled {
   display: grid;
   grid-template-columns: 1fr 1fr;
   text-decoration: none;
+  font-weight: 500;
   padding-top: 10px;
   padding-bottom: 20px;
-  text-transform: uppercase;
   font-family: 'Raleway', sans-serif !important;
   width: 90%;
   margin-right: auto;
   margin-left: auto;
   background-color: white;
+  color: #b9b9b9;
+}
+
+.nav .btn-transparent {
+  padding: 8px 12px;
+  border-radius: 10px;
 }
 
 
@@ -918,6 +924,11 @@ button:disabled {
   display: grid;
   grid-template-columns: 0.4fr 0.6fr;
   background-color: white;
+  grid-gap: 10px;
+}
+
+.find-parking-container .listings .individual-listing img {
+  width: 100%;
 }
 
 .find-parking-container .listings .details {
@@ -964,7 +975,7 @@ button:disabled {
 }
 
 .map {
-  margin: 30px 0;
+  margin: 0;
 }
 
 .find-parking-container .thank-you {
@@ -1013,6 +1024,7 @@ button:disabled {
 .rent-parking .parking-information .listing {
   display: grid;
   grid-template-columns: 0.4fr 0.6fr;
+  grid-gap: 10px;
 }
 
 .rent-parking .parking-information .listing h3, h5 {
@@ -1021,6 +1033,10 @@ button:disabled {
 
 .rent-parking .parking-information .listing p {
   font-weight: 300;
+}
+
+.rent-parking .parking-information .listing img {
+  width: 100%;
 }
 
 .rent-parking .parking-information .listing .details {
@@ -1046,6 +1062,11 @@ button:disabled {
   display: grid;
   grid-template-columns: 0.3fr 0.7fr;
   grid-gap: 20px;
+}
+
+.rent-parking .tenure-information button {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* Dashboard */

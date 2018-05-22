@@ -13,6 +13,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom"
 import {Switch} from "react-router-dom"
 import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
+import {handleGetParkings} from "../actions/parkings"
 
 const PrivateRoute = ({ component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
@@ -27,6 +28,10 @@ const PrivateRoute = ({ component: Component, ...rest}) => (
 )
 
 class App extends Component {
+  componentDidMount() {
+    const {dispatch} = this.props
+    dispatch(handleGetParkings())
+  }
   render() {
     const { AuthedUser, dispatch } = this.props
 
@@ -35,20 +40,35 @@ class App extends Component {
         <Router>
           <Fragment>
             <Nav dispatch={dispatch}/>
+            {/* {this.props.loading === true
+              ? null
+              :
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
               <Route path="/parkers" component={FindParking} />
-              {/* <Route path="/login" component={LoginRegister} /> */}
               <Route path="/register" component={Register} />
               <Route path="/add-listing" component={AddListing} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-              {/* <Route path="/dashboard" component={Dashboard} /> */}
               <Route render={function() {
                 return <p>Not Found</p>
               }} />
             </Switch>
+          } */}
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/owners" component={Owners} />
+              <Route path="/find-parking" component={FindParking} />
+              <Route path="/register" component={Register} />
+              <Route path="/add-listing" component={AddListing} />
+              <Route path="/auth/password/reset/confirm" component={ResetPassword} />
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <Route render={function() {
+                return <p>Not Found</p>
+              }} />
+            </Switch>
+
             <Footer />
           </Fragment>
         </Router>
@@ -58,7 +78,9 @@ class App extends Component {
 }
 
 function mapStateToProps({AuthedUser}) {
-  return {AuthedUser}
+  return {
+    loading: AuthedUser === null
+  }
 }
 
 export default connect(mapStateToProps)(App);

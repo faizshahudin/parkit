@@ -72,7 +72,7 @@ class Nav extends Component {
         <nav className="nav">
           <ul className="nav-container one">
             <li>
-              <NavLink exact to='/' activeClassName="active">
+              <NavLink exact to='/' activeClassName="null">
               <img className="nav-logo" src={Logo}></img>
               </NavLink>
             </li>
@@ -82,26 +82,26 @@ class Nav extends Component {
               </NavLink>
             </li>
             <li>
-              <NavLink to='/parkers/search' activeClassName='active'>
+              <NavLink to='/parkers' activeClassName='active'>
                 Parkers
               </NavLink>
             </li>
           </ul>
           <ul className="nav-container two">
             <li>
-              <NavLink to='/help' activeClassName='active'>
-                Help
+              <NavLink to='/find-parking/search' activeClassName='active'>
+                Find a Parking
               </NavLink>
             </li>
             <li>
-              <NavLink to='/login' activeClassName='active'>
-                Sign In
+              <NavLink to='/' onClick={this.openModal} activeClassName='null'>
+                Log in
               </NavLink>
             </li>
             <li>
-              <button onClick={this.openModal} className="btn-transparent" activeClassName='active'>
+              <NavLink to="/" onClick={this.openModal} className="btn-transparent">
                 Sign Up
-              </button>
+              </NavLink>
             </li>
             <li>
               <img className="nav-menu-icon" src={MenuIcon}></img>

@@ -10,8 +10,6 @@ import { handleRegister } from "../actions/AuthedUser"
 import Modal from 'react-modal';
 
 
-
-
 class LoginRegister extends Component {
   constructor(props) {
     super(props)
@@ -48,12 +46,12 @@ class LoginRegister extends Component {
                 dispatch={dispatch}
                 AuthedUser={AuthedUser}
               />
-              : <Register />
+              : <Register
+                dispatch={dispatch}
+                AuthedUser={AuthedUser}/>
             }
           </div>
         </div>
-
-
     )
   }
 }
@@ -92,6 +90,13 @@ class Login extends Component {
   }
 
   render() {
+    // const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
+    const {AuthedUser} = this.props
+    if (AuthedUser) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
 
     return (
         <form className="form" onSubmit={this.login}>
@@ -135,12 +140,16 @@ class Register extends Component {
     this.setState((state) => ({
       [name]: value
     }))
+    this.setState({
+      username: this.state.email
+    })
   }
 
   handleSubmit = (e) => {
     const {dispatch} = this.props
     e.preventDefault()
     let data = this.state
+    console.log(data)
     dispatch(handleRegister(data))
   }
 
@@ -178,6 +187,16 @@ class Register extends Component {
             value={this.state.value}
             onChange={this.handleChange}
             placeholder="Email"
+            >
+          </input>
+          <input
+            required
+            id="contact"
+            name="contact"
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+            placeholder="Contact Number"
             >
           </input>
           <input
