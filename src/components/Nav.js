@@ -8,6 +8,8 @@ import {handleLogout} from "../actions/AuthedUser"
 import { withRouter } from "react-router-dom";
 import Modal from 'react-modal';
 import LoginRegister from "./Login"
+import {handleShowModal} from "../actions/modal"
+
 
 
 // const customStyles = {
@@ -31,7 +33,9 @@ class Nav extends Component {
   }
 
   openModal = () => {
-  this.setState({modalIsOpen: true});
+    const {dispatch} = this.props
+    this.setState({modalIsOpen: true});
+    dispatch(handleShowModal("Login"))
   }
 
   afterOpenModal = () => {
@@ -50,25 +54,10 @@ class Nav extends Component {
 
 
   render() {
-    const {AutherUser} = this.props
+    // const {AutherUser, match} = this.props
+
     return (
       <div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          // onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={true}
-          // overlayClassName="ReactModal__Overlay"
-          tabindex="1"
-          className="Modal"
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.4)'
-            },
-          }}
-        >
-          <LoginRegister />
-        </Modal>
         <nav className="nav">
           <ul className="nav-container one">
             <li>
@@ -115,6 +104,13 @@ class Nav extends Component {
       </div>
 
     )
+  }
+}
+
+
+function mapStateToProps({authedUser, modal}) {
+  return {
+    modal
   }
 }
 

@@ -1,6 +1,6 @@
 /*global google*/
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
@@ -11,7 +11,7 @@ import { withRouter } from "react-router-dom";
 import {connect} from "react-redux"
 import {handleGetParkings} from "../actions/parkings"
 import parkingImg from "../images/parking-placeholder.png"
-
+import {handleShowModal, handleHideModal} from "../actions/modal"
 
 
 class FindParking extends Component {
@@ -28,12 +28,12 @@ class FindParking extends Component {
   //   dispatch(handleGetParkings())
   // }
   render() {
-    const {dispatch, parkings} = this.props
+    const {dispatch, parkings, modal, AuthedUser} = this.props
 
     return (
       <div className="find-parking-container main-container">
-        <Route path={`/find-parking/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch}/>} />
-        <Route path={`/find-parking/search/rent/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={RentParking}/>}/>
+        <Route path={`/find-parking/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser}/>} />
+        <Route path={`/find-parking/search/rent/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal}/>}/>
         <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
       </div>
     )
@@ -73,12 +73,17 @@ class Search extends Component {
  }
 
  openModal = (e) => {
-  const {history} = this.props
-  console.log(e.target.name)
-  history.push(`/find-parking/search/rent/${e.target.name}`)
-  this.setState({
-    modalIsOpen: true
-  });
+  const {history, AuthedUser, dispatch, modal} = this.props
+  if (AuthedUser) {
+    history.push(`/find-parking/search/rent/${e.target.name}`)
+  } else {
+    history.push(`/find-parking/search/rent/${e.target.name}`)
+    dispatch(handleShowModal("Login"))
+  }
+  // if (!modal.type) {
+  //   dispatch(handleHideModal())
+  // }
+
   console.log(this.location)
  }
 
@@ -177,7 +182,7 @@ class Search extends Component {
                 <div className="map">
                     <Map
                       googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
-                      loadingElement={<div style={{ height: `100%` }} />}
+                      loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
                       containerElement={<div style={{ height: "500px" }} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
@@ -294,7 +299,7 @@ class RentParking extends Component {
   handleChange = (e) => {
     this.setState({
       occupied_by: this.props.match.params.id,
-      user: "3"
+      user: this.props.AuthedUser.pk
     })
     let value = e.target.value
     let name = e.target.name
@@ -314,76 +319,88 @@ class RentParking extends Component {
     console.log(this.state)
   }
 
+  closeModal = () => {
+    const {history} = this.props
+    history.push(`/find-parking/search/rent`)
+  }
+
   render() {
-    console.log(this.props.match.params.id)
     const id = this.props.match.params.id
-    const {parkings} = this.props
+    const {parkings, AuthedUser, dispatch} = this.props
     const parking = parkings[id]
 
 
     return (
-      <Modal
-        // overlayClassName="ReactModal__Overlay"
-        isOpen={true}
-        tabindex="1"
-        className="Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.4)'
-          },
-        }}
-      >
-        {parking &&
-          <div className="rent-parking container">
-            <div className="white-background container">
-              <div className="parking-information">
-                <div className="header">
-                  <h3>Want to park here?</h3>
-                </div>
-                <div className="listing">
-                  <div>
-                    <img src={parkingImg}></img>
-                  </div>
-                  <div className="details">
-                    <div>
-                      <h3>{parking.db_property}</h3>
-                      <h5>Level 2</h5>
-                      <p>RM{parking.db_price}</p>
-                    </div>
-                    <div>
-                      <p>AHB2786</p>
-                      <p>Posted: 28/7/18</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="tenure-information">
-                <div>
-                  <h3>Tenure Information</h3>
-                </div>
-                <div>
-                  <form onSubmit={this.handleSubmit}>
-                    <div>
-                      <label>Start date</label>
-                      <input type="text"></input>
-                    </div>
-                    <div>
-                      <label>Vehicle Registered</label>
-                      <div className="vehicle-registered">
-                        <input type="text" onChange={this.handleChange} name="car_model"></input>
-                        <input type="text" onChange={this.handleChange} name="car_registery"></input>
-                      </div>
-                    </div>
-                    {/* <a>+ Add Vehicle</a> */}
-                    <button className="btn">Submit</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+      <Fragment>
+        {AuthedUser
+          ?       <Modal
+                      // overlayClassName="ReactModal__Overlay"
+                      isOpen={true}
+                      onRequestClose={this.closeModal}
+                      tabIndex="1"
+                      className="Modal"
+                      style={{
+                        overlay: {
+                          backgroundColor: 'rgba(0, 0, 0, 0.4)'
+                        },
+                      }}
+                    >
+                      {parking &&
+                        <div className="rent-parking container">
+                          <div className="white-background container">
+                            <div className="parking-information">
+                              <div className="header">
+                                <h3>Want to park here?</h3>
+                              </div>
+                              <div className="listing">
+                                <div>
+                                  <img src={parkingImg}></img>
+                                </div>
+                                <div className="details">
+                                  <div>
+                                    <h3>{parking.db_property}</h3>
+                                    <h5>Level 2</h5>
+                                    <p>RM{parking.db_price}</p>
+                                  </div>
+                                  <div>
+                                    <p>AHB2786</p>
+                                    <p>Posted: 28/7/18</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="tenure-information">
+                              <div>
+                                <h3>Tenure Information</h3>
+                              </div>
+                              <div>
+                                <form onSubmit={this.handleSubmit}>
+                                  <div>
+                                    <label>Start date</label>
+                                    <input type="text"></input>
+                                  </div>
+                                  <div>
+                                    <label>Vehicle Registered</label>
+                                    <div className="vehicle-registered">
+                                      <input type="text" onChange={this.handleChange} name="car_model"></input>
+                                      <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                                    </div>
+                                  </div>
+                                  {/* <a>+ Add Vehicle</a> */}
+                                  <button className="btn">Submit</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                  </Modal>
+                  : null
+
         }
 
-    </Modal>
+      </Fragment>
+
     )
   }
 
@@ -413,8 +430,8 @@ const Map = withScriptjs(withGoogleMap((props) =>
   </GoogleMap>
 ))
 
-function mapStateToProps({parkings}) {
-  return {parkings}
+function mapStateToProps({AuthedUser, parkings, modal}) {
+  return {AuthedUser, parkings, modal}
 }
 
 export default connect(mapStateToProps)(FindParking)

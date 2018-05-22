@@ -14,32 +14,52 @@ import {Switch} from "react-router-dom"
 import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
 import {handleGetParkings} from "../actions/parkings"
+import Modal from 'react-modal';
+import {handleHideModal} from "../actions/modal"
 
-const PrivateRoute = ({ component: Component, ...rest}) => (
+const PrivateRoute = (props, { component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
     localStorage.getItem("auth")
     ? <Component {...props} />
     : <Redirect to={{
-        pathname: "/login",
+        pathname: "/",
         state: { from: props.location }
       }} />
   )}>
   </Route>
 )
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+Modal.setAppElement(document.getElementById('root'))
+
 class App extends Component {
   componentDidMount() {
     const {dispatch} = this.props
     dispatch(handleGetParkings())
   }
+  closeModal = () => {
+    const {dispatch} = this.props
+    dispatch(handleHideModal())
+  }
   render() {
-    const { AuthedUser, dispatch } = this.props
+    const { AuthedUser, dispatch, modal } = this.props
 
     return (
       <div className="App">
         <Router>
           <Fragment>
             <Nav dispatch={dispatch}/>
+            <LoginRegister />
             {/* {this.props.loading === true
               ? null
               :
@@ -60,10 +80,11 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
               <Route path="/find-parking" component={FindParking} />
-              <Route path="/register" component={Register} />
+              {/* <Route path="/register" component={Register} />
+              <Route path="/register" component={Register} /> */}
               <Route path="/add-listing" component={AddListing} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
-              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
               <Route render={function() {
                 return <p>Not Found</p>
               }} />
@@ -77,9 +98,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({AuthedUser}) {
+function mapStateToProps({AuthedUser, modal}) {
   return {
-    loading: AuthedUser === null
+    AuthedUser,
+    modal,
   }
 }
 
