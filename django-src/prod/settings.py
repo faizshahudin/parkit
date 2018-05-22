@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
 
     "DEFAULT_AUTHENTICATION_CLASSES": (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+#        'rest_framework.authentication.SessionAuthentication',
 #        'rest_framework.authentication.BasicAuthentication',
     ), 
 
@@ -184,7 +184,7 @@ JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=259200),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.jwt_payload_handler',    
+    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',    
  
 }
 
@@ -208,8 +208,8 @@ AUTH_USER_MODEL = 'accounts.User'
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'auth/password/reset/confirm?uid={uid}&authtoken={token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': False,
+    'ACTIVATION_URL': 'auth/activate/?uid={uid}&authtoken={token}',
+    'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
     'EMAIL': {
         'activation': 'djoser.email.ActivationEmail',

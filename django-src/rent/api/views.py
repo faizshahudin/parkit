@@ -34,9 +34,9 @@ from .serializers import (
 
 from accounts.models import User
 
-from djoser.compat import get_user_email, get_user_email_field_name
-from djoser.conf import settings
-from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template import Context
+from django.template.loader import get_template
 
 
 class ParkingForRentAPI(ListCreateAPIView):
@@ -45,9 +45,17 @@ class ParkingForRentAPI(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        # add in send email function
         serializer.save(user=self.request.user)
-        # check if bank details exist.
+        # add in send email function
+        #user = self.request.user
+        #email = self.request.email
+        #template = get_template('myapp/email.html')
+        #context = Context({'user': user, 'other_info': info})
+        #content = template.render(context)
+        #if not user.email:
+        #    raise BadHeaderError('No email address given for {0}'.format(user))
+        #msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        #msg.send()
 
 class UpdateParkingForRentAPI (RetrieveUpdateDestroyAPIView):
     queryset = ParkingForRent.objects.all()

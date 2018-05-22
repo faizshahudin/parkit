@@ -1,77 +1,39 @@
-from django.db.models import Q
 from django.contrib.auth import get_user_model
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
-from django.conf import settings
-
-from django_filters.rest_framework import DjangoFilterBackend
-
-from rest_framework.authentication import (
-    SessionAuthentication, BasicAuthentication, TokenAuthentication
-)
-from rest_framework.filters import (
-    SearchFilter,
-    OrderingFilter,
-)
-
-from rest_framework.generics import (
-    CreateAPIView,
-    ListAPIView
-)
-
+from rest_framework_jwt.utils import api_settings
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
     IsAdminUser,
     IsAuthenticatedOrReadOnly,
 )
-
-from .serializers import (
-    UserCreateSerializer,
-)
+from accounts.api.custom_jwt  import custom_jwt_payload_handler
+from .serializers import UserCreateSerializer
 
 User = get_user_model()
+
+jwt_payload_handler = custom_jwt_payload_handler
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserCreateSerializer
     queryset = User.objects.all()
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = [AllowAny]
 
-#    @property
-#    def token(self):
-#        """
-#        Allows us to get a user's token by calling `user.token` instead of
-#        `user.generate_jwt_token().
-#
-#        The `@property` decorator above makes this possible. `token` is called
-#        a "dynamic property".
-#        """
-#        return self._generate_jwt_token()
-
-#    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-#    def create_auth_token(sender, instance=None, created=False, **kwargs):
-#        if created:
-#            Token.objects.create(user=instance)
-
-#class UserLoginAPIView(APIView):
-#    permission_classes = [AllowAny]
-#    serializer_class = UserLoginSerializer
-#    
-#    def post(self, request, *args, **kwargs):
-#        data = request.data
-#        serializer = UserLoginSerializer(data=data)
-#        if serializer.is_valid(raise_exception=True):
-#            new_data = serializer.data
-#            return Response(new_data, status=HTTP_200_OK)
-#        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        user = self.queryset.get(username=serializer.data['username'])
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        content = {'token':token , 'create_user':serializer.data}
+        # add in send welcome email
+        return Response(content,status=status.HTTP_201_CREATED, headers=headers)
 
 
 
