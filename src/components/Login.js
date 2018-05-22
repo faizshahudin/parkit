@@ -8,6 +8,8 @@ import {handleLogin, handleLogout} from "../actions/AuthedUser"
 import { Redirect } from 'react-router-dom'
 import { handleRegister } from "../actions/AuthedUser"
 import Modal from 'react-modal';
+import {handleShowModal, handleHideModal} from "../actions/modal"
+
 
 
 class LoginRegister extends Component {
@@ -27,10 +29,29 @@ class LoginRegister extends Component {
     })
   }
 
-  render() {
-    const {dispatch, AuthedUser} = this.props
+  closeModal = () => {
+    const {dispatch} = this.props
+    dispatch(handleHideModal())
+  }
 
+  render() {
+    const {dispatch, AuthedUser, modal} = this.props
+    console.log(modal.type)
     return (
+      <Modal
+        isOpen={modal.type ? true : false}
+        // onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        shouldCloseOnOverlayClick={true}
+        // overlayClassName="ReactModal__Overlay"
+        tabindex="1"
+        className="Modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.4)'
+          },
+        }}
+      >
         <div className="login-register">
           <div className="header">
             <h1>ParkIt</h1>
@@ -52,6 +73,7 @@ class LoginRegister extends Component {
             }
           </div>
         </div>
+      </Modal>
     )
   }
 }
@@ -82,6 +104,7 @@ class Login extends Component {
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
+    dispatch(handleHideModal())
   }
 
   logout = () => {
@@ -92,11 +115,11 @@ class Login extends Component {
   render() {
     // const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
     const {AuthedUser} = this.props
-    if (AuthedUser) {
-      return (
-        <Redirect to="/dashboard" />
-      )
-    }
+    // if (AuthedUser) {
+    //   return (
+    //     <Redirect to="/dashboard" />
+    //   )
+    // }
 
     return (
         <form className="form" onSubmit={this.login}>
@@ -218,8 +241,8 @@ class Register extends Component {
   }
 }
 
-function mapStateToProps({AuthedUser}) {
-  return {AuthedUser}
+function mapStateToProps({AuthedUser, modal}) {
+  return {AuthedUser, modal}
 }
 
 export default connect(mapStateToProps)(LoginRegister)

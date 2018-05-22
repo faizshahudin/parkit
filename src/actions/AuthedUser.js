@@ -69,7 +69,7 @@ export function handleLogin(data) {
           localStorage.setItem("userId", userId)
           const token = response.token
           localStorage.setItem("auth", token)
-          dispatch(loginSuccess(token))
+          dispatch(loginSuccess(response))
         }
         else {
           alert(response.non_field_errors[0])

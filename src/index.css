@@ -450,6 +450,8 @@ button:disabled {
   margin-left: auto;
   margin-right: auto;
   padding: 40px;
+  width: 40%;
+  z-index: 10;
 }
 
 .login-register-logo {
@@ -465,7 +467,7 @@ button:disabled {
 
 .login-register .header p {
   font-weight: 100;
-  width: 30%;
+
   margin-left: auto;
   margin-right: auto;
 }
@@ -477,7 +479,7 @@ button:disabled {
 .login-register .form-container {
   background-color: white;
   margin-top: 30px;
-  max-width: 40%;
+
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
