@@ -21,6 +21,7 @@ class CarDatabaseSerializer(ModelSerializer):
             'car_model',
             'car_registery',
             'occupied_by',
+            'start_date'
         ]
 
 #    def validate(self,data):

@@ -2,6 +2,8 @@
 
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.mail import EmailMessage, BadHeaderError
+from django.conf import settings
 
 from rest_framework.filters import (
         SearchFilter,
@@ -15,7 +17,7 @@ from rest_framework.generics import (
     UpdateAPIView,
     RetrieveAPIView,
     RetrieveUpdateAPIView,
-    RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView,
     )
 
 from rest_framework.permissions import (
@@ -49,7 +51,9 @@ class ParkingForRentAPI(ListCreateAPIView):
         # add in send email function
         #user = self.request.user
         #email = self.request.email
-        #template = get_template('myapp/email.html')
+        #info = 'dummy_info'
+        #template = get_template('template/password_reset_email.html')
+        #subject = 'test confimr rent'
         #context = Context({'user': user, 'other_info': info})
         #content = template.render(context)
         #if not user.email:
