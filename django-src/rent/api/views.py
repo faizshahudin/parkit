@@ -42,7 +42,7 @@ from django.template.loader import get_template
 class ParkingForRentAPI(ListCreateAPIView):
     queryset = ParkingForRent.objects.all()
     serializer_class = ParkingForRentSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

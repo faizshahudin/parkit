@@ -17,6 +17,7 @@ class ParkingForRentSerializer(ModelSerializer):
     class Meta:
         model = ParkingForRent
         fields = [
+            'user',
             'db_property',
             'db_area',
             'db_type',
@@ -29,6 +30,7 @@ class ParkingForRentSerializer(ModelSerializer):
             'db_latitude',
             'timestamp',
             'serial_no',
+            'image'
         ]
         
     def validate(self,data):

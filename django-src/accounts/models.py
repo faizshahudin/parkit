@@ -1,14 +1,23 @@
 from __future__ import unicode_literals
 
+import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
+
+def upload_location (instance,filename):
+    today = datetime.date.today()  # get today's date as a datetime type
+    todaystr = today.isoformat() 
+    return "%s/%s/%s/%s" % (todaystr,'profile',instance.user.id, filename)
 
 class User (AbstractUser):
     contact = models.CharField(max_length=30, blank=True)
-    re_type_password = models.CharField(max_length=50, blank=True, default='null')
     gender  = models.CharField(max_length=10, blank=True)
     dateofbirth = models.DateField(auto_now=False,auto_now_add=False,blank=True,null=True)
     workplace = models.CharField(max_length=100, blank=True)
     bank_acc_no = models.CharField(max_length=30, blank=True)
     bank_name = models.CharField(max_length=30, blank=True)
-#    pending image upload
+    image = models.ImageField(upload_to=upload_location,null=True,blank=True,width_field="image_width",height_field="image_height")
+    image_height = models.IntegerField(default=0)
+    image_width = models.IntegerField(default=0)
