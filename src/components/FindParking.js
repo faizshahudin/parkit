@@ -377,7 +377,7 @@ class RentParking extends Component {
                                 <form onSubmit={this.handleSubmit}>
                                   <div>
                                     <label>Start date</label>
-                                    <input type="text"></input>
+                                    <input name="start_date" type="datetime-local"></input>
                                   </div>
                                   <div>
                                     <label>Vehicle Registered</label>
@@ -396,9 +396,7 @@ class RentParking extends Component {
                       }
                   </Modal>
                   : null
-
         }
-
       </Fragment>
 
     )

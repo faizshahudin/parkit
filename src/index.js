@@ -14,8 +14,8 @@ import jwt from "jsonwebtoken"
 const store = createStore(reducer, middleware)
 
 if (localStorage.auth) {
-  console.log(jwt.decode(localStorage.auth))
-  store.dispatch(loginSuccess(localStorage.auth))
+  const user = (jwt.decode(localStorage.auth))
+  store.dispatch(loginSuccess(user))
 }
 
 ReactDOM.render(<Provider store={store}>

@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import avatar from "../images/profile-image.png"
 import parking from "../images/parking-placeholder.png"
+import {handleShowModal, handleHideModal} from "../actions/modal"
+import { connect } from 'react-redux'
+
+
 
 class Dashboard extends Component {
+  componentWillMount() {
+    const {dispatch} = this.props
+    dispatch(handleHideModal())
+  }
   render() {
     return(
       <div className="grey-background">
@@ -60,4 +68,9 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+function mapStateToProps({authedUser, modal}) {
+  return {
+    modal
+  }
+}
+export default connect(mapStateToProps)(Dashboard)

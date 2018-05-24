@@ -27,9 +27,10 @@ export function logout() {
   }
 }
 
-export function registerSuccess() {
+export function registerSuccess(id) {
   return {
     type: REGISTER_SUCCESS,
+    id,
   }
 }
 
@@ -42,20 +43,19 @@ export function registerError() {
 export function handleRegister(data) {
   return (dispatch) => {
     return Api.register(data).then(res => {
-      if (!res.email && !res.username) {
-        localStorage.setItem("auth", "12345")
-        dispatch(registerSuccess())
-      }
-      else if (res.username[0] === "A user with that username already exists.") {
-        alert(res.username[0])
-      }
-      else if (res.email[0] === "This user has already registered.") {
-        alert(res.email[0])
-      }
+      localStorage.setItem("auth", res.token)
+      dispatch(registerSuccess(res.token))
+
+      // else if (res.username[0] === "A user with that username already exists.") {
+      //   alert(res.username[0])
+      // }
+      // else if (res.email[0] === "This user has already registered.") {
+      //   alert(res.email[0])
+      // }
     })
     .catch(e => {
       dispatch(registerError())
-      alert("There was an error processing your request.")
+      console.log(e)
     })
   }
 }

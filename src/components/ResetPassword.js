@@ -15,7 +15,6 @@ class ResetPassword extends Component {
     this.setState((state) => ({
       [name]: value
     }))
-    console.log(this.state)
   }
 
   handleSubmit = (e) => {
@@ -23,7 +22,6 @@ class ResetPassword extends Component {
     Api.resetPassword(this.state)
       .then(res => console.log(res))
       .catch("There was an error processing your request.")
-    console.log(this.state)
   }
 
   componentDidMount() {

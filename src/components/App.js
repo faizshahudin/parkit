@@ -17,7 +17,7 @@ import {handleGetParkings} from "../actions/parkings"
 import Modal from 'react-modal';
 import {handleHideModal} from "../actions/modal"
 
-const PrivateRoute = (props, { component: Component, ...rest}) => (
+const PrivateRoute = ({ component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
     localStorage.getItem("auth")
     ? <Component {...props} />
@@ -54,6 +54,7 @@ class App extends Component {
   render() {
     const { AuthedUser, dispatch, modal } = this.props
 
+
     return (
       <div className="App">
         <Router>
@@ -80,8 +81,8 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
               <Route path="/find-parking" component={FindParking} />
-              {/* <Route path="/register" component={Register} />
-              <Route path="/register" component={Register} /> */}
+              {/* <Route path="/login" component={LoginRegister} />
+              <Route path="/register" component={LoginRegister} /> */}
               <Route path="/add-listing" component={AddListing} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
               <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
@@ -91,6 +92,7 @@ class App extends Component {
             </Switch>
 
             <Footer />
+
           </Fragment>
         </Router>
       </div>

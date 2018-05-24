@@ -50,14 +50,14 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_multiple_model',
-    
+
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',    
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'prod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parkit-backend',                      
+        'NAME': 'parkit-backend',
         'USER': 'parkitadmin',
         'PASSWORD': 'qwerty123',
         'HOST': 'rds-postgresql-parkit.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
@@ -174,9 +174,9 @@ REST_FRAMEWORK = {
 
     "DEFAULT_AUTHENTICATION_CLASSES": (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
 #        'rest_framework.authentication.BasicAuthentication',
-    ), 
+    ),
 
     "DEFAULT_FILTER_BACKENDS": (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -188,13 +188,13 @@ REST_USE_JWT = True
 
 import datetime
 JWT_AUTH = {
- 
+
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=259200),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',    
- 
+    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',
+
 }
 
 #For email
@@ -225,7 +225,7 @@ DJOSER = {
         'confirmation': 'djoser.email.ConfirmationEmail',
         'password_reset': 'accounts.api.emails.PasswordResetEmail',
     },
-    
+
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,

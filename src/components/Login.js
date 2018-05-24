@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom"
+import {BrowserRouter as Router, Route, withRouter} from "react-router-dom"
 import LoginRegisterHeader from "./LoginRegisterHeader"
 import { Link } from 'react-router-dom'
 import * as Api from "./Api"
@@ -35,8 +35,7 @@ class LoginRegister extends Component {
   }
 
   render() {
-    const {dispatch, AuthedUser, modal} = this.props
-    console.log(modal.type)
+    const {dispatch, AuthedUser, modal, history} = this.props
     return (
       <Modal
         isOpen={modal.type ? true : false}
@@ -66,6 +65,7 @@ class LoginRegister extends Component {
               ? <Login
                 dispatch={dispatch}
                 AuthedUser={AuthedUser}
+                tanduk={history}
               />
               : <Register
                 dispatch={dispatch}
@@ -100,11 +100,15 @@ class Login extends Component {
 
 
   login = (e) => {
-    const {dispatch, AuthedUser} = this.props
+    const {dispatch, AuthedUser, history, tanduk} = this.props
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
-    dispatch(handleHideModal())
+    // dispatch(handleHideModal())
+
+    // return(
+    //   <Redirect to="/dashboard" />
+    // )
   }
 
   logout = () => {
@@ -113,13 +117,23 @@ class Login extends Component {
   }
 
   render() {
+
+    // console.log(this.props.history)
     // const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
-    const {AuthedUser} = this.props
-    // if (AuthedUser) {
-    //   return (
-    //     <Redirect to="/dashboard" />
-    //   )
-    // }
+    const {AuthedUser, dispatch} = this.props
+
+    if (AuthedUser) {
+      let currentLocation =  window.location.href
+      if (currentLocation.includes("find-parking")) {
+        dispatch(handleHideModal())
+        return null
+      } else {
+        return (
+          <Redirect to="/dashboard" />
+        )
+      }
+    }
+    // console.log(this.state.redirect)
 
     return (
         <form className="form" onSubmit={this.login}>

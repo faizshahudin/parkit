@@ -83,14 +83,14 @@ class Nav extends Component {
               </NavLink>
             </li>
             <li>
-              <NavLink to='/' onClick={this.openModal} activeClassName='null'>
+              <a onClick={this.openModal}>
                 Log in
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink to="/" onClick={this.openModal} className="btn-transparent">
+              <a onClick={this.openModal} className="btn-transparent">
                 Sign Up
-              </NavLink>
+              </a>
             </li>
             <li>
               <img className="nav-menu-icon" src={MenuIcon}></img>
