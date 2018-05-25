@@ -124,7 +124,7 @@ class Login extends Component {
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
-      if (currentLocation.includes("find-parking")) {
+      if (currentLocation.includes("find-parking/search/")) {
         dispatch(handleHideModal())
         return null
       } else {

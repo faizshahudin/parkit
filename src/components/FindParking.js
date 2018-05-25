@@ -23,17 +23,14 @@ class FindParking extends Component {
       modalIsOpen: props.isOpen,
     }
   }
-  // componentDidMount = () => {
-  //   const {dispatch} = this.props
-  //   dispatch(handleGetParkings())
-  // }
+
   render() {
-    const {dispatch, parkings, modal, AuthedUser} = this.props
+    const {dispatch, parkings, modal, AuthedUser, match} = this.props
 
     return (
       <div className="find-parking-container main-container">
-        <Route path={`/find-parking/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser}/>} />
-        <Route path={`/find-parking/search/rent/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal}/>}/>
+        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser}/>} />
+        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal}/>}/>
         <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
       </div>
     )
@@ -73,11 +70,11 @@ class Search extends Component {
  }
 
  openModal = (e) => {
-  const {history, AuthedUser, dispatch, modal} = this.props
+  const {history, AuthedUser, dispatch, modal, match} = this.props
   if (AuthedUser) {
-    history.push(`/find-parking/search/rent/${e.target.name}`)
+    history.push(`${match.url}/${e.target.name}`)
   } else {
-    history.push(`/find-parking/search/rent/${e.target.name}`)
+    history.push(`${match.url}/${e.target.name}`)
     dispatch(handleShowModal("Login"))
   }
   // if (!modal.type) {
@@ -215,7 +212,6 @@ class NoParking extends Component {
     this.setState((state) => ({
       [name]: value
     }))
-    console.log(this.state)
   }
 
    handleSubmit = (e) => {
@@ -321,7 +317,7 @@ class RentParking extends Component {
 
   closeModal = () => {
     const {history} = this.props
-    history.push(`/find-parking/search/rent`)
+    history.push(`/find-parking/search`)
   }
 
   render() {

@@ -4,14 +4,15 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import * as Api from "./Api"
+import { connect } from 'react-redux'
 import jwt from "jsonwebtoken"
 
 class AddListing extends Component {
   render() {
-    const { match } = this.props
+    const { match, AuthedUser } = this.props
     return (
       <div>
-        <Route exact path="/add-listing" component={Add}/>
+        <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser}/>}/>
         <Route path={`${match.path}/thank-you`} component={ThankYou}/>
       </div>
     )
@@ -112,10 +113,6 @@ class Add extends Component {
             title: "TTDI",
             value: "ttdi",
           },
-          // {
-          //   title: "Other",
-          //   value: null
-          // },
         ]
       },
       carparkType: {
@@ -190,14 +187,16 @@ class Add extends Component {
   }
 
   handleChange = (e) => {
+   const {AuthedUser} = this.props
    let value = e.target.value
    let name = e.target.name
    this.setState((state) => ({
-     [name]: value
+     [name]: value,
+     user: AuthedUser.pk,
    }))
    if (e.target.value === "other") {
      this.setState({
-       ["o" + name]: value
+       ["o" + name]: value,
      })
    }
  }
@@ -214,11 +213,12 @@ class Add extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({submit: true})
+    this.setState({
+      submit: true,
+    })
     Api.addParking(this.state, localStorage.auth)
       .then(res => console.log(res))
       .catch("There was an error processing your request.")
-    console.log(this.state)
   }
 
   isDisabled = () => {
@@ -240,20 +240,6 @@ class Add extends Component {
         || !db_price
     }
   }
-
-  // searchBox = () => {
-  //   var defaultBounds = new google.maps.LatLngBounds(
-  //   new google.maps.LatLng(-33.8902, 151.1759),
-  //   new google.maps.LatLng(-33.8474, 151.2631));
-  //
-  //   var input = document.getElementById('searchTextField');
-  //   var options = {
-  //     bounds: defaultBounds,
-  //     types: ['establishment']
-  //   };
-  //
-  //   var autocomplete = new google.maps.places.Autocomplete(input, options);
-  // }
 
   initialize = () => {
     let self = this
@@ -287,8 +273,6 @@ class Add extends Component {
   render() {
     const { match } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
-
-    console.log(area.options.map(a => console.log(a.value)))
 
     if (this.state.submit === true) {
      return <Redirect to={`${match.url}/thank-you`} />
@@ -468,5 +452,11 @@ const ThankYou = () => (
   </div>
 )
 
+function mapStateToProps({AuthedUser}) {
+  return {
+    AuthedUser
+  }
+}
 
-export default AddListing
+
+export default connect(mapStateToProps)(AddListing)
