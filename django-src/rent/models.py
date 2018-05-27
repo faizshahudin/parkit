@@ -26,9 +26,9 @@ class ParkingForRent (models.Model):
     db_price      = models.CharField(max_length=100, blank=True)
     db_sale_price = models.CharField(max_length=100, blank=True)
     list_status   = (
+        ('Pending' , 'Pending'),        
         ('Approved', 'Approved'),
         ('Occupied', 'Occupied'),
-        ('Pending' , 'Pending'),
     )  
     db_status     = models.CharField(max_length=100, choices=list_status, default='Pending')
     timestamp     = models.DateTimeField(auto_now=False, auto_now_add=True)

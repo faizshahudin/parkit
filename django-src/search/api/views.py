@@ -34,8 +34,11 @@ from rent.models import (
     ParkingForRent,
 )
 
+from search.models import ParkingEnquiry
+
 from .serializers import (
-    SearchForParkingSerializer, 
+    SearchForParkingSerializer,
+    ParkingEnquirySerializer
     )
 
 class SearchForParkingAPI(ListAPIView):
@@ -58,7 +61,12 @@ class SearchForParkingAPI(ListAPIView):
             ).distinct()
         return queryset_list
 
+class ParkingEnquiryAPI(CreateAPIView):
+    serializer_class = ParkingEnquirySerializer
+    permission_classes = [AllowAny]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 

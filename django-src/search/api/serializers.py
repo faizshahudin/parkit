@@ -7,6 +7,7 @@ from rest_framework.serializers import (
     )
 
 from rent.models import ParkingForRent
+from search.models import ParkingEnquiry
 
 class SearchForParkingSerializer(ModelSerializer):
     class Meta:
@@ -26,6 +27,20 @@ class SearchForParkingSerializer(ModelSerializer):
             'db_latitude',
             'db_address'
             
+        ]
+
+class ParkingEnquirySerializer(ModelSerializer):
+    class Meta:
+        model = ParkingEnquiry
+        fields = [
+            'id',
+            'db_office',
+            'db_period',
+            'db_price',
+            'db_status',
+            'db_longitude',
+            'db_latitude',
+            'db_location'
         ]
 
      
