@@ -29,13 +29,12 @@ class ParkingForRent (models.Model):
         ('Pending' , 'Pending'),        
         ('Approved', 'Approved'),
         ('Occupied', 'Occupied'),
-    )  
+    )
+    db_level      = models.CharField(max_length=100, blank=True)
     db_status     = models.CharField(max_length=100, choices=list_status, default='Pending')
     timestamp     = models.DateTimeField(auto_now=False, auto_now_add=True)
     serial_no     = models.CharField(max_length=15, blank=True)
-    image         = models.ImageField(upload_to=upload_location,null=True,blank=True,width_field="image_width",height_field="image_height")
-    image_height  = models.IntegerField(default=0)
-    image_width   = models.IntegerField(default=0)
+    image         = models.ImageField(upload_to=upload_location,null=True,blank=True)
 
 
     def __str__(self):

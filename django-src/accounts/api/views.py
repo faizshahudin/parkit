@@ -32,8 +32,4 @@ class UserCreateAPIView(CreateAPIView):
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
         content = {'token':token , 'create_user':serializer.data}
-        # add in send welcome email
         return Response(content,status=status.HTTP_201_CREATED, headers=headers)
-
-
-

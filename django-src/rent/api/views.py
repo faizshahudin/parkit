@@ -9,6 +9,7 @@ from rest_framework.filters import (
         SearchFilter,
         OrderingFilter,
     )
+
 from rest_framework.generics import (
     CreateAPIView,
     ListCreateAPIView,
@@ -46,41 +47,32 @@ from django.template.loader import get_template
 class ParkingForRentAPI(ListCreateAPIView):
     queryset = ParkingForRent.objects.all()
     serializer_class = ParkingForRentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         # add in send email function
-#       user = self.request.user
-#       print (user)
-#       #email = self.request.email
-#       info = 'dummy_info'
-#       template = get_template('password_reset_email.html')
-#       subject = 'test confimr rent'
-#       context = Context([{'user': user, 'other_info': info}])
-#       content = template.render(context)
-#       if not user.email:
-#           raise BadHeaderError('No email address given for {0}'.format(user))
-#       msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=['support@parkitmy.com',])
-#       msg.send()
-
-#class EmailNotificationAPI(ListAPIView):
-#    queryset = User.objects.all()
-#    serializer_class = UserQuerySerializer
-#    permission_classes = [AllowAny]
-#    
-#    def get_queryset(self):
-#        user = User.objects.filter(username=self.request.user)
-#        #email = self.request.email
-#        
-#        print (user)
-#        #return queryset    
+        user = self.request.user
+        first_name = User.objects.get(username=user).first_name
+        last_name = User.objects.get(username=user).last_name
+        email = User.objects.get(username=user).email
+        
+        #email = self.request.email
+        info = 'dummy_info'
+        template = get_template('rent.html')
+        subject = 'Thank you ' + email + ' for listing your carpark with ParkIt'
+        context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info, 'email':email})
+        content = template.render(context)
+        if not user.email:
+            raise BadHeaderError('No email address given for {0}'.format(user))
+        msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        msg.send()
 
 class UpdateParkingForRentAPI (RetrieveUpdateDestroyAPIView):
     queryset = ParkingForRent.objects.all()
     lookup_field = 'pk'
     serializer_class = ParkingForRentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -88,7 +80,7 @@ class UpdateParkingForRentAPI (RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance):
         instance.delete ()
-        return instance
+        return Response(instance, status=status.HTTP_410_GONE)
 
 
 

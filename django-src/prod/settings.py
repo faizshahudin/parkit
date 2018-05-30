@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,14 +51,14 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_multiple_model',
-
+    
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,7 +75,9 @@ ROOT_URLCONF = 'prod.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,7 +106,7 @@ WSGI_APPLICATION = 'prod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parkit-backend',
+        'NAME': 'parkit-backend',                      
         'USER': 'parkitadmin',
         'PASSWORD': 'qwerty123',
         'HOST': 'rds-postgresql-parkit.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
@@ -111,6 +114,16 @@ DATABASES = {
     }
 }
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'parkit-backend',                      
+#        'USER': 'parkitadmin',
+#        'PASSWORD': 'qwerty123',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -154,7 +167,7 @@ STATICFILES_DIR = [
 ]
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static_cdn")
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media_cdn")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media")
 
 MEDIA_URL = "/media/"
 
@@ -163,38 +176,31 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
-    # 'DEFAULT_PARSER_CLASSES': (
-    #     'rest_framework.parsers.JSONParser',
-    # )
 
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
-        #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
 
     "DEFAULT_AUTHENTICATION_CLASSES": (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-#        'rest_framework.authentication.BasicAuthentication',
-    ),
+        'rest_framework.authentication.SessionAuthentication',
+    ), 
 
     "DEFAULT_FILTER_BACKENDS": (
         'django_filters.rest_framework.DjangoFilterBackend',
     )
 }
 
-FRONTEND_URL = 'http://127.0.0.1:8000'
 REST_USE_JWT = True
 
-import datetime
 JWT_AUTH = {
-
+ 
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=259200),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',
-
+    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',    
+ 
 }
 
 #For email
@@ -210,22 +216,15 @@ EMAIL_PORT = 587
 SITE_ID = 2
 
 REST_SESSION_LOGIN = True
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
 AUTH_USER_MODEL = 'accounts.User'
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'auth/password/reset/confirm?uid={uid}&authtoken={token}',
-    'ACTIVATION_URL': 'auth/activate/?uid={uid}&authtoken={token}',
-    'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
     'EMAIL': {
-        'activation': 'djoser.email.ActivationEmail',
-        'confirmation': 'djoser.email.ConfirmationEmail',
         'password_reset': 'accounts.api.emails.PasswordResetEmail',
     },
-
+    
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,

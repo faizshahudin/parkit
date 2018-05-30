@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Welcome to ParkIt{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}You're receiving this email because you've registered with Parkit.{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+<p>{% blocktrans %}Thank you for signing up with Parkit!{% endblocktrans %}</p>
+
+<p>{% trans "Thanks for choosing Parkit!" %}</p>
+
+<p>{% blocktrans %}The Parkit team{% endblocktrans %}</p>
+{% endblock html_body %}
