@@ -65,8 +65,8 @@ class UserCreateSerializer(ModelSerializer):
         last_name  = validated_data['last_name']
         email      = validated_data['email']
         password   = validated_data['password']
-        contact = validated_data['contact']
-        username = email
+        contact    = validated_data['contact']
+        username   = email
         create_user = User(
                 username = username,
                 first_name = first_name,
@@ -76,11 +76,9 @@ class UserCreateSerializer(ModelSerializer):
             )
         create_user.set_password(password)
         create_user.save()
-        #email = self.request.email
-        info = 'dummy_info'
         template = get_template('register.html')
-        subject = 'Thank you ' + email + ' for registering with ParkIt'
-        context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info,'email':email})
+        subject = 'Hey ' + first_name + ' ' + last_name + ' ! Welcome to ParkIt!'
+        context = ({'first_name': first_name, 'last_name':last_name,'email':email})
         content = template.render(context)
         msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
         msg.content_subtype = "html"
