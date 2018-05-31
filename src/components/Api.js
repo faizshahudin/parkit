@@ -54,3 +54,12 @@ fetch(`http://127.0.0.1:8000/vehicle/`, {
 export const getParkings = (area) =>
     fetch(`http://127.0.0.1:8000/search/?db_status=Pending`)
     .then(res => res.json())
+
+export const getUserInfo = (auth) =>
+fetch(`http://127.0.0.1:8000/profile/`, {
+  method: 'GET',
+  headers: {
+    "Authorization": `Bearer ${auth}`,
+  },
+})
+.then(res => res.json())

@@ -3,7 +3,7 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import jwt from "jsonwebtoken"
 
 export const GET_PARKINGS = "GET_PARKINGS"
-export const ADD_PARKING = "ADD_PARKING"
+export const LIST_PARKING = "LIST_PARKING"
 export const GET_USER_PARKINGS = "GET_USER_PARKINGS"
 
 
@@ -18,6 +18,21 @@ export function getUserParkings(parkings) {
   return {
     type: GET_USER_PARKINGS,
     parkings,
+  }
+}
+
+export function listParking(parking) {
+  return {
+    type: LIST_PARKING,
+    parking
+  }
+}
+
+export function handleListParking(parkings) {
+  return (dispatch) => {
+    Api.addParking(parkings, localStorage.auth)
+      .then(res => dispatch(listParking(res)))
+      .catch("There was an error processing your request.")
   }
 }
 
@@ -44,7 +59,6 @@ export function handleGetParkings() {
       parkings.map(parking => {
       parkingObject[parking.id] = parking
     })
-    dispatch(handleGetUserParkings(parkings))
     dispatch(getParkings(parkingObject))
     })
     .then(() => dispatch(hideLoading()))

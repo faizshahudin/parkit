@@ -1,13 +1,12 @@
-import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR} from "../actions/AuthedUser"
-import {GET_USER_PARKINGS} from "../actions/parkings"
+import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS} from "../actions/AuthedUser"
+import {GET_USER_PARKINGS, LIST_PARKING} from "../actions/parkings"
 import jwt from "jsonwebtoken"
 
 export default function users(state = null, action) {
   switch (action.type) {
     case LOGIN_SUCCESS :
       return {
-        ...action.id,
-        parkings: []
+        ...action.id
       }
     case LOGIN_ERROR :
       return null
@@ -21,6 +20,18 @@ export default function users(state = null, action) {
       return {
         ...state,
         parkings: action.parkings
+      }
+    case GET_USER_DETAILS :
+      return {
+        ...state,
+        parkings: action.data.ParkingForRent,
+        cars: action.data.CarDatabase,
+        ...action.data.User[0]
+      }
+    case LIST_PARKING :
+      return {
+        ...state,
+        parkings: state.parkings.concat(action.parking),
       }
     default :
       return state

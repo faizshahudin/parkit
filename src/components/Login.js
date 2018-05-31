@@ -9,6 +9,8 @@ import { Redirect } from 'react-router-dom'
 import { handleRegister } from "../actions/AuthedUser"
 import Modal from 'react-modal';
 import {handleShowModal, handleHideModal} from "../actions/modal"
+import {handleGetParkings} from "../actions/parkings"
+
 
 
 
@@ -36,6 +38,7 @@ class LoginRegister extends Component {
 
   render() {
     const {dispatch, AuthedUser, modal, history} = this.props
+
     return (
       <Modal
         isOpen={modal.type ? true : false}
@@ -92,23 +95,11 @@ class Login extends Component {
     }))
   }
 
-  getCookie = (name) => {
-  	var value = "; " + document.cookie;
-  	var parts = value.split("; " + name + "=");
-  	if (parts.length == 2) return parts.pop().split(";").shift();
-  }
-
-
   login = (e) => {
     const {dispatch, AuthedUser, history, tanduk} = this.props
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
-    // dispatch(handleHideModal())
-
-    // return(
-    //   <Redirect to="/dashboard" />
-    // )
   }
 
   logout = () => {
@@ -117,10 +108,7 @@ class Login extends Component {
   }
 
   render() {
-
-    // console.log(this.props.history)
-    // const { from } = this.props.location.state || { from: { pathname: "/dashboard" } }
-    const {AuthedUser, dispatch} = this.props
+    const {dispatch, AuthedUser, modal, history} = this.props
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
@@ -133,7 +121,6 @@ class Login extends Component {
         )
       }
     }
-    // console.log(this.state.redirect)
 
     return (
         <form className="form" onSubmit={this.login}>
@@ -191,6 +178,19 @@ class Register extends Component {
   }
 
   render() {
+    const {dispatch, AuthedUser, modal, history} = this.props
+
+    if (AuthedUser) {
+      let currentLocation =  window.location.href
+      if (currentLocation.includes("find-parking/search/")) {
+        dispatch(handleHideModal())
+        return null
+      } else {
+        return (
+          <Redirect to="/dashboard" />
+        )
+      }
+    }
     return(
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="name-container">

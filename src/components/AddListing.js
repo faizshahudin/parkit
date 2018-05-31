@@ -5,14 +5,15 @@ import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import * as Api from "./Api"
 import { connect } from 'react-redux'
+import { handleListParking } from "../actions/parkings"
 import jwt from "jsonwebtoken"
 
 class AddListing extends Component {
   render() {
-    const { match, AuthedUser } = this.props
+    const { match, AuthedUser, dispatch } = this.props
     return (
       <div>
-        <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser}/>}/>
+        <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser} dispatch={dispatch}/>}/>
         <Route path={`${match.path}/thank-you`} component={ThankYou}/>
       </div>
     )
@@ -212,13 +213,12 @@ class Add extends Component {
   }
 
   handleSubmit = (e) => {
+    const {dispatch} = this.props
     e.preventDefault()
     this.setState({
       submit: true,
     })
-    Api.addParking(this.state, localStorage.auth)
-      .then(res => console.log(res))
-      .catch("There was an error processing your request.")
+    dispatch(handleListParking(this.state))
   }
 
   isDisabled = () => {
@@ -271,6 +271,7 @@ class Add extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { match } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
 
@@ -353,6 +354,8 @@ class Add extends Component {
                         </div>
                       )}
                     </div>
+                    <input type="file" id="profile_pic" name="image"
+                          onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
                   </div>
                 </div>
               }

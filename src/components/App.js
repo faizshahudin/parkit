@@ -14,8 +14,10 @@ import {Switch} from "react-router-dom"
 import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
 import {handleGetParkings} from "../actions/parkings"
+import {handleGetUserDetails} from "../actions/AuthedUser"
 import Modal from 'react-modal';
 import {handleHideModal} from "../actions/modal"
+import Parkers from "./Parkers"
 
 const PrivateRoute = ({ component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
@@ -45,7 +47,13 @@ Modal.setAppElement(document.getElementById('root'))
 class App extends Component {
   componentDidMount() {
     const {dispatch} = this.props
-    dispatch(handleGetParkings())
+    if (localStorage.auth) {
+      dispatch(handleGetUserDetails())
+      dispatch(handleGetParkings())
+    }
+    // localStorage.auth
+    //   ? dispatch(handleGetUserDetails())
+    //   : null
   }
   closeModal = () => {
     const {dispatch} = this.props
@@ -80,6 +88,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
+              <Route path="/parkers" component={Parkers} />
               <Route path="/find-parking" component={FindParking} />
               {/* <Route path="/login" component={LoginRegister} />
               <Route path="/register" component={LoginRegister} /> */}
@@ -90,9 +99,7 @@ class App extends Component {
                 return <p>Not Found</p>
               }} />
             </Switch>
-
             <Footer />
-
           </Fragment>
         </Router>
       </div>

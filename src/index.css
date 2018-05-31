@@ -238,6 +238,7 @@ button:disabled {
   border-radius: 10px;
   font-size: 35px;
   color: white;
+  font-weight: 700;
 }
 
 .background-grey {
@@ -441,6 +442,152 @@ button:disabled {
 .owners .signup p {
   font-size: 25px;
 }
+
+/* Parkers */
+.parkers {
+  grid-gap: 30px;
+  color: #8a8888;
+}
+
+.parkers .hero.one {
+  padding: 50px !important;
+}
+
+.parkers .hero.one .header {
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 24px;
+}
+
+.parkers .hero.one .text {
+  font-weight: initial;
+  font-size: 18px;
+}
+
+.parkers h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.parkers .container {
+  width: 95%;
+}
+
+.parkers .hero.one {
+  padding: 0 !important;
+}
+
+.parkers .hero.one .content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parkers .hero.one img {
+  width: 100%;
+}
+
+.parkers .hero.one h1 {
+  color: #e86c6d;
+}
+
+.parkers .hero.two {
+  padding: 0;
+  width: 95%;
+}
+
+.parkers .hero.two .content-container {
+  background-color: #f7f6f6;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.parkers .hero.two .content {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.parkers .hero.two .image {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parkers .hero.two .image img {
+  width: 90%;
+}
+
+.parkers .list {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.parkers .hero.two .content .bullet-points {
+  display: grid;
+  grid-template-columns: 0.2fr 1.8fr;
+  grid-gap: 10px;
+  padding: 10px 0;
+}
+
+.parkers .hero.two .content .bullet-points li {
+  padding: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.parkers .hero.two .content .bullet-points.two {
+  margin-left: 30px;
+}
+
+.parkers .hero.two .content .bullet-points.three {
+  margin-left: 60px;
+}
+
+.parkers .hero.two .content img {
+  height: 30px;
+  margin-left: auto;
+}
+
+.parkers .hero.three {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.parkers .signup {
+  background-color: white;
+  color: black;
+  padding: 0;
+}
+
+.parkers .signup button {
+  background-color: #e86c6d;
+  color: white;
+}
+
+.parkers .list .images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.parkers .list .images img {
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parkers .signup {
+  color: #8a8888;
+}
+
+.parkers .signup p {
+  font-size: 25px;
+}
+
 
 /* Login / Register */
 
@@ -668,9 +815,8 @@ button:disabled {
 }
 
 .add-listing-message-content p {
-  margin-left: auto;
-  width: 60%;
   font-size: 18px;
+  text-align: right;
 }
 
 .add-listing-form-input-header {
@@ -937,7 +1083,7 @@ button:disabled {
 }
 
 .find-parking-container .listings .individual-listing h3, h5, p {
-  margin: 5px !important;
+  margin: 0 !important;
 }
 
 .find-parking-container .listings .details {
@@ -1090,6 +1236,11 @@ button:disabled {
 .dashboard p, span {
   color: #8a8888;
   font-size: 14px;
+  font-weight: 300;
+}
+
+dashboard h3, h5, p, span {
+  margin: 5px 0 !important;
 }
 
 .dashboard h3 {
@@ -1134,12 +1285,36 @@ button:disabled {
   text-align: center;
 }
 
-.dashboard .parking .navigation a {
+.dashboard .parking .navigation button {
   font-family: 'Raleway', sans-serif !important;
+  border: none;
   font-weight: 500;
-  color: black;
-  padding: 20px 0;
+  font-size: 15px;
+  padding: 15px 0;
+  border-bottom: 2px solid white;
 }
+
+.dashboard .parking .navigation button:disabled {
+  opacity: 1;
+  color: #e86c6d;
+  border-bottom: 2px solid;
+  padding: 15px 0 !important;
+}
+
+/* .login-register .form-container button {
+  border: none;
+  font-weight: 500;
+  font-size: 20px;
+  padding: 15px 0;
+  border-bottom: 2px solid white;
+}
+
+.login-register .form-container button:disabled {
+  opacity: 1;
+  color: #e86c6d;
+  border-bottom: 2px solid;
+  padding: 15px 0 !important;
+} */
 
 .dashboard .parking .listing-container {
   display: grid;
@@ -1147,8 +1322,13 @@ button:disabled {
   grid-gap: 30px;
 }
 
-.dashboard .parking .listing-container .thumbnail img{
+.dashboard .parking .listing-container .thumbnail img {
   width: 100%;
+  height: 100% !important;
+}
+
+.dashboard .listing li {
+  padding: 0;
 }
 
 .dashboard .parking .details {
