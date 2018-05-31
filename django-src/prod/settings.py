@@ -106,10 +106,10 @@ WSGI_APPLICATION = 'prod.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'parkit-backend',                      
+        'NAME': 'parkit',                      
         'USER': 'parkitadmin',
         'PASSWORD': 'qwerty123',
-        'HOST': 'rds-postgresql-parkit.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
+        'HOST': 'parkit-backend.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

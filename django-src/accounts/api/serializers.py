@@ -82,8 +82,8 @@ class UserCreateSerializer(ModelSerializer):
         subject = 'Thank you ' + email + ' for registering with ParkIt'
         context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info,'email':email})
         content = template.render(context)
-        print (email)
         msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        msg.content_subtype = "html"
         msg.send()
         
         return validated_data
