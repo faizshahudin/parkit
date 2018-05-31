@@ -18,6 +18,4 @@ class User (AbstractUser):
     workplace = models.CharField(max_length=100, blank=True)
     bank_acc_no = models.CharField(max_length=30, blank=True)
     bank_name = models.CharField(max_length=30, blank=True)
-    image = models.ImageField(upload_to=upload_location,null=True,blank=True,width_field="image_width",height_field="image_height")
-    image_height = models.IntegerField(default=0)
-    image_width = models.IntegerField(default=0)
+    image = models.ImageField(upload_to=upload_location,null=True,blank=True)

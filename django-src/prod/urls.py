@@ -29,8 +29,8 @@ urlpatterns = [
     path('', include('rent.api.urls', namespace='rent-api')),
     path('', include('search.api.urls', namespace='search-api')),
     path('', include('vehicle.api.urls', namespace='vehicle-api')),
-     path('', include('profile.api.urls', namespace='profile-api')),
-    url(r'^auth/', include('djoser.urls')),
+    path('', include('profile.api.urls', namespace='profile-api')),
+    url(r'^parkit/user/', include('djoser.urls')),
 
 ]
 

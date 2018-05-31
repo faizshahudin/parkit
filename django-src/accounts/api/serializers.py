@@ -10,6 +10,10 @@ from rest_framework.serializers import (
     ValidationError
     )
 
+from django.core.mail import EmailMessage, BadHeaderError
+from django.template import Context
+from django.template.loader import get_template
+from django.conf import settings
 ######################################################################
 
 #from django.contrib.auth import authenticate, get_user_model
@@ -46,6 +50,10 @@ class UserCreateSerializer(ModelSerializer):
     def validate_email(self, value):
         data = self.get_initial()
         email = data.get("email")
+        username = data.get("username")
+
+        if username != email:
+            raise ValidationError("Username & email have to match")
 
         user_qs = User.objects.filter(email=email)
         if user_qs.exists():
@@ -53,12 +61,12 @@ class UserCreateSerializer(ModelSerializer):
         return value
 
     def create(self, validated_data):
-        username   = validated_data['username']
         first_name = validated_data['first_name']
         last_name  = validated_data['last_name']
         email      = validated_data['email']
         password   = validated_data['password']
         contact = validated_data['contact']
+        username = email
         create_user = User(
                 username = username,
                 first_name = first_name,
@@ -68,5 +76,14 @@ class UserCreateSerializer(ModelSerializer):
             )
         create_user.set_password(password)
         create_user.save()
-        # add in send welcome email
+        #email = self.request.email
+        info = 'dummy_info'
+        template = get_template('register.html')
+        subject = 'Thank you ' + email + ' for registering with ParkIt'
+        context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info,'email':email})
+        content = template.render(context)
+        print (email)
+        msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        msg.send()
+        
         return validated_data
