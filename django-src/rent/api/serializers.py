@@ -30,6 +30,7 @@ class ParkingForRentSerializer(ModelSerializer):
             'db_latitude',
             'db_level',
             'timestamp',
+            'db_level',
             'serial_no',
             'image'
         ]
