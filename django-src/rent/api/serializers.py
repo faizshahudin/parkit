@@ -28,16 +28,17 @@ class ParkingForRentSerializer(ModelSerializer):
             'db_address',
             'db_longitude',
             'db_latitude',
+            'db_level',
             'timestamp',
             'serial_no',
             'image'
         ]
-        
+
     def validate(self,data):
         unique_id  = get_random_string(length=10)
         data["serial_no"] = '#' + unique_id
         return data
-          
+
 """"
 from posts.models import Post
 from posts.api.serializers import PostDetailSerializer
@@ -48,7 +49,7 @@ data = {
     "content": "New content",
     "publish": "2016-2-12",
     "slug": "yeah-buddy",
-    
+
 }
 
 obj = Post.objects.get(id=2)
