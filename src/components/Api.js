@@ -65,15 +65,17 @@ export const getUserInfo = () =>
   .then(res => res.json())
 
 export const uploadPhoto = (auth, data) =>
-fetch(`http://127.0.0.1:8000/media/`, {
-  method: 'POST',
+fetch(`http://127.0.0.1:8000/profile/update/3/`, {
+  method: 'PUT',
   headers: {
     "Authorization": `Bearer ${auth}`,
     "Content-Type": "multipart/form-data"
   },
-  body: {data}
+  body: data
 })
+.then(res => res.json())
 .then(res => console.log(res))
+// .then(res => console.log(res))
 
 export function getInitialData() {
   return Promise.all([

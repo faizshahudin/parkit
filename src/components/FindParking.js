@@ -9,7 +9,7 @@ import one from "../images/1.png"
 import Modal from 'react-modal';
 import { withRouter } from "react-router-dom";
 import {connect} from "react-redux"
-import {handleGetParkings, handleBookParking} from "../actions/parkings"
+import {handleGetParkings, handleBookParking, bookParking} from "../actions/parkings"
 import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 
@@ -25,12 +25,11 @@ class FindParking extends Component {
   }
 
   render() {
-    const {dispatch, parkings, modal, AuthedUser, match} = this.props
-
+    const {dispatch, parkings, modal, AuthedUser, match, loading} = this.props
     return (
       <div className="find-parking-container main-container">
-        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser}/>} />
-        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal}/>}/>
+        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
+        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
         <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
       </div>
     )
@@ -73,6 +72,7 @@ class Search extends Component {
   const {history, AuthedUser, dispatch, modal, match} = this.props
   if (AuthedUser) {
     history.push(`${match.url}/${e.target.name}`)
+    dispatch(bookParking())
   } else {
     history.push(`${match.url}/${e.target.name}`)
     dispatch(handleShowModal("Login"))
@@ -290,6 +290,8 @@ class RentParking extends Component {
     this.state = {
       IsAuthenticated: null,
       modalIsOpen: false,
+      thankYou: true,
+      submit: false,
     }
   }
   handleChange = (e) => {
@@ -319,7 +321,7 @@ class RentParking extends Component {
 
   render() {
     const id = this.props.match.params.id
-    const {parkings, AuthedUser, dispatch} = this.props
+    const {parkings, AuthedUser, dispatch, loading} = this.props
     const parking = parkings[id]
 
 
@@ -341,49 +343,54 @@ class RentParking extends Component {
                       {parking &&
                         <div className="rent-parking container">
                           <div className="white-background container">
-                            <div className="parking-information">
-                              <div className="header">
-                                <h3>Want to park here?</h3>
-                              </div>
-                              <div className="listing">
-                                <div>
-                                  <img src={parkingImg}></img>
-                                </div>
-                                <div className="details">
-                                  <div>
-                                    <h3>{parking.db_property}</h3>
-                                    <h5>Level 2</h5>
-                                    <p>RM{parking.db_price}</p>
-                                  </div>
-                                  <div>
-                                    <p>AHB2786</p>
-                                    <p>Posted: 28/7/18</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="tenure-information">
-                              <div>
-                                <h3>Tenure Information</h3>
-                              </div>
-                              <div>
-                                <form onSubmit={this.handleSubmit}>
-                                  <div>
-                                    <label>Start date</label>
-                                    <input name="start_date" type="datetime-local"></input>
-                                  </div>
-                                  <div>
-                                    <label>Vehicle Registered</label>
-                                    <div className="vehicle-registered">
-                                      <input type="text" onChange={this.handleChange} name="car_model"></input>
-                                      <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                            {loading === true
+                              ?   <div>
+                                    <div className="parking-information">
+                                      <div className="header">
+                                        <h3>Want to park here?</h3>
+                                      </div>
+                                      <div className="listing">
+                                        <div>
+                                          <img src={parkingImg}></img>
+                                        </div>
+                                        <div className="details">
+                                          <div>
+                                            <h3>{parking.db_property}</h3>
+                                            <h5>Level 2</h5>
+                                            <p>RM{parking.db_price}</p>
+                                          </div>
+                                          <div>
+                                            <p>AHB2786</p>
+                                            <p>Posted: 28/7/18</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="tenure-information">
+                                      <div>
+                                        <h3>Tenure Information</h3>
+                                      </div>
+                                      <div>
+                                        <form onSubmit={this.handleSubmit}>
+                                          <div>
+                                            <label>Start date</label>
+                                            <input name="start_date" type="datetime-local"></input>
+                                          </div>
+                                          <div>
+                                            <label>Vehicle Registered</label>
+                                            <div className="vehicle-registered">
+                                              <input type="text" onChange={this.handleChange} name="car_model"></input>
+                                              <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                                            </div>
+                                          </div>
+                                          {/* <a>+ Add Vehicle</a> */}
+                                          <button className="btn">Submit</button>
+                                        </form>
+                                      </div>
                                     </div>
                                   </div>
-                                  {/* <a>+ Add Vehicle</a> */}
-                                  <button className="btn">Submit</button>
-                                </form>
-                              </div>
-                            </div>
+                                : <ThankYou />
+                            }
                           </div>
                         </div>
                       }
@@ -391,11 +398,28 @@ class RentParking extends Component {
                   : null
         }
       </Fragment>
-
     )
   }
-
 }
+
+
+const ThankYou = (props) => (
+  <Fragment>
+      <div className="thankyou">
+        <div className="image">
+          <img></img>
+        </div>
+        <div className="text">
+          <h3>Thank you for parking with us!</h3>
+          <p>We have sent your request to the Parkit team.</p>
+          <p>The team will get in touch shortly.</p>
+          <p>In the meantime, if you have any enquiries, do not hesitate to ask Ken.</p>
+          <p>He'll get to the bottom of it :)</p>
+        </div>
+      </div>
+  </Fragment>
+
+)
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
@@ -415,14 +439,17 @@ const Map = withScriptjs(withGoogleMap((props) =>
       position={props.userLocation}
       icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
       >
-
     </Marker>
-
   </GoogleMap>
 ))
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
-  return {AuthedUser, parkings, modal}
+  return {
+    AuthedUser,
+    parkings,
+    modal,
+    loading: parkings.loading,
+  }
 }
 
 export default connect(mapStateToProps)(FindParking)

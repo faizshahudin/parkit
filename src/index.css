@@ -1201,7 +1201,7 @@ button:disabled {
   grid-gap: 40px;
 }
 
-.rent-parking .tenure-information h3 {
+.rent-parking h3 {
   font-weight: 500;
 }
 
@@ -1223,6 +1223,11 @@ button:disabled {
 .rent-parking .tenure-information button {
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.rent-parking .thankyou {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 /* Dashboard */
