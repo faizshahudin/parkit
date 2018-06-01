@@ -4,7 +4,9 @@ import jwt from "jsonwebtoken"
 
 export const GET_PARKINGS = "GET_PARKINGS"
 export const LIST_PARKING = "LIST_PARKING"
+export const BOOK_PARKING = "BOOK_PARKING"
 export const GET_USER_PARKINGS = "GET_USER_PARKINGS"
+
 
 
 export function getParkings(parkings) {
@@ -28,10 +30,20 @@ export function listParking(parking) {
   }
 }
 
+export function bookParking(parking) {
+  return {
+    type: BOOK_PARKING,
+    parking
+  }
+}
+
 export function handleListParking(parkings) {
   return (dispatch) => {
     Api.addParking(parkings, localStorage.auth)
-      .then(res => dispatch(listParking(res)))
+      .then(res => {
+        console.log(res)
+        dispatch(listParking(res))
+      })
       .catch("There was an error processing your request.")
   }
 }
@@ -65,5 +77,15 @@ export function handleGetParkings() {
     .catch(e => {
       alert("There was an error processing your request")
     })
+  }
+}
+
+export function handleBookParking(parking) {
+  return (dispatch) => {
+    Api.bookParking(parking, localStorage.auth)
+      .then(res => {
+        dispatch(bookParking(res))
+      })
+      .catch("There was an error processing your request.")
   }
 }

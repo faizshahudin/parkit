@@ -195,6 +195,11 @@ class Add extends Component {
      [name]: value,
      user: AuthedUser.pk,
    }))
+   // if (this.state.image) {
+   //   let newImage = window.URL.createObjectURL(this.state.image)
+   //   this.setState({image: newImage})
+   //
+   // }
    if (e.target.value === "other") {
      this.setState({
        ["o" + name]: value,

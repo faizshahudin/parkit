@@ -14,22 +14,25 @@ class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: this.props.AuthedUser.parkings,
       listedParking: true,
     }
   }
+
   testEvent = (e) => {
     e.preventDefault()
     console.log(e)
   }
+
   componentWillMount() {
     const {dispatch} = this.props
     dispatch(handleHideModal())
   }
+
   componentDidMount() {
     const {dispatch} = this.props
     const user = (jwt.decode(localStorage.auth))
   }
+
   handleChange = (e) => {
    let value = document.getElementById("contact").textContent
    let name = e.target.name
@@ -44,11 +47,6 @@ class Dashboard extends Component {
    let value = document.getElementById("contact").textContent
    console.log(value)
  }
- //
- // componentDidMount() {
- //   const {dispatch} = this.props
- //   dispatch(handleGetUserDetails())
- // }
 
  getUserParkings = () => {
    const {AuthedUser, parkings} = this.props
@@ -66,8 +64,22 @@ class Dashboard extends Component {
    })
  }
 
-  render() {
+ handleSubmit = (e) => {
+   e.preventDefault()
+   Api.uploadPhoto(localStorage.auth, this.state.image)
+ }
 
+ handleChange = (e) => {
+  const {AuthedUser} = this.props
+  let value = e.target.value
+  let name = e.target.name
+  this.setState((state) => ({
+    [name]: value,
+  }))
+  console.log(this.state.image)
+}
+
+  render() {
     const {AuthedUser} = this.props
     if (AuthedUser.cars) {
       this.getUserParkings()
@@ -79,6 +91,11 @@ class Dashboard extends Component {
             <div className="dashboard main-container">
               <div className="user white-background">
                 <div className="avatar main-container">
+                  <form>
+                    <input type="file" id="profile_pic" name="image"
+                          onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
+                    <button onClick={this.handleSubmit}>Submit</button>
+                  </form>
                   <img src={avatar}></img>
                   <h3 contenteditable="true">{AuthedUser.first_name}</h3>
                   <p>Serdang, Selangor</p>
@@ -90,7 +107,7 @@ class Dashboard extends Component {
                 </div>
               </div>
               <div className="parking">
-                <div className="white-background">
+                <div className="white-background navigation-container">
                   <div className="navigation container">
                     <button onClick={this.toggleNav} disabled={this.state.listedParking}>Listed Parking</button>
                     <button onClick={this.toggleNav} disabled={!this.state.listedParking}>Rented Parking</button>
@@ -157,22 +174,22 @@ const RentedParking = (props) => (
           </div>
           <div className="details-container">
             <div className="name">
-              <h3>{props.parkings[car.id].db_property}</h3>
+              <h3>{props.parkings[car.occupied_by].db_property}</h3>
               <p>Lot B 13-1</p>
             </div>
             <div className="details">
               <div>
                 <h5>Vehicle Registered</h5>
-                <p>ABC 7364</p>
+                <p>{car.car_registery}</p>
               </div>
               <div>
                 <h5>Rental</h5>
-                <p>RM{props.parkings[car.id].db_price}</p>
+                <p>RM{props.parkings[car.occupied_by].db_price}</p>
               </div>
-              <div>
+              {/* <div>
                 <h5>User Registered</h5>
                 <p>Clamone Parkinson</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

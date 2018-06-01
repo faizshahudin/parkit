@@ -1255,6 +1255,7 @@ dashboard h3, h5, p, span {
 .dashboard .user {
   display: grid;
   grid-template-rows: 0.3fr 0.7fr;
+  height: 500px;
 }
 
 .dashboard .user .avatar {
@@ -1271,8 +1272,13 @@ dashboard h3, h5, p, span {
 }
 
 .dashboard .parking {
-  display: grid;
-  grid-template-rows: 0.1fr 0.9fr;
+  /* display: grid;
+  grid-gap: 10px; */
+  /* margin: 10px 0; */
+}
+
+.dashboard .parking .listing {
+  margin-top: 10px !important;
 }
 
 .dashboard .parking h3, h5, p {

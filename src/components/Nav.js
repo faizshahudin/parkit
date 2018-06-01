@@ -92,9 +92,6 @@ class Nav extends Component {
                 Sign Up
               </a>
             </li>
-            <li>
-              <img className="nav-menu-icon" src={MenuIcon}></img>
-            </li>
           </ul>
           {(localStorage.getItem("auth")?
             <div onClick={this.logout}>Logout</div>

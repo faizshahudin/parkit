@@ -11,14 +11,16 @@ import middleware from "./middleware"
 import {loginSuccess, handleLogin} from "./actions/AuthedUser"
 import jwt from "jsonwebtoken"
 import {handleGetParkings} from "./actions/parkings"
+import {handleInitialData} from "./actions/shared"
 
 
 const store = createStore(reducer, middleware)
 
-if (localStorage.auth) {
-  const user = (jwt.decode(localStorage.auth))
-  store.dispatch(loginSuccess(user))
-}
+// if (localStorage.auth) {
+//   if (localStorage.auth) {
+//     store.dispatch(handleInitialData())
+//   }
+// }
 
 ReactDOM.render(<Provider store={store}>
   <App />

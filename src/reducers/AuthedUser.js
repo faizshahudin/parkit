@@ -1,5 +1,5 @@
 import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS} from "../actions/AuthedUser"
-import {GET_USER_PARKINGS, LIST_PARKING} from "../actions/parkings"
+import {GET_USER_PARKINGS, LIST_PARKING, BOOK_PARKING} from "../actions/parkings"
 import jwt from "jsonwebtoken"
 
 export default function users(state = null, action) {
@@ -32,6 +32,11 @@ export default function users(state = null, action) {
       return {
         ...state,
         parkings: state.parkings.concat(action.parking),
+      }
+    case BOOK_PARKING :
+      return {
+        ...state,
+        cars: state.cars.concat(action.parking),
       }
     default :
       return state

@@ -9,7 +9,7 @@ import one from "../images/1.png"
 import Modal from 'react-modal';
 import { withRouter } from "react-router-dom";
 import {connect} from "react-redux"
-import {handleGetParkings} from "../actions/parkings"
+import {handleGetParkings, handleBookParking} from "../actions/parkings"
 import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 
@@ -180,7 +180,7 @@ class Search extends Component {
                     <Map
                       googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
                       loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
-                      containerElement={<div style={{ height: "500px" }} />}
+                      containerElement={<div style={{ height: "1000px"}} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
                       locations={this.state.filteredParkings}
@@ -306,13 +306,10 @@ class RentParking extends Component {
   }
 
   handleSubmit = (e) => {
+    const {dispatch} = this.props
     e.preventDefault()
-
     this.setState({submit: true})
-    Api.bookParking(this.state, localStorage.auth)
-      .then(res => console.log(res))
-      .catch("There was an error processing your request.")
-    console.log(this.state)
+    dispatch(handleBookParking(this.state))
   }
 
   closeModal = () => {

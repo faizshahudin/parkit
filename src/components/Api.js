@@ -51,15 +51,36 @@ fetch(`http://127.0.0.1:8000/vehicle/`, {
 })
 .then(res => res.json())
 
-export const getParkings = (area) =>
+export const getParkings = () =>
     fetch(`http://127.0.0.1:8000/search/?db_status=Pending`)
     .then(res => res.json())
 
-export const getUserInfo = (auth) =>
-fetch(`http://127.0.0.1:8000/profile/`, {
-  method: 'GET',
+export const getUserInfo = () =>
+  fetch(`http://127.0.0.1:8000/profile/`, {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${localStorage.auth}`,
+    },
+  })
+  .then(res => res.json())
+
+export const uploadPhoto = (auth, data) =>
+fetch(`http://127.0.0.1:8000/media/`, {
+  method: 'POST',
   headers: {
     "Authorization": `Bearer ${auth}`,
+    "Content-Type": "multipart/form-data"
   },
+  body: {data}
 })
-.then(res => res.json())
+.then(res => console.log(res))
+
+export function getInitialData() {
+  return Promise.all([
+    getUserInfo(),
+    getParkings(),
+  ]).then(([user, parkings]) => ({
+    user,
+    parkings
+  }))
+}
