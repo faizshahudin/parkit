@@ -13,8 +13,11 @@ class AddListing extends Component {
     const { match, AuthedUser, dispatch } = this.props
     return (
       <div>
-        <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser} dispatch={dispatch}/>}/>
-        <Route path={`${match.path}/thank-you`} component={ThankYou}/>
+        <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser} dispatch={dispatch} loading={this.props.loading}/>}/>
+        { this.props.loading === true
+          ? null
+          : <Route path={`${match.path}/thank-you`} component={ThankYou}/>
+        }
       </div>
     )
   }
@@ -276,11 +279,12 @@ class Add extends Component {
   }
 
   render() {
+
     console.log(this.state)
     const { match } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
 
-    if (this.state.submit === true) {
+    if (this.props.loading === false) {
      return <Redirect to={`${match.url}/thank-you`} />
    }
 
@@ -460,9 +464,11 @@ const ThankYou = () => (
   </div>
 )
 
-function mapStateToProps({AuthedUser}) {
+function mapStateToProps({AuthedUser, parkings}) {
+
   return {
-    AuthedUser
+    loading: parkings.loading,
+    AuthedUser,
   }
 }
 

@@ -103,7 +103,6 @@ class App extends Component {
                   <Route path="/find-parking" component={FindParking} />
                   <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
                   <Route path="/add-listing" component={AddListing} />
-
                 </div>
               }
               {/* <Route render={function() {

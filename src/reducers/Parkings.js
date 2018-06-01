@@ -1,4 +1,5 @@
-import {GET_PARKINGS, ADD_PARKING} from "../actions/parkings"
+import {GET_PARKINGS, LIST_PARKING, LIST_PARKING_SUCCESS} from "../actions/parkings"
+import { showLoading, hideLoading } from 'react-redux-loading'
 
 export default function parkings(state = {}, action) {
   switch(action.type) {
@@ -6,6 +7,16 @@ export default function parkings(state = {}, action) {
       return {
         ...state,
         ...action.parkings
+      }
+    case LIST_PARKING :
+      return {
+        ...state,
+        loading: true,
+      }
+    case LIST_PARKING_SUCCESS :
+      return {
+        ...state,
+        loading: false,
       }
     default :
       return state
