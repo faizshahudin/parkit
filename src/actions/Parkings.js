@@ -6,6 +6,7 @@ export const GET_PARKINGS = "GET_PARKINGS"
 export const LIST_PARKING = "LIST_PARKING"
 export const LIST_PARKING_SUCCESS = "LIST_PARKING_SUCCESS"
 export const BOOK_PARKING = "BOOK_PARKING"
+export const BOOK_PARKING_SUCCESS = "BOOK_PARKING_SUCCESS"
 export const GET_USER_PARKINGS = "GET_USER_PARKINGS"
 
 
@@ -37,9 +38,15 @@ export function listParkingSuccess(parking) {
   }
 }
 
-export function bookParking(parking) {
+export function bookParking() {
   return {
     type: BOOK_PARKING,
+  }
+}
+
+export function bookParkingSuccess(parking) {
+  return {
+    type: BOOK_PARKING_SUCCESS,
     parking
   }
 }
@@ -91,10 +98,11 @@ export function handleGetParkings() {
 
 export function handleBookParking(parking) {
   return (dispatch) => {
+    dispatch(bookParking())
+    dispatch(showLoading())
     Api.bookParking(parking, localStorage.auth)
-      .then(res => {
-        dispatch(bookParking(res))
-      })
+      .then(res => dispatch(bookParkingSuccess(res)))
+      .then(() => dispatch(hideLoading()))
       .catch("There was an error processing your request.")
   }
 }
