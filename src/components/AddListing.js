@@ -194,15 +194,19 @@ class Add extends Component {
    const {AuthedUser} = this.props
    let value = e.target.value
    let name = e.target.name
+
+   if (name === "image") {
+     let file = e.target.files[0]
+     this.setState({image: file})
+   } else {
+     this.setState(state => ({
+       [name]: value
+     }))
+   }
    this.setState((state) => ({
-     [name]: value,
-     user: AuthedUser.pk,
+     user: AuthedUser.pk
    }))
-   // if (this.state.image) {
-   //   let newImage = window.URL.createObjectURL(this.state.image)
-   //   this.setState({image: newImage})
-   //
-   // }
+
    if (e.target.value === "other") {
      this.setState({
        ["o" + name]: value,
@@ -223,11 +227,24 @@ class Add extends Component {
   handleSubmit = (e) => {
     const {dispatch} = this.props
     e.preventDefault()
+    let formData = new FormData()
+    for (const key of Object.keys(this.state)) {
+      formData.append(key, this.state[key])
+    // console.log(key, this.state[key]);
+    }
+
     this.setState({
       submit: true,
     })
-    dispatch(handleListParking(this.state))
+    dispatch(handleListParking(formData))
   }
+
+  // fileUpload = (e) => {
+  //   let formData = new FormData()
+  //   let file = e.target.files[0]
+  //   formData.append('image', file)
+  //   this.setState({image: formData})
+  // }
 
   isDisabled = () => {
     const {currentPage, sel_area, db_area, db_type, db_reserved, db_period,

@@ -34,11 +34,11 @@ fetch(`http://127.0.0.1:8000/rent/`, {
   method: 'POST',
   headers: {
     "Authorization": `Bearer ${auth}`,
-    "Content-Type": "application/json",
   },
-  body: JSON.stringify(data)
+  body: data
 })
 .then(res => res.json())
+.then(res => console.log(res))
 
 export const bookParking = (data, auth) =>
 fetch(`http://127.0.0.1:8000/vehicle/`, {
