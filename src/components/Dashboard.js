@@ -54,8 +54,7 @@ class Dashboard extends Component {
   let parkingList = AuthedUser.cars.map(car => {
     newParkings.push(parkings[car.id])
   })
-  console.log("newparkings: ")
-  console.log(newParkings)
+
  }
 
  toggleNav = () => {
@@ -66,17 +65,28 @@ class Dashboard extends Component {
 
  handleSubmit = (e) => {
    e.preventDefault()
-   Api.uploadPhoto(localStorage.auth, this.state.image)
+  console.log(this.state)
+   Api.uploadPhoto(localStorage.auth, this.state.form)
  }
 
  handleChange = (e) => {
   const {AuthedUser} = this.props
   let value = e.target.value
   let name = e.target.name
+  let file = e.target.files[0]
   this.setState((state) => ({
-    [name]: value,
+    image: file,
   }))
-  console.log(this.state.image)
+
+  // let myForm = document.getElementById('form');
+  let formData = new FormData()
+  formData.append('username', 'amirabuhasan@gmail.com')
+  formData.append('image', file)
+  this.setState({
+    form: formData
+  })
+
+
 }
 
   render() {
@@ -91,7 +101,7 @@ class Dashboard extends Component {
             <div className="dashboard main-container">
               <div className="user white-background">
                 <div className="avatar main-container">
-                  <form>
+                  <form id="form">
                     <input type="file" id="profile_pic" name="image"
                           onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
                     <button onClick={this.handleSubmit}>Submit</button>

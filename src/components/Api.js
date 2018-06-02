@@ -69,7 +69,7 @@ fetch(`http://127.0.0.1:8000/profile/update/3/`, {
   method: 'PUT',
   headers: {
     "Authorization": `Bearer ${auth}`,
-    "Content-Type": "multipart/form-data"
+    // "Content-Type": "multipart/form-data"
   },
   body: data
 })

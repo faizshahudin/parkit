@@ -129,6 +129,12 @@ class Search extends Component {
      })
    }
 
+   clickEvent = (e) => {
+     const lat = e.latLng.lat()
+     const lng = e.latLng.lng()
+     console.log(e)
+   }
+
  componentDidMount = () => {
    this.initialize()
  }
@@ -186,6 +192,7 @@ class Search extends Component {
                       locations={this.state.filteredParkings}
                       userLocation={this.state.userLocation}
                       state={this.state}
+                      clickEvent={this.clickEvent}
                     />
                 </div>
               }
@@ -431,6 +438,7 @@ const Map = withScriptjs(withGoogleMap((props) =>
         <Marker
           key={index}
           position={{lat: Number(place.db_latitude), lng: Number(place.db_longitude)}}
+          onClick={props.clickEvent}
         />
       ))
       : null
