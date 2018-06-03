@@ -1269,7 +1269,9 @@ dashboard h3, h5, p, span {
 }
 
 .dashboard .user .avatar img {
-  max-height: 100px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 .dashboard .user .contact {

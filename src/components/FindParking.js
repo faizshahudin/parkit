@@ -60,6 +60,7 @@ class Search extends Component {
     },
     modalIsOpen: false,
     locations: [],
+    currentPage: 1,
   }
 
   handleChange = (e) => {
@@ -96,11 +97,48 @@ class Search extends Component {
    const {parkings} = this.props
    let filteredParkings = Object.values(parkings)
     .filter((parking) => parking.db_area === currentLocation)
+   // this.displayMarkers(filteredParkings)
    this.setState({filteredParkings: filteredParkings})
-   this.forceUpdate()
+   // this.forceUpdate()
    console.log(this.state)
+   // this.displayMarkers()
    // this.setState({parkings})
  }
+
+ // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
+   displayMarkers = (filteredParkings) => {
+     let markers = filteredParkings
+     let resultsPerPage = 4
+     let markersToShow = []
+     // sets an index for each marker starting from 0 and ending with 20
+     for (let i = 0; i < markers.length; i++) {
+       markers[i].i = i
+     }
+     // loops through each marker, and determines which page to display the marker, based on the marker's index
+     markers.map(marker => {
+       if (marker.i >= resultsPerPage * this.state.currentPage - 4 && marker.i < resultsPerPage * this.state.currentPage) {
+         markersToShow.push(marker)
+
+       } else {
+         null
+       }
+     })
+     return markersToShow
+   }
+
+   // handles nextPage toggling
+     nextPage = () => {
+       this.setState({
+         currentPage: this.state.currentPage + 1
+       })
+     }
+
+   // handles prevPage toggling
+     prevPage = () => {
+       this.setState({
+         currentPage: this.state.currentPage - 1
+       })
+     }
 
  initialize = () => {
    let self = this
@@ -140,6 +178,13 @@ class Search extends Component {
  }
 
   render() {
+    let markersToShow
+    if (this.state.filteredParkings) {
+      markersToShow = this.displayMarkers(this.state.filteredParkings)
+    }
+    // if (this.state.filteredParkings) {
+    //   this.displayMarkers()
+    // }
     let {currentLocation} = this.state
     const {parkings} = this.props
     return (
@@ -158,12 +203,12 @@ class Search extends Component {
                   <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
                 </form>
                 <div className="listings">
-                  {this.state.filteredParkings &&
+                  {markersToShow &&
                     <ul>
-                      {this.state.filteredParkings.map(location =>
+                      {markersToShow.map(location =>
                         <li key={location.id}>
                           <div className="individual-listing">
-                            <img src={parkingImg}></img>
+                            <img src={location.image}></img>
                             <div className="details">
                               <h3>{location.db_property}</h3>
                               <h5>Level 2</h5>
@@ -178,6 +223,16 @@ class Search extends Component {
                     </ul>
                   }
                 </div>
+                <div className="pagination">
+                  {this.state.currentPage > 1 && (
+                    <button onClick={this.prevPage}>Previous</button>
+                  )}
+                  {this.state.currentPage < 4 && (
+                    <button onClick={this.nextPage}>Next</button>
+                  )
+                  }
+                  <p>{this.state.currentPage}</p>
+                </div>
               </div>
             </div>
             <div>
@@ -189,7 +244,7 @@ class Search extends Component {
                       containerElement={<div style={{ height: "1000px"}} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
-                      locations={this.state.filteredParkings}
+                      locations={markersToShow}
                       userLocation={this.state.userLocation}
                       state={this.state}
                       clickEvent={this.clickEvent}

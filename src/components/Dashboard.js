@@ -106,7 +106,7 @@ class Dashboard extends Component {
                           onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
                     <button onClick={this.handleSubmit}>Submit</button>
                   </form>
-                  <img src={avatar}></img>
+                  <img src={AuthedUser.image}></img>
                   <h3 contenteditable="true">{AuthedUser.first_name}</h3>
                   <p>Serdang, Selangor</p>
                 </div>
@@ -146,7 +146,7 @@ const ListedParking = (props) => (
       <li>
         <div className="listing-container white-background">
           <div className="thumbnail">
-            <img src={parkingAvatar}></img>
+            <img src={parking.image}></img>
           </div>
           <div className="details-container">
             <div className="name">
