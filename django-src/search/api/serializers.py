@@ -25,7 +25,9 @@ class SearchForParkingSerializer(ModelSerializer):
             'db_status',
             'db_longitude',
             'db_latitude',
-            'db_address'
+            'db_address',
+            'image',
+            'timestamp'
             
         ]
 
