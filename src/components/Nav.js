@@ -54,7 +54,8 @@ class Nav extends Component {
 
 
   render() {
-    // const {AutherUser, match} = this.props
+    const {AuthedUser} = this.props
+    console.log(AuthedUser)
 
     return (
       <div>
@@ -82,21 +83,38 @@ class Nav extends Component {
                 Find a Parking
               </NavLink>
             </li>
-            <li>
-              <a onClick={this.openModal}>
-                Log in
-              </a>
-            </li>
-            <li>
-              <a onClick={this.openModal} className="btn-transparent">
-                Sign Up
-              </a>
-            </li>
+            {AuthedUser
+              ?
+                  <li className="user-container dropdown">
+                    <div className="user-avatar-container">
+                      <img className="user-avatar" src={AuthedUser.image}></img>
+                      <div className="user-name">
+                        <a>{AuthedUser.first_name}</a>
+                        <i className="fa fa-angle-down dropbtn"/>
+                      </div>
+                    </div>
+                    <div className="dropdown-content">
+                      <NavLink to="/dashboard">My Profile</NavLink>
+                        <hr/>
+                      <a onClick={this.logout}>Logout</a>
+                    </div>
+                  </li>
+
+            : <div>
+                <li>
+                  <a onClick={this.openModal}>
+                    Log in
+                  </a>
+                </li>
+                <li>
+                  <a onClick={this.openModal} className="btn-transparent">
+                    Sign Up
+                  </a>
+                </li>
+              </div>
+            }
+
           </ul>
-          {(localStorage.getItem("auth")?
-            <div onClick={this.logout}>Logout</div>
-            : <div>No</div>
-          )}
         </nav>
       </div>
 
@@ -105,10 +123,11 @@ class Nav extends Component {
 }
 
 
-function mapStateToProps({authedUser, modal}) {
-  return {
-    modal
-  }
-}
+// function mapStateToProps({AuthedUser, modal}) {
+//   return {
+//     AuthedUser,
+//     modal
+//   }
+// }
 
 export default withRouter(Nav)

@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS} from "../actions/AuthedUser"
+import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS, EDIT_PROFILE, EDIT_PROFILE_SUCCESS, UPLOAD_IMAGE_SUCCESS} from "../actions/AuthedUser"
 import {GET_USER_PARKINGS, LIST_PARKING, LIST_PARKING_SUCCESS, BOOK_PARKING, BOOK_PARKING_SUCCESS} from "../actions/parkings"
 import jwt from "jsonwebtoken"
 
@@ -37,6 +37,16 @@ export default function users(state = null, action) {
       return {
         ...state,
         cars: state.cars.concat(action.parking),
+      }
+    case EDIT_PROFILE_SUCCESS :
+      return {
+        ...state,
+        ...action.data
+      }
+    case UPLOAD_IMAGE_SUCCESS :
+      return {
+        ...state,
+        image: action.data.image
       }
     default :
       return state

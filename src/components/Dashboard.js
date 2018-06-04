@@ -6,7 +6,7 @@ import {handleGetUserDetails} from "../actions/AuthedUser"
 import { connect } from 'react-redux'
 import {handleGetParkings} from "../actions/parkings"
 import jwt from "jsonwebtoken"
-import {loginSuccess, handleLogin} from "../actions/AuthedUser"
+import {loginSuccess, handleLogin, handleEditProfile, handleUploadImage} from "../actions/AuthedUser"
 import * as Api from "../components/Api"
 
 
@@ -39,8 +39,6 @@ class Dashboard extends Component {
    this.setState((state) => ({
      contact: value,
    }))
-   console.log(this.state.contact)
-   console.log(e)
  }
 
  save = () => {
@@ -64,29 +62,34 @@ class Dashboard extends Component {
  }
 
  handleSubmit = (e) => {
+   const {dispatch} = this.props
    e.preventDefault()
-  console.log(this.state)
-   Api.uploadPhoto(localStorage.auth, this.state.form)
+   dispatch(handleEditProfile(this.state))
+   this.setState({edit: false})
  }
 
  handleChange = (e) => {
-  const {AuthedUser} = this.props
+   const {AuthedUser} = this.props
+   let value = e.target.value
+   let name = e.target.name
+   this.setState((state) => ({
+     [name]: value,
+     username: AuthedUser.email
+   }))
+ }
+
+ handleChangePhoto = (e) => {
+  const {AuthedUser, dispatch} = this.props
   let value = e.target.value
   let name = e.target.name
   let file = e.target.files[0]
-  this.setState((state) => ({
-    image: file,
-  }))
 
   // let myForm = document.getElementById('form');
   let formData = new FormData()
-  formData.append('username', 'amirabuhasan@gmail.com')
+  formData.append('username', AuthedUser.email)
   formData.append('image', file)
-  this.setState({
-    form: formData
-  })
 
-
+  dispatch(handleUploadImage(formData))
 }
 
   render() {
@@ -103,17 +106,29 @@ class Dashboard extends Component {
                 <div className="avatar main-container">
                   <form id="form">
                     <input type="file" id="profile_pic" name="image"
-                          onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
-                    <button onClick={this.handleSubmit}>Submit</button>
+                          onChange={this.handleChangePhoto} accept=".jpg, .jpeg, .png" style={{display: "none"}} />
                   </form>
-                  <img src={AuthedUser.image}></img>
+                  <label htmlFor="profile_pic"><img className="user-avatar" src={AuthedUser.image}></img></label>
                   <h3 contenteditable="true">{AuthedUser.first_name}</h3>
                   <p>Serdang, Selangor</p>
                 </div>
                 <div className="contact container">
-                  <h5>Contact Information</h5>
-                  <div><img></img><span name="contact" id="contact" onInput={this.handleChange} contenteditable="true" value={this.state.contact}>{AuthedUser.contact}</span></div>
-                  <div><img></img><span>{AuthedUser.email}</span></div>
+                  <div className="edit">
+                    <h5>Contact Information</h5>
+                    <i className="fa fa-pencil" onClick={() => this.setState({edit: true})} aria-hidden="true" />
+                  </div>
+                  {this.state.edit
+                    ? <form>
+                        <input name="contact" defaultValue={AuthedUser.contact} onChange={this.handleChange}></input>
+                        <input name="email" defaultValue={AuthedUser.email} onChange={this.handleChange}></input>
+                        <button onClick={this.handleSubmit}>Save</button>
+                      </form>
+                    : <div>
+                        <div><span name="contact" id="contact">{AuthedUser.contact}</span></div>
+                        <div><span>{AuthedUser.email}</span></div>
+                      </div>
+                  }
+
                 </div>
               </div>
               <div className="parking">
@@ -196,10 +211,6 @@ const RentedParking = (props) => (
                 <h5>Rental</h5>
                 <p>RM{props.parkings[car.occupied_by].db_price}</p>
               </div>
-              {/* <div>
-                <h5>User Registered</h5>
-                <p>Clamone Parkinson</p>
-              </div> */}
             </div>
           </div>
         </div>

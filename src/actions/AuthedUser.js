@@ -1,5 +1,7 @@
 import * as Api from "../components/Api"
 import jwt from "jsonwebtoken"
+import { showLoading, hideLoading } from 'react-redux-loading'
+
 
 
 export const LOGIN = "LOGIN"
@@ -10,6 +12,36 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 export const REGISTER_ERROR = "REGISTER_ERROR"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
 
+export const EDIT_PROFILE = "EDIT_PROFILE"
+export const EDIT_PROFILE_SUCCESS = "EDIT_PROFILE_SUCCESS"
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE"
+export const UPLOAD_IMAGE_SUCCESS = "UPLOAD_IMAGE_SUCCESS"
+
+export function editProfile() {
+  return {
+    type: EDIT_PROFILE
+  }
+}
+
+export function editProfileSuccess(data) {
+  return {
+    type: EDIT_PROFILE_SUCCESS,
+    data
+  }
+}
+
+export function uploadImage() {
+  return {
+    type: UPLOAD_IMAGE
+  }
+}
+
+export function uploadImageSuccess(data) {
+  return {
+    type: UPLOAD_IMAGE_SUCCESS,
+    data
+  }
+}
 
 export function loginSuccess(id) {
   return {
@@ -50,6 +82,7 @@ export function getUserDetails(data) {
   }
 }
 
+
 export function handleRegister(data) {
   return (dispatch) => {
     return Api.register(data).then(res => {
@@ -88,6 +121,28 @@ export function handleLogin(data) {
       .catch(e => {
         alert("There was an error processing your request")
       })
+  }
+}
+
+export function handleEditProfile(data) {
+  return (dispatch) => {
+    dispatch(showLoading())
+    dispatch(editProfile())
+    return Api.updateProfile(localStorage.auth, data)
+      .then(res => dispatch(editProfileSuccess(res)))
+      .then(() => dispatch(hideLoading()))
+      .catch("There was an error processing your request")
+  }
+}
+
+export function handleUploadImage(data) {
+  return (dispatch) => {
+    dispatch(showLoading())
+    dispatch(uploadImage())
+    return Api.uploadPhoto(localStorage.auth, data)
+      .then(res => dispatch(uploadImageSuccess(res)))
+      .then(() => dispatch(hideLoading()))
+      .catch("There was an error processing your request")
   }
 }
 

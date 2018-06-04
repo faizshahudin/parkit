@@ -74,7 +74,17 @@ fetch(`http://127.0.0.1:8000/profile/update/3/`, {
   body: data
 })
 .then(res => res.json())
-.then(res => console.log(res))
+
+export const updateProfile = (auth, data) =>
+fetch(`http://127.0.0.1:8000/profile/update/3/`, {
+  method: 'PUT',
+  headers: {
+    "Authorization": `Bearer ${auth}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(data)
+})
+.then(res => res.json())
 // .then(res => console.log(res))
 
 export function getInitialData() {

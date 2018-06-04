@@ -64,9 +64,13 @@ class Search extends Component {
   }
 
   handleChange = (e) => {
+
    let value = e.target.value
    this.filterParking(value)
-   this.setState({currentLocation: value})
+   this.setState({
+     currentLocation: value,
+     currentPage: 1,
+   })
  }
 
  openModal = (e) => {
@@ -214,7 +218,6 @@ class Search extends Component {
                               <h5>Level 2</h5>
                               <p>RM{location.db_price}</p>
                               <button className="btn" name={location.id} onClick={this.openModal}>Park Here</button>
-                              <p>AHB2786</p>
                               <p>Posted: 28/7/18</p>
                             </div>
                           </div>

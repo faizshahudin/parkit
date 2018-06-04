@@ -64,6 +64,7 @@ class App extends Component {
   }
   render() {
     const { AuthedUser, dispatch, modal } = this.props
+    console.log(AuthedUser)
 
 
     return (
@@ -71,7 +72,7 @@ class App extends Component {
         <Router>
           <Fragment>
             <LoadingBar />
-            <Nav dispatch={dispatch}/>
+            <Nav dispatch={dispatch} AuthedUser={AuthedUser} />
             <LoginRegister />
             {/* {this.props.loading === true
               ? null
@@ -119,7 +120,8 @@ class App extends Component {
 
 function mapStateToProps({AuthedUser, modal}) {
   return {
-    loading: AuthedUser === null
+    loading: AuthedUser === null,
+    AuthedUser,
   }
 }
 
