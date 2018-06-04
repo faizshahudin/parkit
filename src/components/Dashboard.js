@@ -115,13 +115,14 @@ class Dashboard extends Component {
                 <div className="contact container">
                   <div className="edit">
                     <h5>Contact Information</h5>
-                    <i className="fa fa-pencil" onClick={() => this.setState({edit: true})} aria-hidden="true" />
+                    <i className="fa fa-pencil" onClick={() => this.setState({edit: !this.state.edit})} aria-hidden="true" />
                   </div>
                   {this.state.edit
                     ? <form>
                         <input name="contact" defaultValue={AuthedUser.contact} onChange={this.handleChange}></input>
                         <input name="email" defaultValue={AuthedUser.email} onChange={this.handleChange}></input>
                         <button onClick={this.handleSubmit}>Save</button>
+                        <button onClick={() => this.setState({edit: false})}>Cancel</button>
                       </form>
                     : <div>
                         <div><span name="contact" id="contact">{AuthedUser.contact}</span></div>

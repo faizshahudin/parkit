@@ -1210,6 +1210,13 @@ button:disabled {
   font-size: 10px;
 }
 
+.find-parking-container .pagination button {
+  margin: 0;
+  margin-right: 5px;
+  /* padding: 5px; */
+  font-size: 14px;
+}
+
 /* Rent Parking */
 .rent-parking {
   width: 40%;
@@ -1220,7 +1227,17 @@ button:disabled {
 .rent-parking .container {
   margin-top: auto;
   margin-bottom: auto;
-  padding: 40px 30px;
+  padding: 30px 30px;
+}
+
+.rent-parking .close-modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.rent-parking .close-modal .close-button {
+  margin-left: auto;
+  cursor: pointer;
 }
 
 .rent-parking .parking-information .header {

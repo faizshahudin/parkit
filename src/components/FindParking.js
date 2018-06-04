@@ -1,7 +1,7 @@
 /*global google*/
 
 import React, { Component, Fragment } from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
 import * as Api from "./Api"
@@ -61,10 +61,11 @@ class Search extends Component {
     modalIsOpen: false,
     locations: [],
     currentPage: 1,
+    infowindowOpen: false,
   }
 
   handleChange = (e) => {
-
+    const {AuthedUser} = this.props
    let value = e.target.value
    this.filterParking(value)
    this.setState({
@@ -98,13 +99,15 @@ class Search extends Component {
  }
 
  filterParking = (currentLocation) => {
-   const {parkings} = this.props
+   const {parkings, AuthedUser} = this.props
    let filteredParkings = Object.values(parkings)
     .filter((parking) => parking.db_area === currentLocation)
    // this.displayMarkers(filteredParkings)
    this.setState({filteredParkings: filteredParkings})
    // this.forceUpdate()
-   console.log(this.state)
+   // console.log(this.state)
+   console.log(filteredParkings)
+
    // this.displayMarkers()
    // this.setState({parkings})
  }
@@ -112,7 +115,7 @@ class Search extends Component {
  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
    displayMarkers = (filteredParkings) => {
      let markers = filteredParkings
-     let resultsPerPage = 4
+     let resultsPerPage = 3
      let markersToShow = []
      // sets an index for each marker starting from 0 and ending with 20
      for (let i = 0; i < markers.length; i++) {
@@ -120,7 +123,7 @@ class Search extends Component {
      }
      // loops through each marker, and determines which page to display the marker, based on the marker's index
      markers.map(marker => {
-       if (marker.i >= resultsPerPage * this.state.currentPage - 4 && marker.i < resultsPerPage * this.state.currentPage) {
+       if (marker.i >= resultsPerPage * this.state.currentPage - 3 && marker.i < resultsPerPage * this.state.currentPage) {
          markersToShow.push(marker)
 
        } else {
@@ -172,9 +175,20 @@ class Search extends Component {
    }
 
    clickEvent = (e) => {
-     const lat = e.latLng.lat()
+     const lat = `${e.latLng.lat()}`
      const lng = e.latLng.lng()
-     console.log(e)
+     console.log(lat)
+     // console.log(this.state.filteredParkings)
+     const highlight = this.state.filteredParkings.map(parking => {
+       parking.highlight = false
+       if (parking.db_latitude == lat) {
+         parking.highlight = true
+       }
+     }
+
+     )
+      this.setState(this.state)
+     console.log(this.state)
    }
 
  componentDidMount = () => {
@@ -185,7 +199,9 @@ class Search extends Component {
     let markersToShow
     if (this.state.filteredParkings) {
       markersToShow = this.displayMarkers(this.state.filteredParkings)
+      console.log(markersToShow)
     }
+    console.log(markersToShow)
     // if (this.state.filteredParkings) {
     //   this.displayMarkers()
     // }
@@ -211,7 +227,7 @@ class Search extends Component {
                     <ul>
                       {markersToShow.map(location =>
                         <li key={location.id}>
-                          <div className="individual-listing">
+                          <div className="individual-listing" style={{background: location.highlight ? "red" : "white"}}>
                             <img src={location.image}></img>
                             <div className="details">
                               <h3>{location.db_property}</h3>
@@ -226,16 +242,18 @@ class Search extends Component {
                     </ul>
                   }
                 </div>
-                <div className="pagination">
-                  {this.state.currentPage > 1 && (
-                    <button onClick={this.prevPage}>Previous</button>
-                  )}
-                  {this.state.currentPage < 4 && (
-                    <button onClick={this.nextPage}>Next</button>
-                  )
-                  }
-                  <p>{this.state.currentPage}</p>
-                </div>
+                {this.state.filteredParkings &&
+                  <div className="pagination">
+                    {this.state.currentPage > 1 && (
+                      <button className="btn" onClick={this.prevPage}>Previous</button>
+                    )}
+                    {this.state.currentPage < this.state.filteredParkings.length/3 && (
+                      <button className="btn" onClick={this.nextPage}>Next</button>
+                    )
+                    }
+                  </div>
+                }
+
               </div>
             </div>
             <div>
@@ -251,6 +269,7 @@ class Search extends Component {
                       userLocation={this.state.userLocation}
                       state={this.state}
                       clickEvent={this.clickEvent}
+                      infowindowOpen={this.state.infowindowOpen}
                     />
                 </div>
               }
@@ -410,6 +429,11 @@ class RentParking extends Component {
                           <div className="white-background container">
                             {loading === true
                               ?   <div>
+                                    <div className="close-modal">
+                                      <div></div>
+                                      <div></div>
+                                      <div className="close-button" onClick={this.closeModal}>X</div>
+                                    </div>
                                     <div className="parking-information">
                                       <div className="header">
                                         <h3>Want to park here?</h3>
@@ -497,7 +521,9 @@ const Map = withScriptjs(withGoogleMap((props) =>
           key={index}
           position={{lat: Number(place.db_latitude), lng: Number(place.db_longitude)}}
           onClick={props.clickEvent}
-        />
+        >
+          {/* <InfoWindow /> */}
+        </Marker>
       ))
       : null
     }
