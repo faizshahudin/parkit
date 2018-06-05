@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import avatar from "../images/profile-image.png"
+import avatar from "../images/avatar-placeholder.jpeg"
 import parkingAvatar from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {handleGetUserDetails} from "../actions/AuthedUser"
@@ -108,7 +108,12 @@ class Dashboard extends Component {
                     <input type="file" id="profile_pic" name="image"
                           onChange={this.handleChangePhoto} accept=".jpg, .jpeg, .png" style={{display: "none"}} />
                   </form>
-                  <label htmlFor="profile_pic"><img className="user-avatar" src={AuthedUser.image}></img></label>
+                  <label htmlFor="profile_pic">
+                    {AuthedUser.image
+                      ? <img className="user-avatar" src={AuthedUser.image}></img>
+                      : <img className="user-avatar" src={avatar}></img>
+                    }
+                  </label>
                   <h3 contenteditable="true">{AuthedUser.first_name}</h3>
                   <p>Serdang, Selangor</p>
                 </div>

@@ -12,6 +12,8 @@ import {connect} from "react-redux"
 import {handleGetParkings, handleBookParking, bookParking} from "../actions/parkings"
 import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
+import {fields} from "../utils/data"
+
 
 
 class FindParking extends Component {
@@ -46,22 +48,19 @@ class Search extends Component {
         lng: 101.6047011,
       }
     },
-    bangsar: {
-      center: {
-        lat: 3.1290099,
-        lng: 101.6710076,
-      }
-    },
-    bangsar_south: {
-      center: {
-        lat: 3.1105194,
-        lng: 101.663241,
-      }
-    },
     modalIsOpen: false,
     locations: [],
     currentPage: 1,
     infowindowOpen: false,
+  }
+
+  setCenter = () => {
+    const {area} = fields
+    area.options.map(a => {
+      this.setState({
+        [a.value]: a.center
+      })
+    })
   }
 
   handleChange = (e) => {
@@ -192,19 +191,17 @@ class Search extends Component {
    }
 
  componentDidMount = () => {
+   this.setCenter()
    this.initialize()
  }
 
   render() {
+    const {area} = fields
     let markersToShow
     if (this.state.filteredParkings) {
       markersToShow = this.displayMarkers(this.state.filteredParkings)
-      console.log(markersToShow)
     }
-    console.log(markersToShow)
-    // if (this.state.filteredParkings) {
-    //   this.displayMarkers()
-    // }
+
     let {currentLocation} = this.state
     const {parkings} = this.props
     return (
@@ -216,8 +213,11 @@ class Search extends Component {
                 <form className="search-body">
                   <select onChange={this.handleChange}>
                     <option value="none">Select an area</option>
-                    <option value="bangsar">Bangsar</option>
-                    <option value="bangsar_south">Bangsar South</option>
+                    {area.options.map(a =>
+                      <option key={a.value} value={a.value}>{a.title}</option>
+                    )}
+                    {/* <option value="bangsar">Bangsar</option>
+                    <option value="bangsar_south">Bangsar South</option> */}
                   </select>
                   <i className="fas fa-ellipsis-v" style={this.state.filteredParkings ? null : {display: "none"}}></i>
                   <input placeholder="Distance from your location" type="text" id="autocomplete" style={this.state.filteredParkings ? null : {display: "none"}}></input>

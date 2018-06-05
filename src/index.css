@@ -1395,6 +1395,7 @@ button:disabled {
   height: 100px;
   width: 100px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .dashboard .user .contact {

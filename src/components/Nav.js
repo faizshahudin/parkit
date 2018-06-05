@@ -9,6 +9,8 @@ import { withRouter } from "react-router-dom";
 import Modal from 'react-modal';
 import LoginRegister from "./Login"
 import {handleShowModal} from "../actions/modal"
+import avatar from "../images/avatar-placeholder.jpeg"
+
 
 
 
@@ -87,7 +89,10 @@ class Nav extends Component {
               ?
                   <li className="user-container dropdown">
                     <div className="user-avatar-container">
-                      <img className="user-avatar" src={AuthedUser.image}></img>
+                      {AuthedUser.image
+                        ? <img className="user-avatar" src={AuthedUser.image}></img>
+                        : <img className="user-avatar" src={avatar}></img>
+                      }
                       <div className="user-name">
                         <a>{AuthedUser.first_name}</a>
                         <i className="fa fa-angle-down dropbtn"/>

@@ -7,6 +7,7 @@ import * as Api from "./Api"
 import { connect } from 'react-redux'
 import { handleListParking } from "../actions/parkings"
 import jwt from "jsonwebtoken"
+import {fields} from "../utils/data"
 
 class AddListing extends Component {
   render() {
@@ -299,7 +300,7 @@ class Add extends Component {
 
     console.log(this.state)
     const { match } = this.props
-    const {property, area, carparkType, dedicated, leasePeriod, rental} = this.fields
+    const {property, area, carparkType, dedicated, leasePeriod, rental} = fields
 
     if (this.props.loading === false) {
      return <Redirect to={`${match.url}/thank-you`} />
