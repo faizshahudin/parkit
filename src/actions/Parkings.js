@@ -103,6 +103,6 @@ export function handleBookParking(parking) {
     Api.bookParking(parking, localStorage.auth)
       .then(res => dispatch(bookParkingSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch("There was an error processing your request.")
+      .catch(res => alert(res.statusText))
   }
 }

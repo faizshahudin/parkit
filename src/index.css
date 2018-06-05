@@ -15,6 +15,10 @@ a {
   cursor: pointer;
 }
 
+/* h1, h3, h5, p {
+  color: #4a4a4a;
+} */
+
 button:hover {
   cursor: pointer;
 }
@@ -203,6 +207,7 @@ button:disabled {
 
 .landing h1 {
   font-weight: 900;
+  color: #4a4a4a;
 }
 
 .landing h3 {
@@ -398,6 +403,11 @@ button:disabled {
   margin-right: auto;
   text-align: center;
 }
+
+.owners .hero.two h1 {
+  text-align: left;
+}
+
 .owners .hero.two .content .bullet-points {
   display: grid;
   grid-template-columns: 0.2fr 1.8fr;
@@ -409,6 +419,8 @@ button:disabled {
   padding: 0;
   margin-top: auto;
   margin-bottom: auto;
+  text-align: left;
+  margin-left: 5px;
 }
 
 .owners .hero.two .content .bullet-points.two {
@@ -938,7 +950,7 @@ button:disabled {
 }
 
 .nav-container li a {
-  color: #8a8888;
+  color: #4a4a4a;
   text-decoration: none;
 }
 
@@ -1133,7 +1145,7 @@ button:disabled {
 }
 
 .find-parking-container .listing h3 {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 
@@ -1279,7 +1291,9 @@ button:disabled {
 
 .rent-parking .parking-information .header h3 {
   margin: 0;
-  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .rent-parking .parking-information .listing {
@@ -1288,12 +1302,35 @@ button:disabled {
   grid-gap: 10px;
 }
 
-.rent-parking .parking-information .listing h3, h5 {
+.rent-parking .header h3 {
+  font-size: 14px;
+  margin-bottom: 15px !important;
+  margin-top: 0 !important;
+}
+
+.rent-parking h3 {
+  font-size: 14px;
+  margin: 10px 0 !important;
+}
+
+
+.rent-parking  h3, h5 {
   font-weight: 100;
 }
 
-.rent-parking .parking-information .listing p {
+.rent-parking h5 {
+  margin: 5px 0 !important;
+  font-size: 12px;
+}
+
+.rent-parking p {
   font-weight: 300;
+  margin: 5px 0 !important;
+  font-size: 12px;
+}
+
+.rent-parking hr {
+  margin: 20px 0;
 }
 
 .rent-parking .parking-information .listing img {
@@ -1304,16 +1341,36 @@ button:disabled {
 .rent-parking .parking-information .listing .details {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 40px;
+  grid-gap: 15px;
+}
+
+.rent-parking input {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.rent-parking input::placeholder {
+  font-size: 12px;
 }
 
 .rent-parking h3 {
   font-weight: 500;
 }
 
+/* .rent-parking .tenure-information {
+  margin-top: 20px;
+} */
+
+.rent-parking .tenure-information h3 {
+  margin-bottom: 15px !important;
+  font-weight: 700 !important;
+}
+
 .rent-parking .tenure-information label {
   font-weight: 300;
+  font-size: 12px;
 }
+
 
 .rent-parking .tenure-information a {
   font-size: 12px;
@@ -1326,9 +1383,15 @@ button:disabled {
   grid-gap: 20px;
 }
 
-.rent-parking .tenure-information button {
-  margin-left: auto !important;
-  margin-right: auto !important;
+.rent-parking .button {
+  text-align: center;
+}
+
+.rent-parking button {
+  font-size: 18px;
+  margin: 0;
+  margin-top: 20px;
+  padding: 10px;
 }
 
 .rent-parking .thankyou {

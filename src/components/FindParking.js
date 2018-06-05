@@ -213,7 +213,7 @@ class Search extends Component {
         <div className="body">
             <div className="listing-container grey-background">
               <div className="listing container">
-                <h3>ParkIt Locations</h3>
+                <h3>Our Parking Spaces</h3>
                 <form className="search-body">
                   <select onChange={this.handleChange}>
                     <option value="none">Select an area</option>
@@ -495,6 +495,7 @@ class RentParking extends Component {
                                         </div>
                                       </div>
                                     </div>
+                                    <hr/>
                                     <div className="tenure-information">
                                       <div>
                                         <h3>Tenure Information</h3>
@@ -503,17 +504,19 @@ class RentParking extends Component {
                                         <form onSubmit={this.handleSubmit}>
                                           <div>
                                             <label>Start date</label>
-                                            <input name="start_date" type="datetime-local"></input>
+                                            <input required name="start_date" type="datetime-local"></input>
                                           </div>
                                           <div>
                                             <label>Vehicle Registered</label>
                                             <div className="vehicle-registered">
-                                              <input type="text" onChange={this.handleChange} name="car_model"></input>
-                                              <input type="text" onChange={this.handleChange} name="car_registery"></input>
+                                              <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
+                                              <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
                                             </div>
                                           </div>
                                           {/* <a>+ Add Vehicle</a> */}
-                                          <button className="btn">Submit</button>
+                                          <div className="button">
+                                            <button className="btn">Park Here</button>
+                                          </div>
                                         </form>
                                       </div>
                                     </div>
