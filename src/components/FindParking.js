@@ -58,7 +58,9 @@ class Search extends Component {
     const {area} = fields
     area.options.map(a => {
       this.setState({
-        [a.value]: a.center
+        [a.value]: {
+          center: a.center
+        }
       })
     })
   }
@@ -101,14 +103,9 @@ class Search extends Component {
    const {parkings, AuthedUser} = this.props
    let filteredParkings = Object.values(parkings)
     .filter((parking) => parking.db_area === currentLocation)
-   // this.displayMarkers(filteredParkings)
    this.setState({filteredParkings: filteredParkings})
-   // this.forceUpdate()
-   // console.log(this.state)
-   console.log(filteredParkings)
 
-   // this.displayMarkers()
-   // this.setState({parkings})
+
  }
 
  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
@@ -187,7 +184,11 @@ class Search extends Component {
 
      )
       this.setState(this.state)
-     console.log(this.state)
+      let test = document.getElementsByClassName("focus")[0]
+      // const tesNode = ReactDOM.findDOMNode(this.refs.focus)
+      var topPos = test.offsetTop
+      document.getElementsByClassName('listing-container')[0].scrollTop = topPos - 200
+
    }
 
  componentDidMount = () => {
@@ -195,7 +196,10 @@ class Search extends Component {
    this.initialize()
  }
 
+
+
   render() {
+    console.log(this.state)
     const {area} = fields
     let markersToShow
     if (this.state.filteredParkings) {
@@ -207,7 +211,7 @@ class Search extends Component {
     return (
       <div>
         <div className="body">
-            <div className="grey-background listing-container">
+            <div className="listing-container grey-background">
               <div className="listing container">
                 <h3>ParkIt Locations</h3>
                 <form className="search-body">
@@ -226,8 +230,8 @@ class Search extends Component {
                   {markersToShow &&
                     <ul>
                       {markersToShow.map(location =>
-                        <li key={location.id}>
-                          <div className={"individual-listing " + (location.highlight ? "highlight" : null)}>
+                        <li>
+                          <div className={"individual-listing " + (location.highlight ? "highlight focus" : null)}>
                             <img src={location.image}></img>
                             <div className="details">
                               <h3>{location.db_property}</h3>
@@ -270,6 +274,7 @@ class Search extends Component {
                       state={this.state}
                       clickEvent={this.clickEvent}
                       infowindowOpen={this.state.infowindowOpen}
+                      area={area}
                     />
                 </div>
               }
@@ -339,6 +344,7 @@ class NoParking extends Component {
   }
   render() {
     let {submit} = this.state
+
     return(
 
         <div className="rent-parking container no-parking">
@@ -559,7 +565,6 @@ const Map = withScriptjs(withGoogleMap((props) =>
           position={{lat: Number(place.db_latitude), lng: Number(place.db_longitude)}}
           onClick={props.clickEvent}
         >
-          {/* <InfoWindow /> */}
         </Marker>
       ))
       : null
