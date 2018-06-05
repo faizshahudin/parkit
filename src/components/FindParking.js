@@ -66,7 +66,7 @@ class Search extends Component {
   }
 
   handleChange = (e) => {
-    const {AuthedUser} = this.props
+   const {AuthedUser} = this.props
    let value = e.target.value
    this.filterParking(value)
    this.setState({
@@ -103,9 +103,10 @@ class Search extends Component {
    const {parkings, AuthedUser} = this.props
    let filteredParkings = Object.values(parkings)
     .filter((parking) => parking.db_area === currentLocation)
+    filteredParkings.map(parking => {
+      parking.highlight = false
+    })
    this.setState({filteredParkings: filteredParkings})
-
-
  }
 
  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
@@ -129,19 +130,19 @@ class Search extends Component {
      return markersToShow
    }
 
-   // handles nextPage toggling
-     nextPage = () => {
-       this.setState({
-         currentPage: this.state.currentPage + 1
-       })
-     }
+ // handles nextPage toggling
+   nextPage = () => {
+     this.setState({
+       currentPage: this.state.currentPage + 1
+     })
+   }
 
-   // handles prevPage toggling
-     prevPage = () => {
-       this.setState({
-         currentPage: this.state.currentPage - 1
-       })
-     }
+ // handles prevPage toggling
+   prevPage = () => {
+     this.setState({
+       currentPage: this.state.currentPage - 1
+     })
+   }
 
  initialize = () => {
    let self = this
@@ -173,7 +174,6 @@ class Search extends Component {
    clickEvent = (e) => {
      const lat = `${e.latLng.lat()}`
      const lng = e.latLng.lng()
-     console.log(lat)
      // console.log(this.state.filteredParkings)
      const highlight = this.state.filteredParkings.map(parking => {
        parking.highlight = false
@@ -196,10 +196,7 @@ class Search extends Component {
    this.initialize()
  }
 
-
-
   render() {
-    console.log(this.state)
     const {area} = fields
     let markersToShow
     if (this.state.filteredParkings) {
