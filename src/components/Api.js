@@ -6,6 +6,7 @@ export const register = (data) =>
       },
       body: JSON.stringify(data)
     })
+    .then(handleErrors)
     .then(res => res.json())
 
 export const resetPassword = (data) =>
@@ -16,6 +17,7 @@ export const resetPassword = (data) =>
       },
       body: JSON.stringify(data)
     })
+    .then(handleErrors)
     .then(res => console.log(res))
     .catch(e => console.log(e))
 
@@ -27,6 +29,7 @@ export const login = (data) =>
       },
       body: JSON.stringify(data)
     })
+    .then(handleErrors)
     .then(res => res.json())
 
 export const addParking = (data, auth) =>
@@ -37,8 +40,8 @@ fetch(`http://127.0.0.1:8000/rent/`, {
   },
   body: data
 })
+.then(handleErrors)
 .then(res => res.json())
-.then(res => console.log(res))
 
 export const bookParking = (data, auth) =>
 fetch(`http://127.0.0.1:8000/vehicle/`, {
@@ -49,11 +52,14 @@ fetch(`http://127.0.0.1:8000/vehicle/`, {
   },
   body: JSON.stringify(data)
 })
+.then(handleErrors)
 .then(res => res.json())
 
 export const getParkings = () =>
     fetch(`http://127.0.0.1:8000/search/?db_status=Pending`)
+    .then(handleErrors)
     .then(res => res.json())
+    .catch(e => alert("There was an error processing your request."))
 
 export const getUserInfo = () =>
   fetch(`http://127.0.0.1:8000/profile/`, {
@@ -62,6 +68,7 @@ export const getUserInfo = () =>
       "Authorization": `Bearer ${localStorage.auth}`,
     },
   })
+  .then(handleErrors)
   .then(res => res.json())
 
 export const uploadPhoto = (auth, data) =>
@@ -73,6 +80,7 @@ fetch(`http://127.0.0.1:8000/profile/update/3/`, {
   },
   body: data
 })
+.then(handleErrors)
 .then(res => res.json())
 
 export const updateProfile = (auth, data) =>
@@ -84,6 +92,7 @@ fetch(`http://127.0.0.1:8000/profile/update/3/`, {
   },
   body: JSON.stringify(data)
 })
+.then(handleErrors)
 .then(res => res.json())
 // .then(res => console.log(res))
 
@@ -95,4 +104,11 @@ export function getInitialData() {
     user,
     parkings
   }))
+}
+
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
 }

@@ -51,8 +51,11 @@ Modal.setAppElement(document.getElementById('root'))
 class App extends Component {
   componentDidMount() {
     const {dispatch} = this.props
+
     if (localStorage.auth) {
       dispatch(handleInitialData())
+    } else {
+      dispatch(handleGetParkings())
     }
     // localStorage.auth
     //   ? dispatch(handleGetUserDetails())
@@ -96,19 +99,17 @@ class App extends Component {
               <Route path="/parkers" component={Parkers} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
 
-              {/* <Route path="/login" component={LoginRegister} />
-              <Route path="/register" component={LoginRegister} /> */}
+              {this.props.parkings.length !== 0 &&
+                <Route path="/find-parking" component={FindParking} />
+              }
+
               {this.props.loading === true
                 ? null
                 : <div>
-                  <Route path="/find-parking" component={FindParking} />
                   <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
                   <Route path="/add-listing" component={AddListing} />
                 </div>
               }
-              {/* <Route render={function() {
-                return <p>Not Found</p>
-              }} /> */}
             </Switch>
             <Footer />
           </Fragment>
@@ -118,10 +119,11 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({AuthedUser, modal}) {
+function mapStateToProps({AuthedUser, modal, parkings}) {
   return {
     loading: AuthedUser === null,
     AuthedUser,
+    parkings,
   }
 }
 

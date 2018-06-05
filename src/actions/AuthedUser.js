@@ -131,7 +131,7 @@ export function handleEditProfile(data) {
     return Api.updateProfile(localStorage.auth, data)
       .then(res => dispatch(editProfileSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch("There was an error processing your request")
+      .catch(e => alert("There was an error processing your request"))
   }
 }
 

@@ -182,7 +182,7 @@ button:disabled {
 }
 
 .home h1 {
-  font-size: 45px;
+  font-size: 38px;
 }
 
 .home .signup {
@@ -207,7 +207,7 @@ button:disabled {
 
 .landing h3 {
   font-family: 'Raleway', sans-serif !important;
-  font-size: 35px;
+  font-size: 32px;
   font-weight: 500 !important;
 }
 
@@ -254,6 +254,14 @@ button:disabled {
 
 .landing .hero.two {
   grid-template-columns: 1.2fr 0.8fr;
+  grid-gap: 10px;
+
+}
+
+.landing .hero.two .content {
+  width: 80%;
+  text-align: right;
+  margin-left: auto;
 }
 
 .hero.three {
@@ -262,6 +270,7 @@ button:disabled {
 
 .landing .hero.four .content {
   margin-left: auto;
+  width: 80%;
 }
 
 .landing .hero.four {
@@ -668,16 +677,40 @@ button:disabled {
   grid-gap: 10px;
 }
 
-.login-register .form input {
+.login-register .form .input {
   width: 100%;
-  padding: 15px;
   margin: 0;
   border: 1px solid #f1f1f1;
   border-radius: initial;
   margin-left: auto;
   margin-right: auto;
   font-size: 16px;
+  display: grid;
+  grid-template-columns: 0.9fr 0.1fr;
 }
+
+.login-register .form i {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.login-register .form input  {
+  border: none !important;
+  outline: none;
+  margin: 0;
+  padding: 15px;
+}
+
+.login-register .form .half {
+  grid-template-columns: 0.99fr 0.01fr !important;
+}
+
+/* .login-register .form .half i {
+  margin-left: initial !important;
+  margin-right: 6px !important;
+} */
 
 .login-register .submit {
   width: 40%;
@@ -695,6 +728,7 @@ button:disabled {
   text-align: center;
   font-weight: 300;
 }
+
 
 .footer-text {
   margin: 0;
@@ -1050,6 +1084,7 @@ button:disabled {
   display: grid;
   padding-top: 0;
   width: 95%;
+  /* height: 100vh; */
 }
 
 .find-parking-container .header {
@@ -1086,8 +1121,15 @@ button:disabled {
   margin-right: auto;
 }
 
+.find-parking-container .listing-container {
+  height: 80vh;
+  overflow: scroll;
+}
+
 .find-parking-container .listing {
-  width: 90%
+  width: 90%;
+  /* height: 80vh;
+  overflow: scroll; */
 }
 
 .find-parking-container .listing h3 {
@@ -1133,6 +1175,11 @@ button:disabled {
   grid-gap: 10px;
 }
 
+.find-parking-container .listings .highlight {
+  border-right: solid #e86c6d;
+  border-right-width: thick;
+}
+
 .find-parking-container .listings .individual-listing img {
   height: 100%;
   width: 100%;
@@ -1148,42 +1195,28 @@ button:disabled {
 
 .find-parking-container .listings .individual-listing h3 {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
 }
 
 .find-parking-container .listings .individual-listing h5 {
   font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
+  margin: 5px 0 !important;
 }
 
 .find-parking-container .listings .individual-listing p {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 10px;
+  margin: 5px 0 !important;
 }
 
 .find-parking-container .listings .individual-listing button {
   font-weight: 100;
-  font-size: 12px;
+  font-size: 10px;
   margin: 0;
 }
 
-
-.enquire {
-  text-align: center;
-}
-
-.find-parking-container .enquire button, .find-parking-container .thank-you button {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.find-parking-container .enquire .button, .find-parking-container .thank-you .button {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .map {
   margin: 0;
@@ -1303,6 +1336,19 @@ button:disabled {
   grid-template-columns: 1fr 1fr;
 }
 
+/* No Parking */
+.no-parking .button-container {
+  /* width: 50%; */
+  text-align: center;
+}
+
+.no-parking .btn {
+  /* width: 50%; */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 /* Dashboard */
 .dashboard {
   width: 90%;
@@ -1338,7 +1384,6 @@ button:disabled {
 .dashboard .user {
   display: grid;
   grid-template-rows: 0.3fr 0.7fr;
-  height: 500px;
 }
 
 .dashboard .user .avatar {
@@ -1369,6 +1414,7 @@ button:disabled {
 }
 
 .dashboard .parking {
+
   /* display: grid;
   grid-gap: 10px; */
   /* margin: 10px 0; */
@@ -1376,6 +1422,9 @@ button:disabled {
 
 .dashboard .parking .listing {
   margin-top: 10px !important;
+  overflow: scroll;
+  height: 70vh;
+
 }
 
 .dashboard .parking h3, h5, p {
@@ -1425,12 +1474,11 @@ button:disabled {
 
 .dashboard .parking .listing-container {
   display: grid;
-  grid-template-columns: 0.4fr 0.6fr;
-  grid-gap: 30px;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-gap: 50px;
   border-bottom: solid;
   border-width: thin;
   border-color: rgba(74, 74, 74, 0.2);
-
 }
 
 .dashboard .parking .listing-container .thumbnail img {

@@ -196,7 +196,7 @@ const RentedParking = (props) => (
       <li>
         <div className="listing-container white-background">
           <div className="thumbnail">
-            <img src={parkingAvatar}></img>
+            <img src={props.parkings[car.occupied_by].image}></img>
           </div>
           <div className="details-container">
             <div className="name">

@@ -36,7 +36,7 @@ class Home extends Component {
           <div>
             <img className="hero-img" src={hero2}></img>
           </div>
-          <div>
+          <div className="content">
             <h1>Your dedicated parking buddy</h1>
             <p>
               Parking in our city has always been difficult; either time consuming,

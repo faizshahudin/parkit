@@ -123,27 +123,34 @@ class Login extends Component {
     }
 
     return (
-        <form className="form" onSubmit={this.login}>
-          <input
-            required
-            id="email"
-            name="email"
-            type="email"
-            value={this.state.value}
-            onChange={this.handleChange}
-            placeholder="Email"
-            >
-          </input>
-          <input
-            required
-            id="password"
-            name="password"
-            type="password"
-            value={this.state.value}
-            onChange={this.handleChange}
-            placeholder="Password"
-            >
-          </input>
+        <form className="form login" onSubmit={this.login}>
+          <div className="input">
+            <input
+              required
+              id="email"
+              name="email"
+              type="email"
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="Username"
+              >
+            </input>
+            <i class="far fa-user"></i>
+          </div>
+          <div className="input">
+            <input
+              required
+              id="password"
+              name="password"
+              type="password"
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="Password"
+              >
+            </input>
+            <i class="fas fa-unlock"></i>
+          </div>
+
           <p><a>Forgot Password?</a></p>
           <button className="btn submit">Log In</button>
           <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
@@ -194,60 +201,75 @@ class Register extends Component {
     return(
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="name-container">
-            <input
-              required
-              id="fName"
-              name="first_name"
-              autoComplete="fname"
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-              placeholder="First Name"
-              >
-            </input>
-            <input
-              required
-              id="lName"
-              name="last_name"
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-              placeholder="Last Name"
-              >
-            </input>
+            <div className="input half">
+              <input
+                required
+                id="fName"
+                name="first_name"
+                autoComplete="fname"
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+                placeholder="First Name"
+                >
+              </input>
+              <i class="far fa-user"></i>
+            </div>
+            <div className="input half">
+              <input
+                required
+                id="lName"
+                name="last_name"
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+                placeholder="Last Name"
+                >
+              </input>
+              <i class="far fa-user"></i>
+            </div>
           </div>
-          <input
-            required
-            id="email"
-            name="email"
-            type="email"
-            value={this.state.value}
-            onChange={this.handleChange}
-            placeholder="Email"
-            >
-          </input>
-          <input
-            required
-            id="contact"
-            name="contact"
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-            placeholder="Contact Number"
-            >
-          </input>
-          <input
-            required
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain a combination of numbers, uppercase and lowercase letters, and at least 6 or more characters"
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={this.state.value}
-            onChange={this.handleChange}
-            >
-          </input>
+          <div className="input">
+            <input
+              required
+              id="email"
+              name="email"
+              type="email"
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="Email"
+              >
+            </input>
+            <i class="far fa-envelope"></i>
+          </div>
+          <div className="input">
+            <input
+              required
+              id="contact"
+              name="contact"
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="Contact Number"
+              >
+            </input>
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <div className="input">
+            <input
+              required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Must contain a combination of numbers, uppercase and lowercase letters, and at least 6 or more characters"
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={this.state.value}
+              onChange={this.handleChange}
+              >
+            </input>
+            <i class="fas fa-key"></i>
+          </div>
           <button className="btn submit">Register</button>
           <p className="footer-text">Already have an account? <Link to="/login">Login</Link> here.</p>
         </form>

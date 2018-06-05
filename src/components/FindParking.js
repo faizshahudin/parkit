@@ -1,7 +1,7 @@
 /*global google*/
 
 import React, { Component, Fragment } from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
 import * as Api from "./Api"
@@ -30,7 +30,7 @@ class FindParking extends Component {
       <div className="find-parking-container main-container">
         <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
         <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
-        <Route exact path={`/find-parking/no-parking`} component={NoParking}/>
+        {/* <Route exact path={`${match.path}/no-parking`} render={(props) => <NoParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
       </div>
     )
   }
@@ -115,7 +115,7 @@ class Search extends Component {
  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
    displayMarkers = (filteredParkings) => {
      let markers = filteredParkings
-     let resultsPerPage = 3
+     let resultsPerPage = 20
      let markersToShow = []
      // sets an index for each marker starting from 0 and ending with 20
      for (let i = 0; i < markers.length; i++) {
@@ -123,7 +123,7 @@ class Search extends Component {
      }
      // loops through each marker, and determines which page to display the marker, based on the marker's index
      markers.map(marker => {
-       if (marker.i >= resultsPerPage * this.state.currentPage - 3 && marker.i < resultsPerPage * this.state.currentPage) {
+       if (marker.i >= resultsPerPage * this.state.currentPage - 20 && marker.i < resultsPerPage * this.state.currentPage) {
          markersToShow.push(marker)
 
        } else {
@@ -210,7 +210,7 @@ class Search extends Component {
     return (
       <div>
         <div className="body">
-            <div className="grey-background">
+            <div className="grey-background listing-container">
               <div className="listing container">
                 <h3>ParkIt Locations</h3>
                 <form className="search-body">
@@ -219,15 +219,15 @@ class Search extends Component {
                     <option value="bangsar">Bangsar</option>
                     <option value="bangsar_south">Bangsar South</option>
                   </select>
-                  <i className="fas fa-ellipsis-v"></i>
-                  <input placeholder="Distance from your location" type="text" id="autocomplete"></input>
+                  <i className="fas fa-ellipsis-v" style={this.state.filteredParkings ? null : {display: "none"}}></i>
+                  <input placeholder="Distance from your location" type="text" id="autocomplete" style={this.state.filteredParkings ? null : {display: "none"}}></input>
                 </form>
                 <div className="listings">
                   {markersToShow &&
                     <ul>
                       {markersToShow.map(location =>
                         <li key={location.id}>
-                          <div className="individual-listing" style={{background: location.highlight ? "red" : "white"}}>
+                          <div className={"individual-listing " + (location.highlight ? "highlight" : null)}>
                             <img src={location.image}></img>
                             <div className="details">
                               <h3>{location.db_property}</h3>
@@ -247,7 +247,7 @@ class Search extends Component {
                     {this.state.currentPage > 1 && (
                       <button className="btn" onClick={this.prevPage}>Previous</button>
                     )}
-                    {this.state.currentPage < this.state.filteredParkings.length/3 && (
+                    {this.state.currentPage < this.state.filteredParkings.length/20 && (
                       <button className="btn" onClick={this.nextPage}>Next</button>
                     )
                     }
@@ -262,7 +262,7 @@ class Search extends Component {
                     <Map
                       googleMapURL="https://maps.googleapis.com/maps/api/js?&key=AIzaSyApjld64g85YeINEMm2JPBLz_OKkONqcJs&libraries=places,geometry,drawing&v=3"
                       loadingElement={<div style={{ height: `100%`, width: "100%" }} />}
-                      containerElement={<div style={{ height: "1000px"}} />}
+                      containerElement={<div style={{ height: "80vh"}} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
                       locations={markersToShow}
@@ -275,7 +275,7 @@ class Search extends Component {
               }
             </div>
           <div>
-            <NavLink to="/find-parking/no-parking">
+            <NavLink to="/find-parking/search/no-parking">
               <p>Can't find the location? Let us know.</p>
             </NavLink>
           </div>
@@ -311,59 +311,91 @@ class NoParking extends Component {
       || !budget
    }
 
+   initialize = () => {
+     console.log("yes")
+     let self = this
+     var defaultBounds = new google.maps.LatLngBounds(
+       new google.maps.LatLng(3.1385035, 101.6167771),
+       new google.maps.LatLng(3.2020728, 100.7790663)
+     );
+     var options = {
+       bounds: defaultBounds,
+     };
+     let autocomplete = new google.maps.places.Autocomplete(
+       (document.getElementById('carparkLocation')),
+       { types: ['geocode'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
+
+       google.maps.event.addListener(autocomplete, 'place_changed', function() {
+         var place = autocomplete.getPlace()
+         self.setState({
+           db_latitude: place.geometry.location.lat(),
+           db_longitude: place.geometry.location.lng(),
+         })
+       })
+     }
+
+  componentDidMount = () => {
+    this.initialize()
+  }
   render() {
     let {submit} = this.state
     return(
-      <div className="enquire body box">
-        {!submit &&
-          <div>
-            <div className="header">
-              <h3>ParkIt Locations</h3>
-              <p>No parking available? Let us sort you out</p>
+
+        <div className="rent-parking container no-parking">
+          {!submit &&
+            <div className="white-background container">
+              <div className="close-modal">
+                <div></div>
+                <div></div>
+                <div className="close-button" onClick={this.props.closeModal}>X</div>
+              </div>
+              <div className="header">
+                <h3>Can't find what you're looking for? Let us know and we'll search for it!</h3>
+              </div>
+              <form className="form">
+                <div>
+                  <label>Where do you need parking space?</label>
+                  <input id="carparkLocation" name="carparkLocation" type="text" placeholder="Area/Location"></input>
+                </div>
+                <div>
+                  <label>When do you intend to start parking</label>
+                  <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
+                </div>
+                <div>
+                  <label>What is your estimated budget?</label>
+                  <select name="budget" value={this.state.value} onChange={this.handleChange} style={this.state.budget ? {color: "black"} : {color: "#8a8888"}}>
+                    <option value="">Select</option>
+                    <option value="RM300">RM300</option>
+                    <option value="RM500">RM500</option>
+                  </select>
+                </div>
+                <div className="button-container">
+                  <button className="btn" onClick={this.handleSubmit} className="btn" disabled={this.isDisabled()}>Send Enquiry</button>
+                </div>
+              </form>
             </div>
-            <form className="form">
-              <div>
-                <label>Where do you require carpark?</label>
-                <input name="carparkLocation" value={this.state.value} onChange={this.handleChange} type="text" placeholder="Area/Location"></input>
+          }
+          {submit &&
+            <div className="white-background container">
+              <div className="header">
+                <h3>Thank you for reaching out to us!</h3>
               </div>
-              <div>
-                <label>When do you want to start parking</label>
-                <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
+              <div className="message">
+                <p>We've received your enquiry!</p>
+                <p>A confirmation email has been sent to parkitmsia@gmail.com</p>
+                <p>Our friendly parking buddies will get in touch with you soon.</p>
               </div>
-              <div>
-                <label>What is your expected budget?</label>
-                <select name="budget" value={this.state.value} onChange={this.handleChange} style={this.state.budget ? {color: "black"} : {color: "#8a8888"}}>
-                  <option value="">Select</option>
-                  <option value="RM300">RM300</option>
-                  <option value="RM500">RM500</option>
-                </select>
+              <div className="redirect">
+                <p>Redirecting you to the homepage</p>
+                <p>in 10 seconds.</p>
               </div>
               <div className="button">
-                <button onClick={this.handleSubmit} className="btn" disabled={this.isDisabled()}>Send Enquiry</button>
+                <button className="btn">Go To Homepage</button>
               </div>
-            </form>
-          </div>
-        }
-        {submit &&
-          <div className="thank-you">
-            <div className="header">
-              <h3>Thank You, Jao Ern!</h3>
             </div>
-            <div className="message">
-              <p>Your enquiry has been sent to ParkIt.</p>
-              <p>A confirmation email has been sent to parkitmsia@gmail.com</p>
-              <p>Our team will be in touch with you.</p>
-            </div>
-            <div className="redirect">
-              <p>Redirecting you to the homepage</p>
-              <p>in 10 seconds.</p>
-            </div>
-            <div className="button">
-              <button className="btn">Go To Homepage</button>
-            </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+
     )
   }
 }
@@ -407,6 +439,8 @@ class RentParking extends Component {
     const id = this.props.match.params.id
     const {parkings, AuthedUser, dispatch, loading} = this.props
     const parking = parkings[id]
+
+    console.log(id)
 
 
     return (
@@ -483,6 +517,9 @@ class RentParking extends Component {
                           </div>
                         </div>
                       }
+                      {id === "no-parking" &&
+                        <NoParking closeModal={this.closeModal}/>
+                      }
                   </Modal>
                   : null
         }
@@ -512,7 +549,7 @@ const ThankYou = (props) => (
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
-    defaultZoom={12}
+    defaultZoom={14}
     center={props.state[props.currentLocation].center}
   >
     {props.locations ?
