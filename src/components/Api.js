@@ -59,7 +59,6 @@ export const getParkings = () =>
     fetch(`http://127.0.0.1:8000/search/?db_status=Pending`)
     .then(handleErrors)
     .then(res => res.json())
-    .catch(e => alert("There was an error processing your request."))
 
 export const getUserInfo = () =>
   fetch(`http://127.0.0.1:8000/profile/`, {

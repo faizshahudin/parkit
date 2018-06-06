@@ -5,8 +5,6 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import jwt from "jsonwebtoken"
 
 
-
-
 export function handleInitialData() {
   return (dispatch) => {
     dispatch(showLoading())
@@ -22,5 +20,10 @@ export function handleInitialData() {
         dispatch(getParkings(parkingObject))
         dispatch(hideLoading())
       })
+      .catch(res => {
+        dispatch(hideLoading())
+        alert(res)
+      })
+
   }
 }

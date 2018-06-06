@@ -518,7 +518,7 @@ class RentParking extends Component {
                                       </div>
                                     </div>
                                   </div>
-                                : <ThankYou />
+                                : <ThankYou closeModal={this.closeModal}/>
                             }
                           </div>
                         </div>
@@ -538,15 +538,20 @@ class RentParking extends Component {
 const ThankYou = (props) => (
   <Fragment>
       <div className="thankyou">
-        <div className="image">
-          <img></img>
+        <div className="grid">
+          <div className="image">
+            <img></img>
+          </div>
+          <div className="text">
+            <h3>Thank you for parking with us!</h3>
+            <p>We have sent your request to the Parkit team.</p>
+            <p>The team will get in touch shortly.</p>
+            <p>In the meantime, if you have any enquiries, do not hesitate to ask Ken.</p>
+            <p>He'll get to the bottom of it :)</p>
+          </div>
         </div>
-        <div className="text">
-          <h3>Thank you for parking with us!</h3>
-          <p>We have sent your request to the Parkit team.</p>
-          <p>The team will get in touch shortly.</p>
-          <p>In the meantime, if you have any enquiries, do not hesitate to ask Ken.</p>
-          <p>He'll get to the bottom of it :)</p>
+        <div className="button">
+          <button className="btn" onClick={props.closeModal}>Close</button>
         </div>
       </div>
   </Fragment>

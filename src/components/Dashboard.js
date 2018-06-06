@@ -130,8 +130,8 @@ class Dashboard extends Component {
                         <button onClick={() => this.setState({edit: false})}>Cancel</button>
                       </form>
                     : <div>
-                        <div><span name="contact" id="contact">{AuthedUser.contact}</span></div>
-                        <div><span>{AuthedUser.email}</span></div>
+                        <div className="contact-info"><i class="fas fa-phone"></i><span name="contact" id="contact">{AuthedUser.contact}</span></div>
+                        <div className="contact-info"><i class="far fa-envelope"></i><span>{AuthedUser.email}</span></div>
                       </div>
                   }
 

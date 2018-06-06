@@ -85,19 +85,17 @@ export function getUserDetails(data) {
 
 export function handleRegister(data) {
   return (dispatch) => {
-    return Api.register(data).then(res => {
+    dispatch(showLoading())
+    return Api.register(data)
+    .then(res => {
       localStorage.setItem("auth", res.token)
       dispatch(registerSuccess(res.token))
-      dispatch(handleGetUserDetails())
-      // else if (res.username[0] === "A user with that username already exists.") {
-      //   alert(res.username[0])
-      // }
-      // else if (res.email[0] === "This user has already registered.") {
-      //   alert(res.email[0])
-      // }
-    })
+      dispatch(handleGetUserDetails())})
+    .then(() => dispatch(hideLoading()))
     .catch(e => {
       dispatch(registerError())
+      dispatch(hideLoading())
+      alert(e)
     })
   }
 }
@@ -119,6 +117,7 @@ export function handleLogin(data) {
         }
       })
       .catch(e => {
+        dispatch(hideLoading())
         alert("There was an error processing your request")
       })
   }
@@ -131,7 +130,10 @@ export function handleEditProfile(data) {
     return Api.updateProfile(localStorage.auth, data)
       .then(res => dispatch(editProfileSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch(e => alert("There was an error processing your request"))
+      .catch(e => {
+        dispatch(hideLoading())
+        alert("There was an error processing your request")
+      })
   }
 }
 
@@ -142,7 +144,10 @@ export function handleUploadImage(data) {
     return Api.uploadPhoto(localStorage.auth, data)
       .then(res => dispatch(uploadImageSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch("There was an error processing your request")
+      .catch(e => {
+        dispatch(hideLoading())
+        alert(e)
+      })
   }
 }
 
@@ -155,10 +160,15 @@ export function handleLogout () {
 
 export function handleGetUserDetails () {
   return (dispatch) => {
-    Api.getUserInfo(localStorage.auth)
-      .then(res => {
-        console.log(res)
-        dispatch(getUserDetails(res))
+    dispatch(showLoading())
+    return Api.getUserInfo(localStorage.auth)
+      .then(res => {dispatch(getUserDetails(res))})
+      .then(() => dispatch(hideLoading()))
+      .catch(e => {
+        dispatch(hideLoading())
+        alert(e)
       })
+
+
   }
 }

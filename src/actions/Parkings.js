@@ -60,7 +60,10 @@ export function handleListParking(parkings) {
     return Api.addParking(parkings, localStorage.auth)
       .then(res => dispatch(listParkingSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch("There was an error processing your request.")
+      .catch(e => {
+        dispatch(hideLoading())
+        alert(e)
+      })
   }
 }
 
@@ -91,7 +94,8 @@ export function handleGetParkings() {
     })
     .then(() => dispatch(hideLoading()))
     .catch(e => {
-      alert("There was an error processing your request")
+      dispatch(hideLoading())
+      alert(e)
     })
   }
 }
@@ -103,6 +107,9 @@ export function handleBookParking(parking) {
     Api.bookParking(parking, localStorage.auth)
       .then(res => dispatch(bookParkingSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch(res => alert(res.statusText))
+      .catch(res => {
+        dispatch(hideLoading())
+        alert(res)
+      })
   }
 }

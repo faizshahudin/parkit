@@ -978,6 +978,8 @@ button:disabled {
 .nav .user-avatar {
   height: 40px;
   width: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav .user-name {
@@ -1394,9 +1396,25 @@ button:disabled {
   padding: 10px;
 }
 
-.rent-parking .thankyou {
+.rent-parking .thankyou .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  text-align: right;
+  padding: 15px;
+}
+
+.rent-parking .thankyou h3 {
+  font-size: 24px;
+  margin: 10px 0 !important;
+}
+.rent-parking .thankyou p {
+  font-size: 16px;
+  margin: 20px 0 !important;
+}
+.rent-parking .thankyou .button {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 /* No Parking */
@@ -1416,8 +1434,9 @@ button:disabled {
 .dashboard {
   width: 90%;
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.25fr 0.75fr;
   grid-gap: 40px;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 .dashboard hr {
@@ -1425,10 +1444,17 @@ button:disabled {
 
 }
 
-.dashboard p, span {
+.dashboard p {
   color: #8a8888;
   font-size: 14px;
   font-weight: 300;
+}
+
+.dashboard span {
+  color: black;
+  font-size: 14px;
+  font-weight: 200;
+  margin-right: auto;
 }
 
 /* .dashboard h3, h5, p, span {
@@ -1440,8 +1466,17 @@ button:disabled {
   margin: 10px 0 !important;
 }
 
+.dashboard .avatar h3 {
+  font-weight: 700;
+}
+
+
 .dashboard h5 {
   font-weight: 500;
+}
+
+.dashboard .edit h5 {
+  font-weight: 700 !important;
 }
 
 .dashboard .user {
@@ -1477,6 +1512,12 @@ button:disabled {
   cursor: pointer;
 }
 
+.dashboard .user .contact .contact-info {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
+  margin: 10px 0;
+}
+
 .dashboard .parking {
 
   /* display: grid;
@@ -1485,14 +1526,15 @@ button:disabled {
 }
 
 .dashboard .parking .listing {
-  margin-top: 10px !important;
+  margin-top: 20px !important;
   overflow: scroll;
   height: 70vh;
 
 }
 
+
 .dashboard .parking h3, h5, p {
-  margin: 10px 0 !important;
+  margin: 5px 0 !important;
 }
 
 .dashboard .parking .navigation {
@@ -1566,4 +1608,8 @@ button:disabled {
 .dashboard .parking .details {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.dashboard .parking .name {
+  margin-bottom: 20px;
 }
