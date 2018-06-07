@@ -171,9 +171,11 @@ class Search extends Component {
      })
    }
 
-   clickEvent = (e) => {
-     const lat = `${e.latLng.lat()}`
-     const lng = e.latLng.lng()
+   clickEvent = (e, location, marker) => {
+     // const lat = `${e.latLng.lat()}`
+     // const lng = e.latLng.lng()
+     const lat = location.db_latitude
+     const lng = location.db_longitude
      // console.log(this.state.filteredParkings)
      const highlight = this.state.filteredParkings.map(parking => {
        parking.highlight = false
@@ -184,11 +186,16 @@ class Search extends Component {
 
      )
       this.setState(this.state)
-      let test = document.getElementsByClassName("focus")[0]
-      // const tesNode = ReactDOM.findDOMNode(this.refs.focus)
-      var topPos = test.offsetTop
-      document.getElementsByClassName('listing-container')[0].scrollTop = topPos - 200
+      if (marker) {
+        let test = document.getElementsByClassName("focus")[0]
+        // const tesNode = ReactDOM.findDOMNode(this.refs.focus)
+        var topPos = test.offsetTop
+        document.getElementsByClassName('listing-container')[0].scrollTop = topPos - 200
+      }
+   }
 
+   secondClickEvent = (e, location) => {
+     console.log(location)
    }
 
  componentDidMount = () => {
@@ -227,7 +234,7 @@ class Search extends Component {
                   {markersToShow &&
                     <ul>
                       {markersToShow.map(location =>
-                        <li>
+                        <li onClick={(e) => this.clickEvent(e, location, false)} value={location}>
                           <div className={"individual-listing " + (location.highlight ? "highlight focus" : null)}>
                             <img src={location.image}></img>
                             <div className="details">
@@ -567,8 +574,9 @@ const Map = withScriptjs(withGoogleMap((props) =>
       props.locations.map((place, index) => (
         <Marker
           key={index}
+          animation={place.highlight ? google.maps.Animation.BOUNCE : null}
           position={{lat: Number(place.db_latitude), lng: Number(place.db_longitude)}}
-          onClick={props.clickEvent}
+          onClick={(e) => props.clickEvent(e, place, true)}
         >
         </Marker>
       ))
