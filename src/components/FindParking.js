@@ -107,6 +107,7 @@ class Search extends Component {
       parking.highlight = false
     })
    this.setState({filteredParkings: filteredParkings})
+   this.initialize()
  }
 
  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
@@ -346,6 +347,7 @@ class NoParking extends Component {
   componentDidMount = () => {
     this.initialize()
   }
+
   render() {
     let {submit} = this.state
 

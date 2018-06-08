@@ -8,6 +8,8 @@ import list3 from "../images/listwithus-3.png"
 import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
+import logos from "../images/logos.png"
+
 
 
 class Owners extends Component {
@@ -51,11 +53,16 @@ class Owners extends Component {
             <img src={list3}></img>
           </div>
         </section>
-        <section className="signup container">
+        <section className="hero signup container">
           <div className="container content">
             <p>What are you waiting for?</p>
             <p>Rent out your parking space today!</p>
             <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
+          </div>
+        </section>
+        <section className="partners">
+          <div className="logo-container">
+            <img className="logo" src={logos}></img>
           </div>
         </section>
       </div>

@@ -21,17 +21,6 @@ class Home extends Component {
             <img className="hero-img" src={hero1}></img>
           </div>
         </section>
-        <section className="partners">
-          <div>
-            <h4>SPECIAL THANKS TO</h4>
-          </div>
-          <div className="logo-container">
-            <img className="logo" src={logos}></img>
-          </div>
-          <div>
-            <p>READ ALL ABOUT PARKIT HERE</p>
-          </div>
-        </section>
         <section className="hero two full-width">
           <div>
             <img className="hero-img" src={hero2}></img>
@@ -79,6 +68,11 @@ class Home extends Component {
           <div className="full-width">
             <h3>We're here for all your parking needs. Sign up now!</h3>
             <Link to="/register"><button className="btn">GET STARTED</button></Link>
+          </div>
+        </section>
+        <section className="partners">
+          <div className="logo-container">
+            <img className="logo" src={logos}></img>
           </div>
         </section>
       </div>

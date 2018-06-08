@@ -296,6 +296,10 @@ class Add extends Component {
     this.initialize()
   }
 
+  componentDidUpdate() {
+    this.initialize()
+  }
+
   render() {
 
     console.log(this.state)

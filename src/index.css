@@ -182,8 +182,8 @@ button:disabled {
 
 /* Home */
 .home {
-  grid-gap: 30px;
-  margin: 5px 0;
+  /* grid-gap: 30px; */
+  margin: 0;
 }
 
 .home h1 {
@@ -230,12 +230,14 @@ button:disabled {
 .landing .hero {
   display: grid;
   grid-gap: 10px;
+  margin-top: 30px;
 }
 
 .landing .hero.one {
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 0 !important;
   padding: 0 50px;
 }
 
@@ -306,17 +308,17 @@ button:disabled {
 }
 
 .landing .partners {
-  width: 95%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  background-color: #f3e3e3;
+  background-color: #f7f7f7;
   padding: 40px;
 }
 
 
 .landing .logo {
-  height: 80px;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -341,8 +343,11 @@ button:disabled {
 
 /* Owners */
 .owners {
-  grid-gap: 30px;
   color: #8a8888;
+}
+
+.owners .hero {
+  margin-top: 30px !important;
 }
 
 .owners .hero.one {
@@ -390,6 +395,7 @@ button:disabled {
 .owners .hero.two {
   padding: 0;
   width: 95%;
+  margin-bottom: 30px;
 }
 
 .owners .hero.two .image {
@@ -460,13 +466,13 @@ button:disabled {
 
 .owners .signup {
   background-color: #e86c6d;
-  color: white;
   padding: 50px 0;
   font-weight: 500;
   width: 100%;
 }
 
 .owners .signup p {
+  color: white !important;
   font-size: 25px;
 }
 
@@ -1054,7 +1060,7 @@ button:disabled {
   color: #b9b9b9;
   font-family: 'Raleway', sans-serif !important;
   font-size: 14px;
-  margin-top: 80px;
+  background-color: #f7f7f7;
 }
 
 .footer h3 {
@@ -1062,7 +1068,7 @@ button:disabled {
 }
 
 .footer hr {
-  margin-top: 30px;
+  margin: 0;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
