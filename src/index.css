@@ -7,7 +7,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 a {
@@ -65,6 +65,7 @@ input, select {
   background-color: white;
   border: 1px solid #f1f1f1 !important;
   border-radius: 0;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 select {
@@ -207,7 +208,6 @@ button:disabled {
 
 .landing h1 {
   font-weight: 900;
-  color: #4a4a4a;
 }
 
 .landing h3 {
@@ -360,6 +360,11 @@ button:disabled {
   font-size: 18px;
 }
 
+/* .owners .hero.one button {
+  font-size: 16px;
+  padding: 10px 20px;
+} */
+
 .owners h1 {
   font-size: 40px;
   margin-bottom: 30px;
@@ -442,11 +447,6 @@ button:disabled {
   padding: 0;
 }
 
-.owners .signup button {
-  background-color: #e86c6d;
-  color: white;
-}
-
 .owners .list .images {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -459,11 +459,23 @@ button:disabled {
 }
 
 .owners .signup {
-  color: #8a8888;
+  background-color: #e86c6d;
+  color: white;
+  padding: 50px 0;
+  font-weight: 500;
+  width: 100%;
 }
 
 .owners .signup p {
   font-size: 25px;
+}
+
+.owners .signup button {
+  background-color: white;
+  color: #e86c6d;
+  margin: 20px 0;
+  font-size: 16px;
+  padding: 15px;
 }
 
 /* Parkers */
@@ -690,15 +702,26 @@ button:disabled {
 }
 
 .login-register .form .input {
-  width: 100%;
-  margin: 0;
-  border: 1px solid #f1f1f1;
   border-radius: initial;
   margin-left: auto;
   margin-right: auto;
   font-size: 16px;
+}
+
+.input {
+  width: 100%;
+  margin: 0;
+  border: 1px solid #f1f1f1;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   grid-template-columns: 0.9fr 0.1fr;
+}
+
+.input input {
+    border: none !important;
+    outline: none;
+    margin: 0;
 }
 
 .login-register .form i {
@@ -1613,4 +1636,24 @@ button:disabled {
 
 .dashboard .parking .name {
   margin-bottom: 20px;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(https://image.flaticon.com/icons/svg/42/42446.svg) no-repeat;
+    background-size: 80%;
+    /* width: 20px;
+    height: 20px; */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(https://image.flaticon.com/icons/svg/42/42446.svg) no-repeat;
+    background-size: 80%;
+    /* width: 20px;
+    height: 20px; */
 }

@@ -369,7 +369,10 @@ class NoParking extends Component {
                 </div>
                 <div>
                   <label>When do you intend to start parking</label>
-                  <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
+                  <div className="input">
+                    <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
                 </div>
                 <div>
                   <label>What is your estimated budget?</label>

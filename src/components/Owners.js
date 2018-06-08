@@ -18,13 +18,11 @@ class Owners extends Component {
           <div className="content">
             <p className="header">Not using your parking space?</p>
             <h1>Rent it out!</h1>
-            <p className="text">Why not rent out unused parking spaces to drivers that are
-              really in need of them. Usually these are professionals working
-              in office buildings nearby. We work with you to ensure all
-              drivers details are registered with the management,
-              and you are always in control of your parking space.
+            <p className="text">
+              Enjoy passive income and hassle-free management by renting with ParkIt!
+              We ensure security by renting only to reliable tenants, providing you with all their relevant information and collecting payments timely.
             </p>
-            <button className="btn">LIST MY PARKING</button>
+            <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
           </div>
           <div>
             <img src={owners1}></img>
@@ -55,9 +53,9 @@ class Owners extends Component {
         </section>
         <section className="signup container">
           <div className="container content">
-            <h1>Save others from the pain of parking.</h1>
-            <p>It takes less than 2 minutes to list your parking with us.</p>
-            <Link to="/register"><button className="btn">LIST MY PARKING</button></Link>
+            <p>What are you waiting for?</p>
+            <p>Rent out your parking space today!</p>
+            <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
           </div>
         </section>
       </div>

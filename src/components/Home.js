@@ -43,18 +43,18 @@ class Home extends Component {
               expensive or both.
             </p>
             <p>
-              ParkIt aims to solve this problem by connecting drivers to unused parking spaces
-              that are available for rent all around Klang Valley.
+              Parkit solves this by providing you
+              affordable and convenient parking spaces
+              in residential and commercial hot spots.
             </p>
           </div>
         </section>
         <section className="hero three full-width">
           <div className="content">
             <img className="cloud" src={cloud}></img>
-            <h1>Looking for a season parking space?</h1>
+            <h1>Looking for a parking space?</h1>
             <p>
-              Send us an enquiry and we will connect you to our available parking spaces
-              in the city. Our parkings are convenient, safe, and reliable.
+              Search and book from our available parking spaces now!
             </p>
             <button className="btn">I NEED A PARKING</button>
           </div>
@@ -68,11 +68,9 @@ class Home extends Component {
           </div>
           <div className="content">
             <img className="cloud" src={cloud}></img>
-            <h1>Do you have a parking space you do not use?</h1>
+            <h1>Want to rent out your parking space?</h1>
             <p>
-              Sign up here and put it up for rent on ParkIt! We'll rent it out to a driver
-              in need; helping them with their parking problems and getting you a new
-              source of passive income. It's a win-win!
+              Fill up our form and rent your parking space on ParkIt today!
             </p>
             <button className="btn">I HAVE A PARKING</button>
           </div>
