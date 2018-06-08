@@ -447,7 +447,7 @@ button:disabled {
   margin-left: auto;
 }
 
-.owners .signup {
+.owners .signup, .parkers .signup {
   background-color: white;
   color: black;
   padding: 0;
@@ -464,19 +464,19 @@ button:disabled {
   margin-right: auto;
 }
 
-.owners .signup {
+.owners .signup, .parkers .signup {
   background-color: #e86c6d;
   padding: 50px 0;
-  font-weight: 500;
-  width: 100%;
+  font-weight: 500 !important;
+  width: 100% !important;
 }
 
-.owners .signup p {
+.owners .signup p, .parkers .signup p{
   color: white !important;
-  font-size: 25px;
+  font-size: 25px !important;
 }
 
-.owners .signup button {
+.owners .signup button, .parkers .signup button {
   background-color: white;
   color: #e86c6d;
   margin: 20px 0;
@@ -488,6 +488,11 @@ button:disabled {
 .parkers {
   grid-gap: 30px;
   color: #8a8888;
+}
+
+.parkers p {
+  font-size: 20px !important;
+  font-weight: 200 !important;
 }
 
 .parkers .hero.one {
@@ -537,13 +542,13 @@ button:disabled {
   width: 95%;
 }
 
-.parkers .hero.two .content-container {
+.parkers .content-container {
   background-color: #f7f6f6;
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.parkers .hero.two .content {
+.parkers .hero.two .content, .hero.three .content {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -556,8 +561,10 @@ button:disabled {
   margin-right: auto;
 }
 
-.parkers .hero.two .image img {
-  width: 90%;
+.parkers .hero.two img {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .parkers .list {
@@ -587,28 +594,27 @@ button:disabled {
   margin-left: 60px;
 }
 
-.parkers .hero.two .content img {
+/* .parkers .hero.two .content img {
   height: 30px;
   margin-left: auto;
-}
+} */
 
 .parkers .hero.three {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-right: auto;
-  margin-left: auto;
 }
 
-.parkers .signup {
-  background-color: white;
-  color: black;
-  padding: 0;
+.parkers .hero.three .image {
+  width: 90%;
 }
 
-.parkers .signup button {
-  background-color: #e86c6d;
-  color: white;
+.parkers .hero.three img {
+  padding: 60px 0;
+  width: 70%;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
+
 
 .parkers .list .images {
   display: grid;
@@ -621,8 +627,9 @@ button:disabled {
   margin-right: auto;
 }
 
-.parkers .signup {
-  color: #8a8888;
+.parkers .signup p{
+  color: white;
+  font-weight: 500 !important;
 }
 
 .parkers .signup p {

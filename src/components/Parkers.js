@@ -5,9 +5,11 @@ import parkersSlider from "../images/parkers-slider.png"
 import list1 from "../images/listwithus-1.png"
 import list2 from "../images/listwithus-2.png"
 import list3 from "../images/listwithus-3.png"
+import list4 from "../images/listwithus-4.png"
 import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
+
 
 class Parkers extends Component {
   render() {
@@ -29,9 +31,7 @@ class Parkers extends Component {
           </div>
         </section>
         <section className="hero two">
-          <div className="image">
-            <img src={parkersSlider}></img>
-          </div>
+          <img src={parkersSlider}></img>
           <div className="content-container">
             <div></div>
             <div className="content">
@@ -42,16 +42,19 @@ class Parkers extends Component {
           </div>
         </section>
         <section className="hero three container">
-          <div className="content">
-            <h1>Why you'll love renting with us</h1>
+          <div className="content-container">
+            <div></div>
+            <div className="content">
+              <h1>Why you'll love renting with us</h1>
+              <p>Forget about fighting for parking and that parking meter - your space is 100% yours at no extra charge.</p>
+            </div>
+            <div></div>
           </div>
-          <div className="image">
-            <img></img>
-          </div>
+            <img src={list4}></img>
         </section>
         <section className="signup container">
           <div className="container content">
-            <h1>Save others from the pain of parking.</h1>
+            <p>Save others from the pain of parking.</p>
             <p>It takes less than 2 minutes to list your parking with us.</p>
             <Link to="/register"><button className="btn">LIST MY PARKING</button></Link>
           </div>
