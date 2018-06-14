@@ -46,7 +46,7 @@ class Footer extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/parkers/search' activeClassName='active'>
+                <NavLink to='/parkers' activeClassName='active'>
                   Parkers
                 </NavLink>
               </li>

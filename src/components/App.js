@@ -57,9 +57,7 @@ class App extends Component {
     } else {
       dispatch(handleGetParkings())
     }
-    // localStorage.auth
-    //   ? dispatch(handleGetUserDetails())
-    //   : null
+    window.scrollTo(0, 0)
   }
   closeModal = () => {
     const {dispatch} = this.props

@@ -36,22 +36,12 @@ class Nav extends Component {
 
   openModal = () => {
     const {dispatch} = this.props
-    this.setState({modalIsOpen: true});
     dispatch(handleShowModal("Login"))
   }
 
   openModalRegister = () => {
     const {dispatch} = this.props
-    this.setState({modalIsOpen: true});
     dispatch(handleShowModal("Register"))
-  }
-
-  afterOpenModal = () => {
-    this.setState({modalIsOpen: true});
-  }
-
-  closeModal = () => {
-    this.setState({modalIsOpen: false});
   }
 
   logout = () => {
@@ -127,17 +117,8 @@ class Nav extends Component {
           </ul>
         </nav>
       </div>
-
     )
   }
 }
-
-
-// function mapStateToProps({AuthedUser, modal}) {
-//   return {
-//     AuthedUser,
-//     modal
-//   }
-// }
 
 export default withRouter(Nav)

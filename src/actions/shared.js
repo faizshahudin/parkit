@@ -10,9 +10,11 @@ export function handleInitialData() {
     dispatch(showLoading())
     return getInitialData()
       .then(({user, parkings}) => {
-        const auth = (jwt.decode(localStorage.auth))
-        dispatch(loginSuccess(auth))
-        dispatch(getUserDetails(user))
+        if (localStorage.auth) {
+          const auth = (jwt.decode(localStorage.auth))
+          dispatch(loginSuccess(auth))
+          dispatch(getUserDetails(user))
+        }
         let parkingObject = {}
         parkings.map(parking => {
         parkingObject[parking.id] = parking

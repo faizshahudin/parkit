@@ -6,9 +6,17 @@ import hero3 from "../images/hero-image3.png"
 import hero4 from "../images/hero-image4.png"
 import logos from "../images/logos.png"
 import cloud from "../images/clouds.png"
+import {handleShowModal} from "../actions/modal"
+import { connect } from "react-redux"
+
 
 
 class Home extends Component {
+  openModalRegister = () => {
+    console.log("yes")
+    const {dispatch} = this.props
+    dispatch(handleShowModal("Register"))
+  }
   render() {
     return(
       <div className="landing home white-background ">
@@ -45,7 +53,7 @@ class Home extends Component {
             <p>
               Search and book from our available parking spaces now!
             </p>
-            <button className="btn">I NEED A PARKING</button>
+            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
           </div>
           <div>
             <img className="hero-img" src={hero3}></img>
@@ -61,13 +69,13 @@ class Home extends Component {
             <p>
               Fill up our form and rent your parking space on ParkIt today!
             </p>
-            <button className="btn">I HAVE A PARKING</button>
+            <Link to="/add-listing"><button className="btn">I HAVE A PARKING</button></Link>
           </div>
         </section>
         <section className="signup">
           <div className="full-width">
             <h3>We're here for all your parking needs. Sign up now!</h3>
-            <Link to="/register"><button className="btn">GET STARTED</button></Link>
+            <button onClick={this.openModalRegister} className="btn">GET STARTED</button>
           </div>
         </section>
         <section className="partners">
@@ -81,4 +89,10 @@ class Home extends Component {
   }
 }
 
-export default Home
+function mapStateToProps({modal}) {
+  return {
+    modal,
+  }
+}
+
+export default connect(mapStateToProps)(Home)

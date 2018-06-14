@@ -12,6 +12,9 @@ import three from "../images/3.png"
 
 
 class Parkers extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     return (
       <div className="landing parkers white-background">
@@ -24,7 +27,7 @@ class Parkers extends Component {
               for parking. You can now drive straight up to your own parking spots where ever
               you choose to rent. We belive parking should be easier
             </p>
-            <button className="btn">RENT A PARKING</button>
+            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
           </div>
           <div>
             <img src={parkers1}></img>
@@ -56,7 +59,7 @@ class Parkers extends Component {
           <div className="container content">
             <p>Save others from the pain of parking.</p>
             <p>It takes less than 2 minutes to list your parking with us.</p>
-            <Link to="/register"><button className="btn">LIST MY PARKING</button></Link>
+            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
           </div>
         </section>
       </div>

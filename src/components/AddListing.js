@@ -10,6 +10,10 @@ import jwt from "jsonwebtoken"
 import {fields} from "../utils/data"
 
 class AddListing extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+  
   render() {
     const { match, AuthedUser, dispatch } = this.props
     return (

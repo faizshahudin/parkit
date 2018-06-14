@@ -27,6 +27,10 @@ class FindParking extends Component {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     const {dispatch, parkings, modal, AuthedUser, match, loading} = this.props
     return (
@@ -374,7 +378,6 @@ class NoParking extends Component {
                   <label>When do you intend to start parking</label>
                   <div className="input">
                     <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
                   </div>
                 </div>
                 <div>

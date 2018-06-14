@@ -13,6 +13,9 @@ import logos from "../images/logos.png"
 
 
 class Owners extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     return(
       <div className="landing owners white-background">

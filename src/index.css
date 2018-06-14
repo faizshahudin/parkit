@@ -1302,9 +1302,12 @@ button:disabled {
 
 /* Rent Parking */
 .rent-parking {
-  width: 40%;
+  width: 100%;
   padding-top: 40px;
   padding-bottom: 40px;
+}
+.rent-parking .input {
+  grid-template-columns: initial;
 }
 
 .rent-parking .container {
