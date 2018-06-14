@@ -262,7 +262,6 @@ button:disabled {
 .landing .hero.two {
   grid-template-columns: 1.2fr 0.8fr;
   grid-gap: 10px;
-
 }
 
 .landing .hero.two .content {
@@ -548,7 +547,7 @@ button:disabled {
   grid-template-columns: 1fr;
 }
 
-.parkers .hero.two .content, .hero.three .content {
+.parkers .hero.two .content, .parkers .hero.three .content {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -643,7 +642,7 @@ button:disabled {
   margin-left: auto;
   margin-right: auto;
   padding: 40px;
-  width: 40%;
+  width: 100%;
   z-index: 10;
 }
 

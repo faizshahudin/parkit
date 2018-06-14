@@ -76,7 +76,10 @@ class App extends Component {
           <Fragment>
             <LoadingBar />
             <Nav dispatch={dispatch} AuthedUser={AuthedUser} />
-            <LoginRegister />
+            {modal.type &&
+              <LoginRegister />
+            }
+
             {/* {this.props.loading === true
               ? null
               :
@@ -124,6 +127,7 @@ function mapStateToProps({AuthedUser, modal, parkings}) {
     loading: AuthedUser === null,
     AuthedUser,
     parkings,
+    modal,
   }
 }
 

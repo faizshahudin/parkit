@@ -40,6 +40,12 @@ class Nav extends Component {
     dispatch(handleShowModal("Login"))
   }
 
+  openModalRegister = () => {
+    const {dispatch} = this.props
+    this.setState({modalIsOpen: true});
+    dispatch(handleShowModal("Register"))
+  }
+
   afterOpenModal = () => {
     this.setState({modalIsOpen: true});
   }
@@ -112,13 +118,12 @@ class Nav extends Component {
                   </a>
                 </li>
                 <li>
-                  <a onClick={this.openModal} className="btn-transparent">
+                  <a onClick={this.openModalRegister} className="btn-transparent">
                     Sign Up
                   </a>
                 </li>
               </div>
             }
-
           </ul>
         </nav>
       </div>

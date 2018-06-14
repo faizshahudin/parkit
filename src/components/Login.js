@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {BrowserRouter as Router, Route, withRouter} from "react-router-dom"
 import LoginRegisterHeader from "./LoginRegisterHeader"
 import { Link } from 'react-router-dom'
@@ -10,6 +10,8 @@ import { handleRegister } from "../actions/AuthedUser"
 import Modal from 'react-modal';
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {handleGetParkings} from "../actions/parkings"
+import AriaModal from "react-aria-modal"
+
 
 
 
@@ -33,50 +35,81 @@ class LoginRegister extends Component {
 
   closeModal = () => {
     const {dispatch} = this.props
+    console.log("yes")
     dispatch(handleHideModal())
   }
+
+  // componentDidMount = () => {
+  //   const {modal} = this.props
+  //
+  //   this.props.modal.type === "Login"
+  //     ? this.setState({login: true})
+  //     : this.setState({login: false})
+  //
+  // }
+
+  componentDidMount() {
+    const {modal} = this.props
+    modal.type === "Login"
+      ? this.setState({login: true})
+      : this.setState({login: false})
+   }
 
   render() {
     const {dispatch, AuthedUser, modal, history} = this.props
 
+
     return (
-      <Modal
-        isOpen={modal.type ? true : false}
-        // onAfterOpen={this.afterOpenModal}
-        onRequestClose={this.closeModal}
-        shouldCloseOnOverlayClick={true}
-        // overlayClassName="ReactModal__Overlay"
-        tabindex="1"
-        className="Modal"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.4)'
-          },
-        }}
-      >
-        <div className="login-register">
-          <div className="header">
-            <h1>ParkIt</h1>
-            <p>Creating parking opportunities through the shared economy.</p>
-          </div>
-          <div className="form-container">
-            <div className="header">
-              <button onClick={this.toggleNav} disabled={this.state.login}>Log In</button>
-              <button onClick={this.toggleNav} disabled={!this.state.login}>Sign Up</button>
+      <Fragment>
+        {modal.type &&
+          <AriaModal
+            titleText="demo one"
+            focusDialog={true}
+            getApplicationNode={this.getApplicationNode}
+            verticallyCenter={true}
+            onExit={this.closeModal}
+            >
+          {/* <Modal
+            isOpen={modal.type ? true : false}
+            // onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            shouldCloseOnOverlayClick={true}
+            // overlayClassName="ReactModal__Overlay"
+            tabindex="1"
+            className="Modal"
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.4)'
+              },
+            }}
+          > */}
+            <div className="login-register">
+              <div className="header">
+                <h1>ParkIt</h1>
+                <p>Creating parking opportunities through the shared economy.</p>
+              </div>
+              <div className="form-container">
+                <div className="header">
+                  <button onClick={this.toggleNav} disabled={this.state.login}>Log In</button>
+                  <button onClick={this.toggleNav} disabled={!this.state.login}>Sign Up</button>
+                </div>
+                {this.state.login
+                  ? <Login
+                    dispatch={dispatch}
+                    AuthedUser={AuthedUser}
+                    tanduk={history}
+                  />
+                  : <Register
+                    dispatch={dispatch}
+                    AuthedUser={AuthedUser}/>
+                }
+              </div>
             </div>
-            {this.state.login
-              ? <Login
-                dispatch={dispatch}
-                AuthedUser={AuthedUser}
-                tanduk={history}
-              />
-              : <Register
-                dispatch={dispatch}
-                AuthedUser={AuthedUser}/>
-            }
-          </div>
-        </div>
-      </Modal>
+          </AriaModal>
+        }
+      </Fragment>
+
+
     )
   }
 }

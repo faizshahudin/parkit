@@ -13,6 +13,7 @@ import {handleGetParkings, handleBookParking, bookParking} from "../actions/park
 import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {fields} from "../utils/data"
+import AriaModal from "react-aria-modal"
 
 
 
@@ -461,18 +462,16 @@ class RentParking extends Component {
     return (
       <Fragment>
         {AuthedUser
-          ?       <Modal
-                      // overlayClassName="ReactModal__Overlay"
-                      isOpen={true}
-                      onRequestClose={this.closeModal}
-                      tabIndex="1"
-                      className="Modal"
-                      style={{
-                        overlay: {
-                          backgroundColor: 'rgba(0, 0, 0, 0.4)'
-                        },
-                      }}
-                    >
+          ?
+          <AriaModal
+            titleText="demo one"
+            focusDialog={true}
+            getApplicationNode={this.getApplicationNode}
+            verticallyCenter={true}
+            onExit={this.closeModal}
+            >
+
+
                       {parking &&
                         <div className="rent-parking container">
                           <div className="white-background container">
@@ -538,7 +537,7 @@ class RentParking extends Component {
                       {id === "no-parking" &&
                         <NoParking closeModal={this.closeModal}/>
                       }
-                  </Modal>
+                  </AriaModal>
                   : null
         }
       </Fragment>
