@@ -73,11 +73,12 @@ class Search extends Component {
   handleChange = (e) => {
    const {AuthedUser} = this.props
    let value = e.target.value
-   this.filterParking(value)
+
    this.setState({
      currentLocation: value,
      currentPage: 1,
    })
+   this.filterParking(value)
  }
 
  openModal = (e) => {
@@ -111,7 +112,10 @@ class Search extends Component {
     filteredParkings.map(parking => {
       parking.highlight = false
     })
-   this.setState({filteredParkings: filteredParkings})
+   this.setState({
+     filteredParkings: filteredParkings,
+     markersToShow: this.displayMarkers(filteredParkings),
+   })
    this.initialize()
  }
 
@@ -128,7 +132,6 @@ class Search extends Component {
      markers.map(marker => {
        if (marker.i >= resultsPerPage * this.state.currentPage - 20 && marker.i < resultsPerPage * this.state.currentPage) {
          markersToShow.push(marker)
-
        } else {
          null
        }
@@ -211,11 +214,6 @@ class Search extends Component {
 
   render() {
     const {area} = fields
-    let markersToShow
-    if (this.state.filteredParkings) {
-      markersToShow = this.displayMarkers(this.state.filteredParkings)
-    }
-
     let {currentLocation} = this.state
     const {parkings} = this.props
     return (
@@ -230,16 +228,14 @@ class Search extends Component {
                     {area.options.map(a =>
                       <option key={a.value} value={a.value}>{a.title}</option>
                     )}
-                    {/* <option value="bangsar">Bangsar</option>
-                    <option value="bangsar_south">Bangsar South</option> */}
                   </select>
                   <i className="fas fa-ellipsis-v" style={this.state.filteredParkings ? null : {display: "none"}}></i>
                   <input placeholder="Distance from your location" type="text" id="autocomplete" style={this.state.filteredParkings ? null : {display: "none"}}></input>
                 </form>
                 <div className="listings">
-                  {markersToShow &&
+                  {this.state.markersToShow &&
                     <ul>
-                      {markersToShow.map(location =>
+                      {this.state.markersToShow.map(location =>
                         <li onClick={(e) => this.clickEvent(e, location, false)} value={location}>
                           <div className={"individual-listing " + (location.highlight ? "highlight focus" : null)}>
                             <img src={location.image}></img>
@@ -279,7 +275,7 @@ class Search extends Component {
                       containerElement={<div style={{ height: "80vh"}} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       currentLocation={this.state.currentLocation}
-                      locations={markersToShow}
+                      locations={this.state.markersToShow}
                       userLocation={this.state.userLocation}
                       state={this.state}
                       clickEvent={this.clickEvent}

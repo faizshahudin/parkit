@@ -77,23 +77,6 @@ class App extends Component {
             {modal.type &&
               <LoginRegister />
             }
-
-            {/* {this.props.loading === true
-              ? null
-              :
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/owners" component={Owners} />
-              <Route path="/parkers" component={FindParking} />
-              <Route path="/register" component={Register} />
-              <Route path="/add-listing" component={AddListing} />
-              <Route path="/auth/password/reset/confirm" component={ResetPassword} />
-              <PrivateRoute path="/dashboard" component={Dashboard} />
-              <Route render={function() {
-                return <p>Not Found</p>
-              }} />
-            </Switch>
-          } */}
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/owners" component={Owners} />
