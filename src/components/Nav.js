@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import Logo from "../images/parkit-logo.png"
 import MenuIcon from "../images/menu-icon.png"
@@ -11,19 +11,6 @@ import LoginRegister from "./Login"
 import {handleShowModal} from "../actions/modal"
 import avatar from "../images/avatar-placeholder.jpeg"
 
-
-
-
-// const customStyles = {
-//   content : {
-//     top                   : '100%',
-//     left                  : '100%',
-//     right                 : 'auto',
-//     bottom                : 'auto',
-//     marginRight           : '-50%',
-//     transform             : 'translate(-50%, -50%)'
-//   }
-// };
 
 class Nav extends Component {
   constructor(props) {
@@ -100,19 +87,24 @@ class Nav extends Component {
                       <a onClick={this.logout}>Logout</a>
                     </div>
                   </li>
-
-            : <div>
-                <li>
-                  <a onClick={this.openModal}>
-                    Log in
-                  </a>
-                </li>
-                <li>
-                  <a onClick={this.openModalRegister} className="btn-transparent">
-                    Sign Up
-                  </a>
-                </li>
-              </div>
+            : <Fragment>
+              {AuthedUser === false
+                ? <div></div>
+                :
+                <Fragment>
+                  <li>
+                    <a onClick={this.openModal}>
+                      Log in
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={this.openModalRegister} className="btn-transparent">
+                      Sign Up
+                    </a>
+                  </li>
+                </Fragment>
+              }
+            </Fragment>
             }
           </ul>
         </nav>

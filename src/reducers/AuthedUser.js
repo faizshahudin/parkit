@@ -1,9 +1,11 @@
-import {LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS, EDIT_PROFILE, EDIT_PROFILE_SUCCESS, UPLOAD_IMAGE_SUCCESS} from "../actions/AuthedUser"
+import {LOGIN, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER_SUCCESS, REGISTER_ERROR, GET_USER_DETAILS, EDIT_PROFILE, EDIT_PROFILE_SUCCESS, UPLOAD_IMAGE_SUCCESS} from "../actions/AuthedUser"
 import {GET_USER_PARKINGS, LIST_PARKING, LIST_PARKING_SUCCESS, BOOK_PARKING, BOOK_PARKING_SUCCESS} from "../actions/parkings"
 import jwt from "jsonwebtoken"
 
 export default function users(state = null, action) {
   switch (action.type) {
+    case LOGIN :
+      return false
     case LOGIN_SUCCESS :
       return {
         ...action.id

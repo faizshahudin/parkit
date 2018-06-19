@@ -87,7 +87,7 @@ class App extends Component {
                 <Route path="/find-parking" component={FindParking} />
               }
 
-              {this.props.loading === true
+              {!AuthedUser
                 ? null
                 : <div>
                   <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
@@ -105,7 +105,6 @@ class App extends Component {
 
 function mapStateToProps({AuthedUser, modal, parkings}) {
   return {
-    loading: AuthedUser === null,
     AuthedUser,
     parkings,
     modal,

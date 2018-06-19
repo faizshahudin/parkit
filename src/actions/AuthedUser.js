@@ -43,6 +43,12 @@ export function uploadImageSuccess(data) {
   }
 }
 
+export function login() {
+  return {
+    type: LOGIN,
+  }
+}
+
 export function loginSuccess(id) {
   return {
     type: LOGIN_SUCCESS,

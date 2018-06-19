@@ -1,4 +1,4 @@
-import {loginSuccess, getUserDetails} from "./AuthedUser"
+import {login, loginSuccess, getUserDetails} from "./AuthedUser"
 import {getInitialData} from "../components/Api"
 import {getParkings} from "./parkings"
 import { showLoading, hideLoading } from 'react-redux-loading'
@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken"
 export function handleInitialData() {
   return (dispatch) => {
     dispatch(showLoading())
+    dispatch(login())
     return getInitialData()
       .then(({user, parkings}) => {
         if (localStorage.auth) {
