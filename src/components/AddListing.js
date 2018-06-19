@@ -13,7 +13,7 @@ class AddListing extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
   }
-  
+
   render() {
     const { match, AuthedUser, dispatch } = this.props
     return (
@@ -200,6 +200,8 @@ class Add extends Component {
    let value = e.target.value
    let name = e.target.name
 
+   console.log(this.state)
+
    if (name === "image") {
      let file = e.target.files[0]
      this.setState({image: file})
@@ -305,9 +307,7 @@ class Add extends Component {
   }
 
   render() {
-
-    console.log(this.state)
-    const { match } = this.props
+    const { match, AuthedUser } = this.props
     const {property, area, carparkType, dedicated, leasePeriod, rental} = fields
 
     if (this.props.loading === false) {
@@ -321,7 +321,7 @@ class Add extends Component {
           <div className="add-listing-form-content">
             <div className="add-listing-form-header">
               <h1>
-                {currentPage === 1 ? "Hi, Jao Ern!"
+                {currentPage === 1 ? `Hi ${AuthedUser.first_name}!`
                   : currentPage === 2 ? "Now let's see."
                   : "Imagine this."
                 }
@@ -350,7 +350,7 @@ class Add extends Component {
                 <div className="add-listing-form-input-container">
                   <div>
                     {/* <input name={property.name} value={this.state[property.name]} onChange={this.handleChange} type="text" placeholder="Property name i.e. KL Avenue"></input> */}
-                    <input type="text" id="autocomplete"></input>
+                    <input type="text" id="autocomplete" value={this.state.db_address}></input>
                   </div>
                   <div className="add-listing-form-input">
                     <select name={area.name} value={this.state[area.name]} onChange={this.handleChange} style={this.state[area.name] ? {color: "black"} : {color: "#8a8888"}}>
@@ -385,12 +385,17 @@ class Add extends Component {
                     <div className="checkbox-container">
                       {dedicated.options.map(d =>
                         <div className="checkbox">
-                          <input key={dedicated.name} name={dedicated.name} onChange={this.handleChange} type="checkbox" value={d.value} />{d.title}
+                          <input key={dedicated.name} name={dedicated.name} onChange={this.handleChange} type="checkbox" value={d.value} checked={this.state.db_reserved === d.value ? true : false}/><span>{d.title}</span>
                         </div>
                       )}
                     </div>
+                  </div>
+                  <div className="add-listing-form-input">
+                    <div className="label-container">
+                      <label>Upload a photo of the carpark (optional).</label>
+                    </div>
                     <input type="file" id="profile_pic" name="image"
-                          onChange={this.handleChange} accept=".jpg, .jpeg, .png" />
+                          onChange={this.handleChange} accept=".jpg, .jpeg, .png"/>
                   </div>
                 </div>
               }
@@ -404,7 +409,7 @@ class Add extends Component {
                     <div className="checkbox-container step3">
                       {leasePeriod.options.map(l =>
                         <div className="checkbox">
-                          <input key={leasePeriod.name} name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} />{l.title}
+                          <input key={leasePeriod.name} name={leasePeriod.name} onChange={this.handleChange} type="checkbox" value={l.value} checked={this.state.db_period === l.value ? true : false} /><span>{l.title}</span>
                         </div>
                       )}
                       {this.state.db_period && this.state.db_period !== "12" && this.state.db_period !== "6" && this.state.db_period !== "3" &&
@@ -419,7 +424,7 @@ class Add extends Component {
                     <div className="checkbox-container step3">
                       {rental.options.map(r =>
                         <div className="checkbox">
-                          <input key={rental.name} name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} />{r.title}
+                          <input key={rental.name} name={rental.name} onChange={this.handleChange} type="checkbox" value={r.value} checked={this.state.db_price === r.value ? true : false}/><span>{r.title}</span>
                         </div>
                       )}
                       {this.state.db_price && this.state.db_price !== "300" && this.state.db_price !== "250" && this.state.db_price !== "150" &&

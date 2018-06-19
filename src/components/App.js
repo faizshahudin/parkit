@@ -65,7 +65,6 @@ class App extends Component {
   }
   render() {
     const { AuthedUser, dispatch, modal } = this.props
-    console.log(AuthedUser)
 
 
     return (

@@ -8,6 +8,7 @@ import logos from "../images/logos.png"
 import cloud from "../images/clouds.png"
 import {handleShowModal} from "../actions/modal"
 import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 
 
 
@@ -18,7 +19,12 @@ class Home extends Component {
     dispatch(handleShowModal("Register"))
   }
   render() {
-    return(
+    const {AuthedUser} = this.props
+    // if (AuthedUser) {
+    //   return <Redirect to={"/dashboard"} />
+    // }
+
+    return (
       <div className="landing home white-background ">
         <section className="hero one background-grey full-width-main">
           <div className="content">
@@ -89,9 +95,10 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({modal}) {
+function mapStateToProps({modal, AuthedUser}) {
   return {
     modal,
+    AuthedUser
   }
 }
 

@@ -40,14 +40,16 @@ class Nav extends Component {
 
   render() {
     const {AuthedUser} = this.props
-    console.log(AuthedUser)
+
 
     return (
       <div>
         <nav className="nav">
           <ul className="nav-container one">
             <li>
-              <NavLink exact to='/' activeClassName="null">
+              <NavLink exact to="/"
+                activeClassName="null"
+                >
               <img className="nav-logo" src={Logo}></img>
               </NavLink>
             </li>
