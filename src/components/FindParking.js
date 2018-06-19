@@ -90,11 +90,7 @@ class Search extends Component {
     history.push(`${match.url}/${e.target.name}`)
     dispatch(handleShowModal("Login"))
   }
-  // if (!modal.type) {
-  //   dispatch(handleHideModal())
-  // }
-
-  console.log(this.location)
+  window.scrollTo(0, 0)
  }
 
  afterOpenModal = () => {
@@ -216,6 +212,7 @@ class Search extends Component {
     const {area} = fields
     let {currentLocation} = this.state
     const {parkings} = this.props
+    console.log(this.state.markersToShow)
     return (
       <div>
         <div className="body">
@@ -232,26 +229,31 @@ class Search extends Component {
                   <i className="fas fa-ellipsis-v" style={this.state.filteredParkings ? null : {display: "none"}}></i>
                   <input placeholder="Distance from your location" type="text" id="autocomplete" style={this.state.filteredParkings ? null : {display: "none"}}></input>
                 </form>
-                <div className="listings">
-                  {this.state.markersToShow &&
-                    <ul>
-                      {this.state.markersToShow.map(location =>
-                        <li onClick={(e) => this.clickEvent(e, location, false)} value={location}>
-                          <div className={"individual-listing " + (location.highlight ? "highlight focus" : null)}>
-                            <img src={location.image}></img>
-                            <div className="details">
-                              <h3>{location.db_property}</h3>
-                              <h5>Level 2</h5>
-                              <p>RM{location.db_price}</p>
-                              <button className="btn" name={location.id} onClick={this.openModal}>Park Here</button>
-                              <p>Posted: 28/7/18</p>
+                {currentLocation !== "none" &&
+                  <div className="listings">
+                    {this.state.markersToShow.length !== 0
+                      ?
+                      <ul>
+                        {this.state.markersToShow.map(location =>
+                          <li onClick={(e) => this.clickEvent(e, location, false)} value={location}>
+                            <div className={"individual-listing " + (location.highlight ? "highlight focus" : null)}>
+                              <img src={location.image}></img>
+                              <div className="details">
+                                <h3>{location.db_property}</h3>
+                                <h5>Level 2</h5>
+                                <p>RM{location.db_price}</p>
+                                <button className="btn" name={location.id} onClick={this.openModal}>Park Here</button>
+                                <p>Posted: 28/7/18</p>
+                              </div>
                             </div>
-                          </div>
-                        </li>
-                      )}
-                    </ul>
-                  }
-                </div>
+                          </li>
+                        )}
+                      </ul>
+                      : <div>No locations found.</div>
+                    }
+                  </div>
+                }
+
                 {this.state.filteredParkings &&
                   <div className="pagination">
                     {this.state.currentPage > 1 && (
@@ -368,7 +370,9 @@ class NoParking extends Component {
               <form className="form">
                 <div>
                   <label>Where do you need parking space?</label>
-                  <input id="carparkLocation" name="carparkLocation" type="text" placeholder="Area/Location"></input>
+                  <div className="input">
+                    <input id="carparkLocation" name="carparkLocation" type="text" placeholder="Area/Location"></input>
+                  </div>
                 </div>
                 <div>
                   <label>When do you intend to start parking</label>
@@ -455,9 +459,6 @@ class RentParking extends Component {
     const {parkings, AuthedUser, dispatch, loading} = this.props
     const parking = parkings[id]
 
-    console.log(id)
-
-
     return (
       <Fragment>
         {AuthedUser
@@ -469,75 +470,72 @@ class RentParking extends Component {
             verticallyCenter={true}
             onExit={this.closeModal}
             >
-
-
-                      {parking &&
-                        <div className="rent-parking container">
-                          <div className="white-background container">
-                            {loading === true
-                              ?   <div>
-                                    <div className="close-modal">
-                                      <div></div>
-                                      <div></div>
-                                      <div className="close-button" onClick={this.closeModal}>X</div>
-                                    </div>
-                                    <div className="parking-information">
-                                      <div className="header">
-                                        <h3>Want to park here?</h3>
-                                      </div>
-                                      <div className="listing">
-                                        <div>
-                                          <img src={parkingImg}></img>
-                                        </div>
-                                        <div className="details">
-                                          <div>
-                                            <h3>{parking.db_property}</h3>
-                                            <h5>Level 2</h5>
-                                            <p>RM{parking.db_price}</p>
-                                          </div>
-                                          <div>
-                                            <p>AHB2786</p>
-                                            <p>Posted: 28/7/18</p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <hr/>
-                                    <div className="tenure-information">
-                                      <div>
-                                        <h3>Tenure Information</h3>
-                                      </div>
-                                      <div>
-                                        <form onSubmit={this.handleSubmit}>
-                                          <div>
-                                            <label>Start date</label>
-                                            <input required name="start_date" type="datetime-local"></input>
-                                          </div>
-                                          <div>
-                                            <label>Vehicle Registered</label>
-                                            <div className="vehicle-registered">
-                                              <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
-                                              <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
-                                            </div>
-                                          </div>
-                                          {/* <a>+ Add Vehicle</a> */}
-                                          <div className="button">
-                                            <button className="btn">Park Here</button>
-                                          </div>
-                                        </form>
-                                      </div>
-                                    </div>
+            {parking &&
+              <div className="rent-parking container">
+                <div className="white-background container">
+                  {loading === true
+                    ?   <div>
+                          <div className="close-modal">
+                            <div></div>
+                            <div></div>
+                            <div className="close-button" onClick={this.closeModal}>X</div>
+                          </div>
+                          <div className="parking-information">
+                            <div className="header">
+                              <h3>Want to park here?</h3>
+                            </div>
+                            <div className="listing">
+                              <div>
+                                <img src={parkingImg}></img>
+                              </div>
+                              <div className="details">
+                                <div>
+                                  <h3>{parking.db_property}</h3>
+                                  <h5>Level 2</h5>
+                                  <p>RM{parking.db_price}</p>
+                                </div>
+                                <div>
+                                  <p>AHB2786</p>
+                                  <p>Posted: 28/7/18</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr/>
+                          <div className="tenure-information">
+                            <div>
+                              <h3>Tenure Information</h3>
+                            </div>
+                            <div>
+                              <form onSubmit={this.handleSubmit}>
+                                <div>
+                                  <label>Start date</label>
+                                  <input required name="start_date" type="datetime-local"></input>
+                                </div>
+                                <div>
+                                  <label>Vehicle Registered</label>
+                                  <div className="vehicle-registered">
+                                    <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
+                                    <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
                                   </div>
-                                : <ThankYou closeModal={this.closeModal}/>
-                            }
+                                </div>
+                                <div className="button">
+                                  <button className="btn">Park Here</button>
+                                </div>
+                              </form>
+                            </div>
                           </div>
                         </div>
-                      }
-                      {id === "no-parking" &&
-                        <NoParking closeModal={this.closeModal}/>
-                      }
-                  </AriaModal>
-                  : null
+                      : <ThankYou closeModal={this.closeModal}/>
+                  }
+                </div>
+              </div>
+            }
+            {id === "no-parking" &&
+              <NoParking closeModal={this.closeModal}/>
+            }
+              </AriaModal>
+              : null
         }
       </Fragment>
     )
@@ -546,7 +544,6 @@ class RentParking extends Component {
 
 
 const ThankYou = (props) => (
-  <Fragment>
       <div className="thankyou">
         <div className="grid">
           <div className="image">
@@ -564,7 +561,6 @@ const ThankYou = (props) => (
           <button className="btn" onClick={props.closeModal}>Close</button>
         </div>
       </div>
-  </Fragment>
 
 )
 

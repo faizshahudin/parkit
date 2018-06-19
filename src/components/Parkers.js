@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Carousel, showArrows, onChange, onClickItem, onClickThumb, showThumbs, showStatus} from 'react-responsive-carousel'
 import parkers1 from "../images/parkers1.png"
 import parkersSlider from "../images/parkers-slider.png"
 import list1 from "../images/listwithus-1.png"
@@ -34,7 +35,14 @@ class Parkers extends Component {
           </div>
         </section>
         <section className="hero two">
-          <img src={parkersSlider}></img>
+          <Carousel showArrows={true} onChange={onChange} showThumbs={false} showStatus={false}>
+            <div>
+              <img src={parkersSlider}></img>
+            </div>
+            <div>
+              <img src={parkersSlider}></img>
+            </div>
+          </Carousel>
           <div className="content-container">
             <div></div>
             <div className="content">

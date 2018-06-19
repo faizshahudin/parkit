@@ -15,9 +15,6 @@ a {
   cursor: pointer;
 }
 
-/* h1, h3, h5, p {
-  color: #4a4a4a;
-} */
 
 button:hover {
   cursor: pointer;
@@ -859,7 +856,7 @@ button:disabled {
   grid-gap: 15px;
 }
 
-.add-listing-form-input-container input, select {
+.add-listing-form-input-container input, .add-listing-form-input-container select {
   padding: 10px;
   width: 100%;
   margin: 5px;
@@ -959,14 +956,17 @@ button:disabled {
   grid-template-columns: 1fr 1fr;
   text-decoration: none;
   font-weight: 500;
-  padding-top: 10px;
-  padding-bottom: 20px;
+  padding: 10px 0;
   font-family: 'Raleway', sans-serif !important;
   width: 90%;
   margin-right: auto;
   margin-left: auto;
   background-color: white;
   color: #b9b9b9;
+}
+
+.nav ul {
+  margin: 0;
 }
 
 .nav .btn-transparent {
@@ -1096,7 +1096,7 @@ button:disabled {
   padding: 20px 0;
 }
 
-.footer h3, ul {
+.footer h3, .footer ul {
   margin: 0;
 }
 
@@ -1239,7 +1239,7 @@ button:disabled {
   width: 100%;
 }
 
-.find-parking-container .listings .individual-listing h3, h5, p {
+.find-parking-container .listings .individual-listing h3, .find-parking-container .listings .individual-listing h5, .find-parking-container .listings .individual-listing p {
   margin: 0 !important;
 }
 
@@ -1359,7 +1359,7 @@ button:disabled {
 }
 
 
-.rent-parking  h3, h5 {
+.rent-parking  h3, .rent-parking h5 {
   font-weight: 100;
 }
 
@@ -1389,9 +1389,13 @@ button:disabled {
   grid-gap: 15px;
 }
 
-.rent-parking input {
+.rent-parking input, .rent-parking select {
   padding: 5px;
   font-size: 12px;
+}
+
+.rent-parking .input {
+  margin: 5px !important;
 }
 
 .rent-parking input::placeholder {
@@ -1441,7 +1445,7 @@ button:disabled {
 
 .rent-parking .thankyou .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr;
   text-align: right;
   padding: 15px;
 }
@@ -1500,9 +1504,6 @@ button:disabled {
   margin-right: auto;
 }
 
-/* .dashboard h3, h5, p, span {
-  margin: 5px 0 !important;
-} */
 
 .dashboard h3 {
   font-weight: 500;
@@ -1576,7 +1577,7 @@ button:disabled {
 }
 
 
-.dashboard .parking h3, h5, p {
+.dashboard .parking h3, .dashboard .parking h5, .dashboard .parking p {
   margin: 5px 0 !important;
 }
 
