@@ -1140,7 +1140,6 @@ button:disabled {
   display: grid;
   padding-top: 0;
   width: 95%;
-  /* height: 100vh; */
 }
 
 .find-parking-container .header {
@@ -1491,7 +1490,6 @@ button:disabled {
 
 .dashboard hr {
   margin: 0;
-
 }
 
 .dashboard p {
@@ -1565,18 +1563,14 @@ button:disabled {
   margin: 10px 0;
 }
 
-.dashboard .parking {
-
-  /* display: grid;
-  grid-gap: 10px; */
-  /* margin: 10px 0; */
-}
-
 .dashboard .parking .listing {
   margin-top: 20px !important;
   overflow: scroll;
   height: 70vh;
+}
 
+.dashboard .parking .listing ul {
+  margin: 0;
 }
 
 
@@ -1605,25 +1599,6 @@ button:disabled {
   border-bottom: 2px solid;
   padding: 15px 0 !important;
 }
-
-/* .dashboard .listing li {
-  padding: 10px !important;
-} */
-
-/* .login-register .form-container button {
-  border: none;
-  font-weight: 500;
-  font-size: 20px;
-  padding: 15px 0;
-  border-bottom: 2px solid white;
-}
-
-.login-register .form-container button:disabled {
-  opacity: 1;
-  color: #e86c6d;
-  border-bottom: 2px solid;
-  padding: 15px 0 !important;
-} */
 
 .dashboard .parking .listing-container {
   display: grid;
