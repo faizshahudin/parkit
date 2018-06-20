@@ -27,6 +27,5 @@ export function handleInitialData() {
         dispatch(hideLoading())
         alert(res)
       })
-
   }
 }

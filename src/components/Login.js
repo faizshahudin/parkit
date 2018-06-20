@@ -168,7 +168,7 @@ class Login extends Component {
               placeholder="Username"
               >
             </input>
-            <i class="far fa-user"></i>
+            <i className="far fa-user"></i>
           </div>
           <div className="input">
             <input
@@ -181,7 +181,7 @@ class Login extends Component {
               placeholder="Password"
               >
             </input>
-            <i class="fas fa-unlock"></i>
+            <i className="fas fa-unlock"></i>
           </div>
 
           <p><a>Forgot Password?</a></p>
@@ -259,7 +259,7 @@ class Register extends Component {
                 placeholder="Last Name"
                 >
               </input>
-              <i class="far fa-user"></i>
+              <i className="far fa-user"></i>
             </div>
           </div>
           <div className="input">
@@ -286,7 +286,7 @@ class Register extends Component {
               placeholder="Contact Number"
               >
             </input>
-            <i class="fas fa-mobile-alt"></i>
+            <i className="fas fa-mobile-alt"></i>
           </div>
           <div className="input">
             <input
@@ -301,7 +301,7 @@ class Register extends Component {
               onChange={this.handleChange}
               >
             </input>
-            <i class="fas fa-key"></i>
+            <i className="fas fa-key"></i>
           </div>
           <button className="btn submit">Register</button>
           <p className="footer-text">Already have an account? <Link to="/login">Login</Link> here.</p>

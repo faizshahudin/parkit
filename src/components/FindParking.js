@@ -32,11 +32,11 @@ class FindParking extends Component {
   }
 
   render() {
-    const {dispatch, parkings, modal, AuthedUser, match, loading} = this.props
+    const {dispatch, modal, AuthedUser, match, loading, updatedParkings} = this.props
     return (
       <div className="find-parking-container main-container">
-        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={parkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
-        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
+        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
+        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
         {/* <Route exact path={`${match.path}/no-parking`} render={(props) => <NoParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
       </div>
     )
@@ -105,7 +105,7 @@ class Search extends Component {
    const {parkings, AuthedUser} = this.props
    let filteredParkings = Object.values(parkings)
     .filter((parking) => parking.db_area === currentLocation).sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
-    filteredParkings.map(parking => {
+      filteredParkings.map(parking => {
       parking.highlight = false
       let date = new Date(parking.timestamp)
       parking.date = (`${date.getDay()}/${date.getDate()}/${date.getFullYear()}`)
@@ -591,9 +591,14 @@ const Map = withScriptjs(withGoogleMap((props) =>
 ))
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
+  let updatedParkings
+  if (parkings.loading === false) {
+    updatedParkings = Object.values(parkings)
+      .filter(parking => parking.user !== AuthedUser.pk)
+  }
   return {
     AuthedUser,
-    parkings,
+    updatedParkings,
     modal,
     loading: parkings.loading,
   }

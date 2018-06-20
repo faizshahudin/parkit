@@ -217,7 +217,7 @@ function mapStateToProps({AuthedUser, modal, parkings}) {
       .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
   }
 
-  if (parkings.loading === false) {
+  if (parkings.loading === false && AuthedUser.cars) {
     bookedParkings = AuthedUser.cars
       .map(car => {
         parkings[car.occupied_by].car = car

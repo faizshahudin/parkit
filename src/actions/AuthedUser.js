@@ -1,4 +1,5 @@
 import * as Api from "../components/Api"
+import {handleInitialData} from "./shared"
 import jwt from "jsonwebtoken"
 import { showLoading, hideLoading } from 'react-redux-loading'
 
@@ -96,7 +97,8 @@ export function handleRegister(data) {
     .then(res => {
       localStorage.setItem("auth", res.token)
       dispatch(registerSuccess(res.token))
-      dispatch(handleGetUserDetails())})
+      dispatch(handleInitialData())
+    })
     .then(() => dispatch(hideLoading()))
     .catch(e => {
       dispatch(registerError())
@@ -114,8 +116,9 @@ export function handleLogin(data) {
           const token = response.token
           localStorage.setItem("auth", token)
           const user = (jwt.decode(localStorage.auth))
-          dispatch(loginSuccess(user))
-          dispatch(handleGetUserDetails())
+          dispatch(handleInitialData())
+          // dispatch(loginSuccess(user))
+          // dispatch(handleGetUserDetails())
         }
         else {
           alert(response.non_field_errors[0])

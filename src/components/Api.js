@@ -99,15 +99,13 @@ export function getInitialData() {
   return Promise.all([
     getUserInfo(),
     getParkings(),
-  ]).then(([user, parkings]) => ({
-    user,
-    parkings
-  }))
-}
+  ])
+  .then(([user, parkings]) => ({ user, parkings })
+)}
 
 function handleErrors(response) {
     if (!response.ok) {
-        throw Error(response.statusText);
+      throw Error(response.statusText);
     }
     return response;
 }
