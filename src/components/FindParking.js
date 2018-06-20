@@ -108,7 +108,8 @@ class Search extends Component {
       filteredParkings.map(parking => {
       parking.highlight = false
       let date = new Date(parking.timestamp)
-      parking.date = (`${date.getDay()}/${date.getDate()}/${date.getFullYear()}`)
+      console.log(date.getDate())
+      parking.date = (`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`)
     })
    this.setState({
      filteredParkings: filteredParkings,
@@ -179,11 +180,8 @@ class Search extends Component {
    }
 
    clickEvent = (e, location, marker) => {
-     // const lat = `${e.latLng.lat()}`
-     // const lng = e.latLng.lng()
      const lat = location.db_latitude
      const lng = location.db_longitude
-     // console.log(this.state.filteredParkings)
      const highlight = this.state.filteredParkings.map(parking => {
        parking.highlight = false
        if (parking.db_latitude == lat) {
@@ -201,10 +199,6 @@ class Search extends Component {
       }
    }
 
-   secondClickEvent = (e, location) => {
-     console.log(location)
-   }
-
  componentDidMount = () => {
    this.setCenter()
    this.initialize()
@@ -214,7 +208,6 @@ class Search extends Component {
     const {area} = fields
     let {currentLocation} = this.state
     const {parkings} = this.props
-    console.log(this.state.markersToShow)
     return (
       <div>
         <div className="body">
@@ -327,7 +320,6 @@ class NoParking extends Component {
    }
 
    initialize = () => {
-     console.log("yes")
      let self = this
      var defaultBounds = new google.maps.LatLngBounds(
        new google.maps.LatLng(3.1385035, 101.6167771),
@@ -440,7 +432,6 @@ class RentParking extends Component {
     this.setState((state) => ({
       [name]: value
     }))
-    console.log(this.state)
   }
 
   handleSubmit = (e) => {
@@ -457,8 +448,12 @@ class RentParking extends Component {
 
   render() {
     const id = this.props.match.params.id
-    const {parkings, AuthedUser, dispatch, loading} = this.props
-    const parking = parkings[id]
+    const {AuthedUser, dispatch, loading, parkings} = this.props
+    const parking = parkings.find(p => p.id == id)
+
+    // console.log(parkings)
+
+
 
     return (
       <Fragment>
@@ -600,7 +595,7 @@ function mapStateToProps({AuthedUser, parkings, modal}) {
     AuthedUser,
     updatedParkings,
     modal,
-    loading: parkings.loading,
+    loading: parkings.bookParking,
   }
 }
 

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import * as Api from "./Api"
 import { connect } from 'react-redux'
-import { handleListParking } from "../actions/parkings"
+import { handleListParking, listParking } from "../actions/parkings"
 import jwt from "jsonwebtoken"
 import {fields} from "../utils/data"
 
@@ -245,13 +245,6 @@ class Add extends Component {
     })
     dispatch(handleListParking(formData))
   }
-
-  // fileUpload = (e) => {
-  //   let formData = new FormData()
-  //   let file = e.target.files[0]
-  //   formData.append('image', file)
-  //   this.setState({image: formData})
-  // }
 
   isDisabled = () => {
     const {currentPage, sel_area, db_area, db_type, db_reserved, db_period,
@@ -498,7 +491,7 @@ const ThankYou = () => (
 function mapStateToProps({AuthedUser, parkings}) {
 
   return {
-    loading: parkings.loading,
+    loading: parkings.listParking,
     AuthedUser,
   }
 }
