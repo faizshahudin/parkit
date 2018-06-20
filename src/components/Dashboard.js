@@ -41,20 +41,6 @@ class Dashboard extends Component {
    }))
  }
 
- save = () => {
-   let value = document.getElementById("contact").textContent
-   console.log(value)
- }
-
- getUserParkings = () => {
-   const {AuthedUser, parkings} = this.props
-   let newParkings = []
-  let parkingList = AuthedUser.cars.map(car => {
-    newParkings.push(parkings[car.id])
-  })
-
- }
-
  toggleNav = () => {
    this.setState({
      listedParking: !this.state.listedParking,
@@ -93,10 +79,8 @@ class Dashboard extends Component {
 }
 
   render() {
-    const {AuthedUser} = this.props
-    if (AuthedUser.cars) {
-      this.getUserParkings()
-    }
+    const {AuthedUser, listedParkings, bookedParkings} = this.props
+
     return (
       <Fragment>
         {AuthedUser &&
@@ -114,7 +98,7 @@ class Dashboard extends Component {
                       : <img className="user-avatar" src={avatar}></img>
                     }
                   </label>
-                  <h3 contenteditable="true">{AuthedUser.first_name}</h3>
+                  <h3>{AuthedUser.first_name}</h3>
                   <p>Serdang, Selangor</p>
                 </div>
                 <div className="contact container">
@@ -130,8 +114,8 @@ class Dashboard extends Component {
                         <button onClick={() => this.setState({edit: false})}>Cancel</button>
                       </form>
                     : <div>
-                        <div className="contact-info"><i class="fas fa-phone"></i><span name="contact" id="contact">{AuthedUser.contact}</span></div>
-                        <div className="contact-info"><i class="far fa-envelope"></i><span>{AuthedUser.email}</span></div>
+                        <div className="contact-info"><i className="fas fa-phone"></i><span name="contact" id="contact">{AuthedUser.contact}</span></div>
+                        <div className="contact-info"><i className="far fa-envelope"></i><span>{AuthedUser.email}</span></div>
                       </div>
                   }
 
@@ -147,8 +131,8 @@ class Dashboard extends Component {
                 {AuthedUser.parkings &&
                   <div className="listing">
                     {this.state.listedParking
-                      ? <ListedParking AuthedUser={AuthedUser}/>
-                      : <RentedParking AuthedUser={AuthedUser} parkings={this.props.parkings}/>
+                      ? <ListedParking listedParkings={listedParkings}/>
+                      : <RentedParking AuthedUser={AuthedUser} bookedParkings={bookedParkings}/>
                     }
                   </div>
                 }
@@ -163,8 +147,8 @@ class Dashboard extends Component {
 
 const ListedParking = (props) => (
   <ul>
-    {props.AuthedUser.parkings.map(parking =>
-      <li>
+    {props.listedParkings.map((parking, index) =>
+      <li key={index}>
         <div className="listing-container white-background">
           <div className="thumbnail">
             <img src={parking.image}></img>
@@ -197,25 +181,25 @@ const ListedParking = (props) => (
 
 const RentedParking = (props) => (
   <ul>
-    {props.AuthedUser.cars.map(car =>
-      <li>
+    {props.bookedParkings.map(parking =>
+      <li key={parking.id}>
         <div className="listing-container white-background">
           <div className="thumbnail">
-            <img src={props.parkings[car.occupied_by].image}></img>
+            <img src={parking.image}></img>
           </div>
           <div className="details-container">
             <div className="name">
-              <h3>{props.parkings[car.occupied_by].db_property}</h3>
+              <h3>{parking.db_property}</h3>
               <p>Lot B 13-1</p>
             </div>
             <div className="details">
               <div>
                 <h5>Vehicle Registered</h5>
-                <p>{car.car_registery}</p>
+                <p>{parking.car.car_registery}</p>
               </div>
               <div>
                 <h5>Rental</h5>
-                <p>RM{props.parkings[car.occupied_by].db_price}</p>
+                <p>RM{parking.db_price}</p>
               </div>
             </div>
           </div>
@@ -226,10 +210,28 @@ const RentedParking = (props) => (
 )
 
 function mapStateToProps({AuthedUser, modal, parkings}) {
+  let listedParkings
+  let bookedParkings
+  if (AuthedUser.parkings) {
+    listedParkings = AuthedUser.parkings
+      .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
+  }
+
+  if (parkings.loading === false) {
+    bookedParkings = AuthedUser.cars
+      .map(car => {
+        parkings[car.occupied_by].car = car
+        return parkings[car.occupied_by]
+      })
+      .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
+  }
+
   return {
     modal,
     AuthedUser,
-    parkings
+    parkings,
+    listedParkings,
+    bookedParkings,
   }
 }
 export default connect(mapStateToProps)(Dashboard)

@@ -104,9 +104,11 @@ class Search extends Component {
  filterParking = (currentLocation) => {
    const {parkings, AuthedUser} = this.props
    let filteredParkings = Object.values(parkings)
-    .filter((parking) => parking.db_area === currentLocation)
+    .filter((parking) => parking.db_area === currentLocation).sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
     filteredParkings.map(parking => {
       parking.highlight = false
+      let date = new Date(parking.timestamp)
+      parking.date = (`${date.getDay()}/${date.getDate()}/${date.getFullYear()}`)
     })
    this.setState({
      filteredParkings: filteredParkings,
@@ -243,7 +245,7 @@ class Search extends Component {
                                 <h5>Level 2</h5>
                                 <p>RM{location.db_price}</p>
                                 <button className="btn" name={location.id} onClick={this.openModal}>Park Here</button>
-                                <p>Posted: 28/7/18</p>
+                                <p>Posted: {location.date}</p>
                               </div>
                             </div>
                           </li>
@@ -354,8 +356,7 @@ class NoParking extends Component {
   render() {
     let {submit} = this.state
 
-    return(
-
+    return (
         <div className="rent-parking container no-parking">
           {!submit &&
             <div className="white-background container">

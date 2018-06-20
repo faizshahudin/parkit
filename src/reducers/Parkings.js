@@ -6,7 +6,8 @@ export default function parkings(state = {loading: true}, action) {
     case GET_PARKINGS :
       return {
         ...state,
-        ...action.parkings
+        ...action.parkings,
+        loading: false,
       }
     case LIST_PARKING :
       return {

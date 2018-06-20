@@ -536,6 +536,10 @@ button:disabled {
 .parkers .hero.two {
   padding: 0;
   width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .parkers .content-container {
@@ -551,6 +555,17 @@ button:disabled {
   width: 60%;
 }
 
+.parkers .hero.two .carousel-slider {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.parkers .hero.two .carousel .slide {
+  background: white;
+}
+
 .parkers .hero.two .image {
   width: 90%;
   margin-left: auto;
@@ -558,7 +573,8 @@ button:disabled {
 }
 
 .parkers .hero.two img {
-  width: 70%;
+  width: 100%;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -569,6 +585,7 @@ button:disabled {
   margin-right: auto;
   text-align: center;
 }
+
 .parkers .hero.two .content .bullet-points {
   display: grid;
   grid-template-columns: 0.2fr 1.8fr;
@@ -576,24 +593,10 @@ button:disabled {
   padding: 10px 0;
 }
 
-.parkers .hero.two .content .bullet-points li {
-  padding: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.parkers .hero.two .content .bullet-points.two {
-  margin-left: 30px;
-}
 
 .parkers .hero.two .content .bullet-points.three {
   margin-left: 60px;
 }
-
-/* .parkers .hero.two .content img {
-  height: 30px;
-  margin-left: auto;
-} */
 
 .parkers .hero.three {
   display: grid;
