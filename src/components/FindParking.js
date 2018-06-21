@@ -590,6 +590,7 @@ const Map = withScriptjs(withGoogleMap((props) =>
 ))
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
+  let updatedParkings
   if (parkings.loading === false) {
     AuthedUser
     ?   updatedParkings = Object.values(parkings)
