@@ -34,6 +34,7 @@ class FindParking extends Component {
 
   render() {
     const {dispatch, modal, AuthedUser, match, loading, updatedParkings} = this.props
+    console.log(updatedParkings)
     return (
       <div className="find-parking-container main-container">
         <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
@@ -450,7 +451,9 @@ class RentParking extends Component {
   render() {
     const id = this.props.match.params.id
     const {AuthedUser, dispatch, loading, parkings} = this.props
+    console.log(parkings)
     const parking = parkings.find(p => p.id == id)
+
 
     // console.log(parkings)
 
@@ -587,12 +590,12 @@ const Map = withScriptjs(withGoogleMap((props) =>
 ))
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
-  let updatedParkings
   if (parkings.loading === false) {
     AuthedUser
     ?   updatedParkings = Object.values(parkings)
-        .filter(parking => parking.user !== AuthedUser.pk)
-    :   updatedParkings = parkings
+          .filter(parking => parking.user !== AuthedUser.pk)
+    :   updatedParkings = Object.values(parkings)
+          .filter(parking => parking)
 
   }
   return {
