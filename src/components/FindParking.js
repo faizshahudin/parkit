@@ -451,12 +451,7 @@ class RentParking extends Component {
     const id = this.props.match.params.id
     const {AuthedUser, dispatch, loading, parkings} = this.props
     console.log(parkings)
-    const parking = parkings.find(p => p.id == id)
-
-
-    // console.log(parkings)
-
-
+    const parking = parkings[id]
 
     return (
       <Fragment>
@@ -589,14 +584,16 @@ const Map = withScriptjs(withGoogleMap((props) =>
 ))
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
-  console.log(parkings)
-  let updatedParkings
+  let updatedParkings = {}
   if (parkings.loading === false) {
     AuthedUser
-    ?   updatedParkings = Object.values(parkings)
-          .filter(parking => parking.user !== AuthedUser.pk)
-    :   updatedParkings = Object.values(parkings)
-          .filter(parking => parking)
+    ?   Object.values(parkings)
+          .map(parking => {
+            parking.user !== AuthedUser.pk
+            ? updatedParkings[parking.id] = parking
+            : null
+          })
+    :   updatedParkings = parkings
 
   }
   return {

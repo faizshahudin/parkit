@@ -61,10 +61,10 @@ class App extends Component {
     const {dispatch} = this.props
     dispatch(handleHideModal())
   }
+
   render() {
     const { AuthedUser, dispatch, modal } = this.props
-
-
+    
     return (
       <div className="App">
         <Router>
