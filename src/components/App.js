@@ -54,7 +54,7 @@ class App extends Component {
 
     if (localStorage.auth) {
       dispatch(handleInitialData())
-    } 
+    }
     window.scrollTo(0, 0)
   }
   closeModal = () => {

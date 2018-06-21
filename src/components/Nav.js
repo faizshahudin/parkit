@@ -72,23 +72,31 @@ class Nav extends Component {
             </li>
             {AuthedUser
               ?
-                  <li className="user-container dropdown">
-                    <div className="user-avatar-container">
-                      {AuthedUser.image
-                        ? <img className="user-avatar" src={AuthedUser.image}></img>
-                        : <img className="user-avatar" src={avatar}></img>
-                      }
-                      <div className="user-name">
-                        <a>{AuthedUser.first_name}</a>
-                        <i className="fa fa-angle-down dropbtn"/>
+                  <Fragment>
+                    <li>
+                      <NavLink to='/add-listing' activeClassName='active'>
+                        List a Parking
+                      </NavLink>
+                    </li>
+                    <li className="user-container dropdown">
+                      <div className="user-avatar-container">
+                        {AuthedUser.image
+                          ? <img className="user-avatar" src={AuthedUser.image}></img>
+                          : <img className="user-avatar" src={avatar}></img>
+                        }
+                        <div className="user-name">
+                          <a>{AuthedUser.first_name}</a>
+                          <i className="fa fa-angle-down dropbtn"/>
+                        </div>
                       </div>
-                    </div>
-                    <div className="dropdown-content">
-                      <NavLink to="/dashboard">My Profile</NavLink>
-                        <hr/>
-                      <a onClick={this.logout}>Logout</a>
-                    </div>
-                  </li>
+                      <div className="dropdown-content">
+                        <NavLink to="/dashboard">My Profile</NavLink>
+                          <hr/>
+                        <a onClick={this.logout}>Logout</a>
+                      </div>
+                    </li>
+                  </Fragment>
+
             : <Fragment>
               {AuthedUser === false
                 ? <div></div>
