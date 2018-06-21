@@ -3,8 +3,10 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import jwt from "jsonwebtoken"
 
 export const GET_PARKINGS = "GET_PARKINGS"
+export const LIST_PARKING_COMPLETE = "LIST_PARKING_COMPLETE"
 export const LIST_PARKING = "LIST_PARKING"
 export const LIST_PARKING_SUCCESS = "LIST_PARKING_SUCCESS"
+export const BOOK_PARKING_COMPLETE = "BOOK_PARKING_COMPLETE"
 export const BOOK_PARKING = "BOOK_PARKING"
 export const BOOK_PARKING_SUCCESS = "BOOK_PARKING_SUCCESS"
 export const GET_USER_PARKINGS = "GET_USER_PARKINGS"
@@ -25,6 +27,12 @@ export function getUserParkings(parkings) {
   }
 }
 
+export function listParkingComplete() {
+  return {
+    type: LIST_PARKING_COMPLETE,
+  }
+}
+
 export function listParking() {
   return {
     type: LIST_PARKING,
@@ -35,6 +43,12 @@ export function listParkingSuccess(parking) {
   return {
     type: LIST_PARKING_SUCCESS,
     parking
+  }
+}
+
+export function bookParkingComplete() {
+  return {
+    type: BOOK_PARKING_COMPLETE,
   }
 }
 

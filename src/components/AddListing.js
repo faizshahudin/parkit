@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import * as Api from "./Api"
 import { connect } from 'react-redux'
-import { handleListParking, listParking } from "../actions/parkings"
+import { handleListParking, listParking, listParkingComplete } from "../actions/parkings"
 import jwt from "jsonwebtoken"
 import {fields} from "../utils/data"
 
@@ -21,7 +21,7 @@ class AddListing extends Component {
         <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser} dispatch={dispatch} loading={this.props.loading}/>}/>
         { this.props.loading === true
           ? null
-          : <Route path={`${match.path}/thank-you`} component={ThankYou}/>
+          : <Route path={`${match.path}/thank-you`} render={(props) => <ThankYou {...props} dispatch={dispatch}/>}/>
         }
       </div>
     )
@@ -237,7 +237,6 @@ class Add extends Component {
     let formData = new FormData()
     for (const key of Object.keys(this.state)) {
       formData.append(key, this.state[key])
-    // console.log(key, this.state[key]);
     }
 
     this.setState({
@@ -454,39 +453,46 @@ class Add extends Component {
   }
 }
 
-const ThankYou = () => (
-  <div className="add-listing-container thank-you container image-background">
-    <div className="add-listing-form-container thank-you">
-      <div className="add-listing-form-content thank-you">
-        <div className="add-listing-form-header thank-you">
-          <h1>
-            Much Appreciated!
-          </h1>
-        </div>
-        <div className="add-listing-form-body thank-you">
-          <div>
-            <h4>Thank you Jao Ern for leasing out your carpark with ParkIt.</h4>
+class ThankYou extends Component {
+  componentWillUnmount() {
+    this.props.dispatch(listParkingComplete())
+  }
+  render() {
+    return (
+      <div className="add-listing-container thank-you container image-background">
+        <div className="add-listing-form-container thank-you">
+          <div className="add-listing-form-content thank-you">
+            <div className="add-listing-form-header thank-you">
+              <h1>
+                Much Appreciated!
+              </h1>
+            </div>
+            <div className="add-listing-form-body thank-you">
+              <div>
+                <h4>Thank you Jao Ern for leasing out your carpark with ParkIt.</h4>
+              </div>
+            </div>
+            <div className="add-listing-form-body thank-you">
+              <div>
+                <p>A confirmation email has been sent to to parkitmsia@gmail.com</p>
+                <p>Our team will be in touch.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="add-listing-form-body thank-you">
-          <div>
-            <p>A confirmation email has been sent to to parkitmsia@gmail.com</p>
-            <p>Our team will be in touch.</p>
+        <div className="add-listing-message-container">
+          <div className="empty-div"></div>
+          <div className="add-listing-message-content">
+            <h1>You have just helped one driver find a parking.</h1>
+            <p>
+              Congratulations. Join the ParkIt community to make parking great together!
+            </p>
           </div>
         </div>
       </div>
-    </div>
-    <div className="add-listing-message-container">
-      <div className="empty-div"></div>
-      <div className="add-listing-message-content">
-        <h1>You have just helped one driver find a parking.</h1>
-        <p>
-          Congratulations. Join the ParkIt community to make parking great together!
-        </p>
-      </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
 
 function mapStateToProps({AuthedUser, parkings}) {
 

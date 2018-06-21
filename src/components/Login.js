@@ -39,15 +39,6 @@ class LoginRegister extends Component {
     dispatch(handleHideModal())
   }
 
-  // componentDidMount = () => {
-  //   const {modal} = this.props
-  //
-  //   this.props.modal.type === "Login"
-  //     ? this.setState({login: true})
-  //     : this.setState({login: false})
-  //
-  // }
-
   componentDidMount() {
     const {modal} = this.props
     modal.type === "Login"

@@ -9,7 +9,7 @@ import one from "../images/1.png"
 import Modal from 'react-modal';
 import { withRouter } from "react-router-dom";
 import {connect} from "react-redux"
-import {handleGetParkings, handleBookParking, bookParking} from "../actions/parkings"
+import {handleGetParkings, handleBookParking, bookParking, bookParkingComplete} from "../actions/parkings"
 import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {fields} from "../utils/data"
@@ -520,7 +520,7 @@ class RentParking extends Component {
                             </div>
                           </div>
                         </div>
-                      : <ThankYou closeModal={this.closeModal}/>
+                      : <ThankYou closeModal={this.closeModal} dispatch={dispatch}/>
                   }
                 </div>
               </div>
@@ -536,27 +536,34 @@ class RentParking extends Component {
   }
 }
 
-
-const ThankYou = (props) => (
-      <div className="thankyou">
-        <div className="grid">
-          <div className="image">
-            <img></img>
+class ThankYou extends Component {
+  componentWillUnmount() {
+    this.props.dispatch(bookParkingComplete())
+  }
+  render() {
+    return (
+          <div className="thankyou">
+            <div className="grid">
+              <div className="image">
+                <img></img>
+              </div>
+              <div className="text">
+                <h3>Thank you for parking with us!</h3>
+                <p>We have sent your request to the Parkit team.</p>
+                <p>The team will get in touch shortly.</p>
+                <p>In the meantime, if you have any enquiries, do not hesitate to ask Ken.</p>
+                <p>He'll get to the bottom of it :)</p>
+              </div>
+            </div>
+            <div className="button">
+              <button className="btn" onClick={this.props.closeModal}>Close</button>
+            </div>
           </div>
-          <div className="text">
-            <h3>Thank you for parking with us!</h3>
-            <p>We have sent your request to the Parkit team.</p>
-            <p>The team will get in touch shortly.</p>
-            <p>In the meantime, if you have any enquiries, do not hesitate to ask Ken.</p>
-            <p>He'll get to the bottom of it :)</p>
-          </div>
-        </div>
-        <div className="button">
-          <button className="btn" onClick={props.closeModal}>Close</button>
-        </div>
-      </div>
 
-)
+    )
+  }
+}
+
 
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
