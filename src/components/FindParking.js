@@ -28,6 +28,7 @@ class FindParking extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(handleGetParkings())
     window.scrollTo(0, 0)
   }
 
@@ -588,8 +589,11 @@ const Map = withScriptjs(withGoogleMap((props) =>
 function mapStateToProps({AuthedUser, parkings, modal}) {
   let updatedParkings
   if (parkings.loading === false) {
-    updatedParkings = Object.values(parkings)
-      .filter(parking => parking.user !== AuthedUser.pk)
+    AuthedUser
+    ?   updatedParkings = Object.values(parkings)
+        .filter(parking => parking.user !== AuthedUser.pk)
+    :   updatedParkings = parkings
+
   }
   return {
     AuthedUser,
