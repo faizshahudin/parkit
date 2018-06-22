@@ -152,10 +152,9 @@ li {
   background-color: #e86c6d;
   border: none;
   font-size: 20px;
-  margin-left: auto;
-  margin-right: auto;
   margin: 20px 0;
   padding: 10px;
+  text-align: center;
 }
 
 .btn-transparent {
@@ -1654,4 +1653,146 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-size: 80%;
     /* width: 20px;
     height: 20px; */
+}
+
+@media all and (max-width: 480px) {
+  .hero {
+    grid-template-columns: 1fr !important;
+  }
+  .hero .content {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero .bullet-points {
+    margin: 0 !important;
+  }
+  .landing .logo {
+    width: 100%;
+  }
+
+  /* parkers */
+  .parkers .hero.one {
+    padding: 50px 0 !important;
+  }
+
+  .parkers .hero.two .content, .parkers .hero.three .content {
+    padding: 50px 0 !important;
+  }
+
+  .parkers. .hero.three img {
+    width: 100% !important;
+  }
+
+  .parkers .hero.one .content {
+    margin-bottom: 30px;
+  }
+
+  /* find parking */
+  .find-parking-container .body{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* add-listing */
+  .add-listing-message-container {
+    display: none;
+  }
+
+  .add-listing-container {
+    grid-template-columns: 1fr !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .add-listing-container button {
+    font-size: 14px;
+  }
+
+  .add-listing-form-content {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .add-listing-form-container {
+    box-shadow: initial;
+  }
+
+  .add-listing-form-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+  }
+
+  .add-listing-form-fields {
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* dashboard */
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard .user {
+    grid-template-rows: initial;
+    grid-template-columns: 1.2fr 1.8fr;
+    grid-gap: 20px;
+    padding: 10px 20px;
+  }
+
+  .dashboard .user .contact {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .dashboard .contact-info-container {
+    width: 100% !important;
+  }
+
+  .dashboard .contact.container {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .dashboard span {
+    font-size: 12px;
+    margin-right: auto;
+  }
+
+  .dashboard .user .contact .contact-info {
+    grid-template-columns: 0.3fr 1.7fr;
+    text-align: left;
+    margin-left: auto;
+  }
+
+  .dashboard .user .contact h5 {
+    margin: 10px 0;
+  }
+
+  .dashboard .parking .listing-container {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+
+  .dashboard .parking .listing-container img {
+    height: 200px !important;
+  }
+
+  .dashboard .parking .listing-container .details-container {
+    padding: 5px 20px;
+  }
+
+  .dashboard .listing li {
+    margin-bottom: 10px !important;
+  }
+
+
+  /* footer */
+  .footer {
+    display: none;
+  }
 }

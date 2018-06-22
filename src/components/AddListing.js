@@ -21,7 +21,7 @@ class AddListing extends Component {
         <Route exact path="/add-listing" render={(props) => <Add {...props} AuthedUser={AuthedUser} dispatch={dispatch} loading={this.props.loading}/>}/>
         { this.props.loading === true
           ? null
-          : <Route path={`${match.path}/thank-you`} render={(props) => <ThankYou {...props} dispatch={dispatch}/>}/>
+          : <Route path={`${match.path}/thank-you`} render={(props) => <ThankYou {...props} dispatch={dispatch} AuthedUser={AuthedUser}/>}/>
         }
       </div>
     )
@@ -458,6 +458,7 @@ class ThankYou extends Component {
     this.props.dispatch(listParkingComplete())
   }
   render() {
+    const {AuthedUser} = this.props
     return (
       <div className="add-listing-container thank-you container image-background">
         <div className="add-listing-form-container thank-you">
@@ -469,12 +470,12 @@ class ThankYou extends Component {
             </div>
             <div className="add-listing-form-body thank-you">
               <div>
-                <h4>Thank you Jao Ern for leasing out your carpark with ParkIt.</h4>
+                <h4>Thank you {AuthedUser.first_name} for leasing out your carpark with ParkIt.</h4>
               </div>
             </div>
             <div className="add-listing-form-body thank-you">
               <div>
-                <p>A confirmation email has been sent to to parkitmsia@gmail.com</p>
+                <p>A confirmation email has been sent to to {AuthedUser.email}</p>
                 <p>Our team will be in touch.</p>
               </div>
             </div>
