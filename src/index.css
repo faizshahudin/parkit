@@ -69,17 +69,6 @@ select {
   appearance: none;
 }
 
-/* .login-register .form input {
-  width: 100%;
-  padding: 15px;
-  margin: 0;
-  border: 1px solid #f1f1f1;
-  border-radius: initial;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 16px;
-} */
-
 
 h1 {
   font-size: 35px;
@@ -641,8 +630,7 @@ button:disabled {
   margin-left: auto;
   margin-right: auto;
   padding: 40px;
-  width: 100%;
-  z-index: 10;
+  width: 100% !important;
 }
 
 .login-register-logo {
@@ -658,7 +646,6 @@ button:disabled {
 
 .login-register .header p {
   font-weight: 100;
-
   margin-left: auto;
   margin-right: auto;
 }
@@ -668,9 +655,9 @@ button:disabled {
 }
 
 .login-register .form-container {
+  padding: 20px;
   background-color: white;
   margin-top: 30px;
-
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
@@ -679,7 +666,7 @@ button:disabled {
 
 .login-register .form-container .header {
   margin: 0;
-  padding: 10px;
+  padding: 10px 0;
   color: #4a4a4a;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -703,7 +690,7 @@ button:disabled {
 }
 
 .login-register .form {
-  padding: 30px 40px;
+  padding: 30px 20px;
 }
 
 .login-register .form .name-container {
@@ -711,6 +698,12 @@ button:disabled {
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 }
+
+/* .login-register .form .test {
+  display: grid;
+  grid-template-columns: 0.99fr 0.01fr !important;
+  width: 100%;
+} */
 
 .login-register .form .input {
   border-radius: initial;
@@ -752,6 +745,7 @@ button:disabled {
 .login-register .form .half {
   grid-template-columns: 0.99fr 0.01fr !important;
 }
+
 
 /* .login-register .form .half i {
   margin-left: initial !important;
@@ -1321,12 +1315,12 @@ button:disabled {
   padding: 30px 30px;
 }
 
-.rent-parking .close-modal {
+.close-modal {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.rent-parking .close-modal .close-button {
+.close-modal .close-button {
   margin-left: auto;
   cursor: pointer;
 }
@@ -1671,6 +1665,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 100%;
   }
 
+  /* home */
+  .home .hero {
+    margin-bottom: 40px;
+  }
+
+  .home .hero.one {
+    padding: 10px;
+  }
+
+  .home .hero.one .content {
+    text-align: left !important;
+    padding: 20px 0 !important;
+  }
+
+  .home .hero img {
+    width: 90% !important;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   /* parkers */
   .parkers .hero.one {
     padding: 50px 0 !important;
@@ -1790,6 +1805,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-bottom: 10px !important;
   }
 
+  /* login/register */
+
+  .login-register {
+    padding: 0;
+    height: 100vh;
+    width: 100vw !important;
+  }
+
+  .login-register .header {
+    display: none;
+  }
+
+  .login-register .form-container{
+    width: 100% !important;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .login-register .form {
+    width: 100% !important;
+  }
+
+  /* rent parking */
+
+  .rent-parking {
+    padding: 0 !important;
+  }
+
+  .rent-parking .white-background {
+    height: 100vh !important;
+    width: 100vw !important;
+  }
 
   /* footer */
   .footer {

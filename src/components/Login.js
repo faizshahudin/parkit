@@ -35,7 +35,6 @@ class LoginRegister extends Component {
 
   closeModal = () => {
     const {dispatch} = this.props
-    console.log("yes")
     dispatch(handleHideModal())
   }
 
@@ -60,26 +59,13 @@ class LoginRegister extends Component {
             verticallyCenter={true}
             onExit={this.closeModal}
             >
-          {/* <Modal
-            isOpen={modal.type ? true : false}
-            // onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            shouldCloseOnOverlayClick={true}
-            // overlayClassName="ReactModal__Overlay"
-            tabindex="1"
-            className="Modal"
-            style={{
-              overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.4)'
-              },
-            }}
-          > */}
             <div className="login-register">
-              <div className="header">
-                <h1>ParkIt</h1>
-                <p>Creating parking opportunities through the shared economy.</p>
-              </div>
               <div className="form-container">
+                <div className="close-modal">
+                  <div></div>
+                  <div></div>
+                  <div className="close-button" onClick={this.closeModal}>X</div>
+                </div>
                 <div className="header">
                   <button onClick={this.toggleNav} disabled={this.state.login}>Log In</button>
                   <button onClick={this.toggleNav} disabled={!this.state.login}>Sign Up</button>
@@ -147,8 +133,8 @@ class Login extends Component {
     }
 
     return (
-        <form className="form login" onSubmit={this.login}>
-          <div className="input">
+        <form className="form" onSubmit={this.login}>
+          <div className="input full">
             <input
               required
               id="email"
@@ -161,6 +147,8 @@ class Login extends Component {
             </input>
             <i className="far fa-user"></i>
           </div>
+          <div></div>
+
           <div className="input">
             <input
               required
@@ -174,7 +162,6 @@ class Login extends Component {
             </input>
             <i className="fas fa-unlock"></i>
           </div>
-
           <p><a>Forgot Password?</a></p>
           <button className="btn submit">Log In</button>
           <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>

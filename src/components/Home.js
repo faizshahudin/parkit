@@ -36,9 +36,7 @@ class Home extends Component {
           </div>
         </section>
         <section className="hero two full-width">
-          <div>
-            <img className="hero-img" src={hero2}></img>
-          </div>
+          <img className="hero-img" src={hero2}></img>
           <div className="content">
             <h1>Your dedicated parking buddy</h1>
             <p>
@@ -61,14 +59,10 @@ class Home extends Component {
             </p>
             <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
           </div>
-          <div>
-            <img className="hero-img" src={hero3}></img>
-          </div>
+          <img className="hero-img" src={hero3}></img>
         </section>
         <section className="hero four full-width">
-          <div>
-            <img className="hero-img" src={hero4}></img>
-          </div>
+          <img className="hero-img" src={hero4}></img>
           <div className="content">
             <img className="cloud" src={cloud}></img>
             <h1>Want to rent out your parking space?</h1>
