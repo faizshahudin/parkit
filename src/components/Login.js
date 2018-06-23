@@ -60,6 +60,10 @@ class LoginRegister extends Component {
             onExit={this.closeModal}
             >
             <div className="login-register">
+              <div className="header">
+               <h1>ParkIt</h1>
+               <p>Creating parking opportunities through the shared economy.</p>
+             </div>
               <div className="form-container">
                 <div className="close-modal">
                   <div></div>
@@ -147,7 +151,6 @@ class Login extends Component {
             </input>
             <i className="far fa-user"></i>
           </div>
-          <div></div>
 
           <div className="input">
             <input
