@@ -11,8 +11,38 @@ import LoginRegister from "./Login"
 import {handleShowModal} from "../actions/modal"
 import avatar from "../images/avatar-placeholder.jpeg"
 
-
 class Nav extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      width: null,
+    }
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth })
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions()
+    window.addEventListener("resize", this.updateWindowDimensions)
+  }
+
+  render() {
+    const {AuthedUser} = this.props
+    console.log(window.innerWidth)
+    return (
+      <Fragment>
+        {this.state.width < 500
+          ? <MobileNav AuthedUser={AuthedUser}/>
+          : <DesktopNav AuthedUser={AuthedUser}/>
+        }
+      </Fragment>
+    )
+  }
+}
+
+class DesktopNav extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,7 +70,6 @@ class Nav extends Component {
 
   render() {
     const {AuthedUser} = this.props
-
 
     return (
       <div>
@@ -122,5 +151,37 @@ class Nav extends Component {
     )
   }
 }
+
+class MobileNav extends Component {
+  render() {
+    return (
+      <Fragment>
+        <nav className="nav">
+          <ul className="nav-container">
+            <li>
+              <NavLink exact to="/"
+                activeClassName="null"
+                >
+              <img className="nav-logo" src={Logo}></img>
+              </NavLink>
+            </li>
+            <li>
+              <a onClick={this.openModalRegister}>
+                Login
+              </a>
+            </li>
+            <li>
+              <a onClick={this.openModalRegister}>
+                Register
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </Fragment>
+    )
+  }
+}
+
+
 
 export default withRouter(Nav)
