@@ -30,7 +30,7 @@ class Parkers extends Component {
             </p>
             <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
           </div>
-          <div>
+          <div className="image-container">
             <img src={parkers1}></img>
           </div>
         </section>

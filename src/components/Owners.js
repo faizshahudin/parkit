@@ -29,7 +29,7 @@ class Owners extends Component {
             </p>
             <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
           </div>
-          <div>
+          <div className="image-container">
             <img src={owners1}></img>
           </div>
         </section>

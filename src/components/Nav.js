@@ -29,13 +29,12 @@ class Nav extends Component {
   }
 
   render() {
-    const {AuthedUser} = this.props
-    console.log(window.innerWidth)
+    const {AuthedUser, dispatch, history} = this.props
     return (
       <Fragment>
         {this.state.width < 500
-          ? <MobileNav AuthedUser={AuthedUser}/>
-          : <DesktopNav AuthedUser={AuthedUser}/>
+          ? <MobileNav AuthedUser={AuthedUser} dispatch={dispatch} history={history}/>
+          : <DesktopNav AuthedUser={AuthedUser} dispatch={dispatch} history={history}/>
         }
       </Fragment>
     )

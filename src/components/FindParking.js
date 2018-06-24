@@ -38,7 +38,7 @@ class FindParking extends Component {
       <div className="find-parking-container main-container">
         <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
         <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
-        {/* <Route exact path={`${match.path}/no-parking`} render={(props) => <NoParking {...props} parkings={parkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
+        {/* <Route path={`${match.path}/search/no-parking`} render={(props) => <NoParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
       </div>
     )
   }

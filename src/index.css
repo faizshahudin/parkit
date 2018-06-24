@@ -1684,15 +1684,68 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    padding-top: 0 !important;
+  }
+
+  .home .hero.three {
+    grid-template-areas:
+      "image"
+      "content";
+  }
+
+  .home .hero.three .content {
+    grid-area: content;
+  }
+
+  .home .hero.three .hero-img {
+    grid-area: image;
+  }
+
+  .home .hero-img {
+    padding-bottom: 0 !important;
+  }
+
+  .home .cloud {
+    display: none;
   }
 
   /* parkers */
+
+  .parkers {
+    grid-gap: 10px !important;
+  }
+
   .parkers .hero.one {
-    padding: 50px 0 !important;
+    padding-bottom: 50px;
+    grid-template-areas:
+      "image"
+      "content";
+  }
+
+  .parkers .hero.one .content {
+    grid-area: content;
+  }
+
+  .parkers .hero.one .image-container {
+    grid-area: image;
   }
 
   .parkers .hero.two .content, .parkers .hero.three .content {
     padding: 50px 0 !important;
+  }
+
+  .parkers .hero.two {
+    grid-template-areas:
+      "content"
+      "image";
+  }
+
+  .parkers .hero.two .carousel-container {
+    grid-area: image;
+  }
+
+  .parkers .hero.two .content-container {
+    grid-area: content;
   }
 
   .parkers. .hero.three img {
@@ -1701,6 +1754,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   .parkers .hero.one .content {
     margin-bottom: 30px;
+  }
+
+  /* owners */
+  .owners .hero.one {
+    grid-template-areas:
+      "image"
+      "content";
+  }
+
+  .owners .hero.one .image-container {
+    grid-area: image;
+  }
+
+  .owners .hero.one .content {
+    grid-area: content;
   }
 
   /* find parking */
