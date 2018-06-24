@@ -64,7 +64,7 @@ class App extends Component {
 
   render() {
     const { AuthedUser, dispatch, modal } = this.props
-    
+
     return (
       <div className="App">
         <Router>

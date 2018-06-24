@@ -179,28 +179,37 @@ class MobileNav extends Component {
         {this.state.displayMenu
           ? <MobileMenu toggleMenu={this.toggleMenu}/>
           :
-          <nav className="nav">
-            <ul className="nav-container">
+          <nav className="nav mobile">
+            <ul className="nav-container" style={{cursor: "pointer"}}>
               <li onClick={this.toggleMenu}>
                 <img className="nav-logo" src={Logo}></img>
+                <i className="fa fa-angle-down dropbtn"/>
               </li>
+
+            </ul>
+            <ul className="nav-container">
               {AuthedUser
                 ? <UserAvatar AuthedUser={AuthedUser} logout={logout}/>
                 :
                 <Fragment>
-                  <li>
-                    <a onClick={this.props.openModal}>
-                      Login
-                    </a>
-                  </li>
-                  <li>
-                    <a onClick={this.props.openModalRegister}>
-                      Register
-                    </a>
-                  </li>
+                  {AuthedUser === false
+                    ? <div></div>
+                    : <div className="nav-links">
+                        <li>
+                          <a onClick={this.props.openModal}>
+                            Login
+                          </a>
+                        </li>
+                        <li>
+                          <a onClick={this.props.openModalRegister}>
+                            Register
+                          </a>
+                        </li>
+                      </div>
+                  }
+
                 </Fragment>
               }
-
             </ul>
           </nav>
         }
@@ -212,32 +221,42 @@ class MobileNav extends Component {
 
 const MobileMenu = (props) => {
   return (
-    <div className="mobile-menu">
-      <div className="close-modal">
-        <div></div>
-        <div></div>
-        <div className="close-button" onClick={props.toggleMenu}>X</div>
+      <div className="mobile-menu">
+        <div className="close-modal">
+          <div></div>
+          <div></div>
+          <div className="close-button" onClick={props.toggleMenu}>X</div>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <NavLink to='/' activeClassName='active' onClick={props.toggleMenu}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/owners' activeClassName='active' onClick={props.toggleMenu}>
+                Owners
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/parkers' activeClassName='active' onClick={props.toggleMenu}>
+                Parkers
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/find-parking/search' activeClassName='active' onClick={props.toggleMenu}>
+                Find a Parking
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/add-listing' activeClassName='active' onClick={props.toggleMenu}>
+                List a Parking
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to='/' activeClassName='active' onClick={props.toggleMenu}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/owners' activeClassName='active' onClick={props.toggleMenu}>
-              Owners
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/parkers' activeClassName='active' onClick={props.toggleMenu}>
-              Parkers
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
   )
 }
 
