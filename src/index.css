@@ -1048,17 +1048,30 @@ button:disabled {
 
 .dropdown-content hr {
   width: 100%;
-  /* text-align: left !important; */
-  /* margin-left: auto !important; */
   margin-right: auto !important;
 }
 
-
-
-/* .dropdown-content a:hover {background-color: #ddd} */
-
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+.mobile-menu {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e86c6d;
+  color: white !important;
+}
+
+.mobile-menu li {
+  text-align: center;
+}
+
+.mobile-menu a {
+  color: white !important;
 }
 
 /* Footer */

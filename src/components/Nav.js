@@ -19,36 +19,6 @@ class Nav extends Component {
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth })
-  }
-
-  componentDidMount() {
-    this.updateWindowDimensions()
-    window.addEventListener("resize", this.updateWindowDimensions)
-  }
-
-  render() {
-    const {AuthedUser, dispatch, history} = this.props
-    return (
-      <Fragment>
-        {this.state.width < 500
-          ? <MobileNav AuthedUser={AuthedUser} dispatch={dispatch} history={history}/>
-          : <DesktopNav AuthedUser={AuthedUser} dispatch={dispatch} history={history}/>
-        }
-      </Fragment>
-    )
-  }
-}
-
-class DesktopNav extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      IsAuthenticated: null,
-      modalIsOpen: false,
-    }
-  }
 
   openModal = () => {
     const {dispatch} = this.props
@@ -66,9 +36,40 @@ class DesktopNav extends Component {
     history.push("/")
   }
 
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth })
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions()
+    window.addEventListener("resize", this.updateWindowDimensions)
+  }
 
   render() {
-    const {AuthedUser} = this.props
+    const {AuthedUser, dispatch, history} = this.props
+    return (
+      <Fragment>
+        {this.state.width < 500
+          ? <MobileNav {...this.props} history={history} openModal={this.openModal} openModalRegister={this.openModalRegister} logout={this.logout}/>
+          : <DesktopNav {...this.props} history={history} openModal={this.openModal} openModalRegister={this.openModalRegister} logout={this.logout}/>
+        }
+      </Fragment>
+    )
+  }
+}
+
+class DesktopNav extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      IsAuthenticated: null,
+      modalIsOpen: false,
+    }
+  }
+
+
+  render() {
+    const {AuthedUser, logout} = this.props
 
     return (
       <div>
@@ -106,37 +107,20 @@ class DesktopNav extends Component {
                         List a Parking
                       </NavLink>
                     </li>
-                    <li className="user-container dropdown">
-                      <div className="user-avatar-container">
-                        {AuthedUser.image
-                          ? <img className="user-avatar" src={AuthedUser.image}></img>
-                          : <img className="user-avatar" src={avatar}></img>
-                        }
-                        <div className="user-name">
-                          <a>{AuthedUser.first_name}</a>
-                          <i className="fa fa-angle-down dropbtn"/>
-                        </div>
-                      </div>
-                      <div className="dropdown-content">
-                        <NavLink to="/dashboard">My Profile</NavLink>
-                          <hr/>
-                        <a onClick={this.logout}>Logout</a>
-                      </div>
-                    </li>
+                    <UserAvatar AuthedUser={AuthedUser} logout={logout}/>
                   </Fragment>
-
             : <Fragment>
               {AuthedUser === false
                 ? <div></div>
                 :
                 <Fragment>
                   <li>
-                    <a onClick={this.openModal}>
+                    <a onClick={this.props.openModal}>
                       Log in
                     </a>
                   </li>
                   <li>
-                    <a onClick={this.openModalRegister} className="btn-transparent">
+                    <a onClick={this.props.openModalRegister} className="btn-transparent">
                       Sign Up
                     </a>
                   </li>
@@ -151,34 +135,110 @@ class DesktopNav extends Component {
   }
 }
 
+const UserAvatar = (props) => {
+  return (
+    <Fragment>
+      <li className="user-container dropdown">
+        <div className="user-avatar-container">
+          {props.AuthedUser.image
+            ? <img className="user-avatar" src={props.AuthedUser.image}></img>
+            : <img className="user-avatar" src={avatar}></img>
+          }
+          <div className="user-name">
+            <a>{props.AuthedUser.first_name}</a>
+            <i className="fa fa-angle-down dropbtn"/>
+          </div>
+        </div>
+        <div className="dropdown-content">
+          <NavLink to="/dashboard">My Profile</NavLink>
+            <hr/>
+          <a onClick={props.logout}>Logout</a>
+        </div>
+      </li>
+    </Fragment>
+  )
+}
+
 class MobileNav extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      displayMenu: false,
+    }
+  }
+
+  toggleMenu = () => {
+    this.setState({ displayMenu: !this.state.displayMenu })
+    console.log(this.state)
+  }
+
   render() {
+    const {AuthedUser, logout} = this.props
     return (
       <Fragment>
-        <nav className="nav">
-          <ul className="nav-container">
-            <li>
-              <NavLink exact to="/"
-                activeClassName="null"
-                >
-              <img className="nav-logo" src={Logo}></img>
-              </NavLink>
-            </li>
-            <li>
-              <a onClick={this.openModalRegister}>
-                Login
-              </a>
-            </li>
-            <li>
-              <a onClick={this.openModalRegister}>
-                Register
-              </a>
-            </li>
-          </ul>
-        </nav>
+        {this.state.displayMenu
+          ? <MobileMenu toggleMenu={this.toggleMenu}/>
+          :
+          <nav className="nav">
+            <ul className="nav-container">
+              <li onClick={this.toggleMenu}>
+                <img className="nav-logo" src={Logo}></img>
+              </li>
+              {AuthedUser
+                ? <UserAvatar AuthedUser={AuthedUser} logout={logout}/>
+                :
+                <Fragment>
+                  <li>
+                    <a onClick={this.props.openModal}>
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={this.props.openModalRegister}>
+                      Register
+                    </a>
+                  </li>
+                </Fragment>
+              }
+
+            </ul>
+          </nav>
+        }
+
       </Fragment>
     )
   }
+}
+
+const MobileMenu = (props) => {
+  return (
+    <div className="mobile-menu">
+      <div className="close-modal">
+        <div></div>
+        <div></div>
+        <div className="close-button" onClick={props.toggleMenu}>X</div>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to='/' activeClassName='active' onClick={props.toggleMenu}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/owners' activeClassName='active' onClick={props.toggleMenu}>
+              Owners
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/parkers' activeClassName='active' onClick={props.toggleMenu}>
+              Parkers
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  )
 }
 
 
