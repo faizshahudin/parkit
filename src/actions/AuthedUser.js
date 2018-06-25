@@ -177,7 +177,5 @@ export function handleGetUserDetails () {
         dispatch(hideLoading())
         alert(e)
       })
-
-
   }
 }

@@ -57,10 +57,7 @@ class App extends Component {
     }
     window.scrollTo(0, 0)
   }
-  closeModal = () => {
-    const {dispatch} = this.props
-    dispatch(handleHideModal())
-  }
+
 
   render() {
     const { AuthedUser, dispatch, modal } = this.props
