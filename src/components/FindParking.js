@@ -447,10 +447,12 @@ class RentParking extends Component {
   }
 
   showAlert = () => {
+    let self = this
     Alert.error('An error occurred...', {
       position: 'top',
       html: true
     })
+    setTimeout(function(){ self.closeModal() }, 3000)
   }
 
   render() {
