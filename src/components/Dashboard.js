@@ -226,6 +226,8 @@ function mapStateToProps({AuthedUser, modal, parkings}) {
       .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
   }
 
+  console.log(bookedParkings)
+
   return {
     modal,
     AuthedUser,

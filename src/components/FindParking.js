@@ -14,6 +14,8 @@ import parkingImg from "../images/parking-placeholder.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {fields} from "../utils/data"
 import AriaModal from "react-aria-modal"
+import Alert from 'react-s-alert'
+import 'react-s-alert/dist/s-alert-default.css'
 
 
 
@@ -108,9 +110,6 @@ class Search extends Component {
     .filter((parking) => parking.db_area === currentLocation).sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
       filteredParkings.map(parking => {
       parking.highlight = false
-      let date = new Date(parking.timestamp)
-      console.log(date.getDate())
-      parking.date = (`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`)
     })
    this.setState({
      filteredParkings: filteredParkings,
@@ -447,11 +446,19 @@ class RentParking extends Component {
     history.push(`/find-parking/search`)
   }
 
+  showAlert = () => {
+    Alert.error('An error occurred...', {
+      position: 'top',
+      html: true
+    })
+  }
+
   render() {
     const id = this.props.match.params.id
     const {AuthedUser, dispatch, loading, parkings} = this.props
-    console.log(parkings)
     const parking = parkings[id]
+
+    console.log(parking)
 
     return (
       <Fragment>
@@ -464,7 +471,8 @@ class RentParking extends Component {
             verticallyCenter={true}
             onExit={this.closeModal}
             >
-            {parking &&
+            {parking
+              ?
               <div className="rent-parking container">
                 <div className="white-background container">
                   {loading === true
@@ -489,8 +497,7 @@ class RentParking extends Component {
                                   <p>RM{parking.db_price}</p>
                                 </div>
                                 <div>
-                                  <p>AHB2786</p>
-                                  <p>Posted: 28/7/18</p>
+                                  <p>Posted on: {parking.date}</p>
                                 </div>
                               </div>
                             </div>
@@ -524,13 +531,16 @@ class RentParking extends Component {
                   }
                 </div>
               </div>
+              : <Fragment>{this.showAlert()}</Fragment>
             }
             {id === "no-parking" &&
               <NoParking closeModal={this.closeModal}/>
             }
+                <Alert />
               </AriaModal>
               : null
         }
+
       </Fragment>
     )
   }
@@ -593,6 +603,13 @@ const Map = withScriptjs(withGoogleMap((props) =>
 function mapStateToProps({AuthedUser, parkings, modal}) {
   let updatedParkings = {}
   if (parkings.loading === false) {
+    Object.values(parkings)
+      .map(parking => {
+        if (parking.id) {
+          let date = new Date(parking.timestamp)
+          parking.date = (`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`)
+        }
+      })
     AuthedUser
     ?   Object.values(parkings)
           .map(parking => {
