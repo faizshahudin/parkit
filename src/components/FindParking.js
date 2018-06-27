@@ -35,11 +35,11 @@ class FindParking extends Component {
   }
 
   render() {
-    const {dispatch, modal, AuthedUser, match, loading, updatedParkings} = this.props
+    const {dispatch, modal, AuthedUser, match, loading, updatedParkings, cars} = this.props
     return (
       <div className="find-parking-container main-container">
-        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading}/>} />
-        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/>
+        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading} cars={cars}/>} />
+        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading} cars={cars}/>}/>
         {/* <Route path={`${match.path}/search/no-parking`} render={(props) => <NoParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
       </div>
     )
@@ -420,6 +420,7 @@ class RentParking extends Component {
       modalIsOpen: false,
       thankYou: true,
       submit: false,
+      addVehicle: false,
     }
   }
   handleChange = (e) => {
@@ -432,7 +433,25 @@ class RentParking extends Component {
     this.setState((state) => ({
       [name]: value
     }))
+    console.log(this.state)
   }
+
+  handleCarChange = (e) => {
+    const {cars} = this.props
+    this.setState({
+      occupied_by: this.props.match.params.id,
+      user: this.props.AuthedUser.pk
+    })
+    let i = e.target.value
+    if (cars[i]) {
+      this.setState({
+        car_model: cars[i].car_model,
+        car_registery: cars[i].car_registery
+      })
+    }
+      console.log(this.state)
+  }
+
 
   handleSubmit = (e) => {
     const {dispatch} = this.props
@@ -455,10 +474,15 @@ class RentParking extends Component {
     setTimeout(function(){ self.closeModal() }, 3000)
   }
 
+  handleAddVehicle = () => {
+    this.setState({addVehicle: !this.state.addVehicle})
+  }
+
   render() {
     const id = this.props.match.params.id
-    const {AuthedUser, dispatch, loading, parkings} = this.props
+    const {AuthedUser, dispatch, loading, parkings, cars} = this.props
     const parking = parkings[id]
+    console.log(cars)
 
     console.log(parking)
 
@@ -517,10 +541,30 @@ class RentParking extends Component {
                                 </div>
                                 <div>
                                   <label>Vehicle Registered</label>
-                                  <div className="vehicle-registered">
-                                    <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
-                                    <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
-                                  </div>
+                                  {cars
+                                    ?
+                                    <Fragment>
+                                      <select onChange={this.handleCarChange}>
+                                        <option>Select a vehicle</option>
+                                        {cars.map((car, index) =>
+                                        <option name="car_model" value={index}>{car.car_registery}</option>
+                                        )}
+                                      </select>
+                                    <div><a onClick={this.handleAddVehicle}>+ Add new vehicle</a></div>
+                                    {this.state.addVehicle &&
+                                      <div className="vehicle-registered">
+                                          <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
+                                          <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
+                                        </div>
+                                    }
+
+                                  </Fragment>
+                                  : <div className="vehicle-registered">
+                                      <input required type="text" onChange={this.handleChange} name="car_model" placeholder="Model i.e. Honda City"></input>
+                                      <input required type="text" onChange={this.handleChange} name="car_registery" placeholder="Number Plate i.e. ABC1234"></input>
+                                    </div>
+                                  }
+
                                 </div>
                                 <div className="button">
                                   <button className="btn">Park Here</button>
@@ -604,6 +648,7 @@ const Map = withScriptjs(withGoogleMap((props) =>
 
 function mapStateToProps({AuthedUser, parkings, modal}) {
   let updatedParkings = {}
+  let cars = []
   if (parkings.loading === false) {
     Object.values(parkings)
       .map(parking => {
@@ -621,12 +666,17 @@ function mapStateToProps({AuthedUser, parkings, modal}) {
           })
     :   updatedParkings = parkings
 
+    AuthedUser.cars
+    ? cars = AuthedUser.cars.filter((car, index, self) =>
+        index === self.findIndex(c =>c.car_registery === car.car_registery))
+    : cars = null
   }
   return {
     AuthedUser,
     updatedParkings,
     modal,
     loading: parkings.bookParking,
+    cars,
   }
 }
 
