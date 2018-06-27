@@ -9,7 +9,13 @@ export const register = (data) =>
     .then(res => {
       if(!res.ok) {
         res.json()
-          .then(res => {throw Error(res.email[0])})
+          .then(res => {
+            if (res.email) {
+              throw Error(res.email[0])
+            } else {
+              throw Error("There was an error processing your request")
+            }
+          })
           .catch(e => alert(e))
         return null
       } else {
