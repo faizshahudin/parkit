@@ -180,19 +180,20 @@ class Register extends Component {
   handleChange = (e) => {
     let value = e.target.value
     let name = e.target.name
-    this.setState((state) => ({
-      [name]: value
-    }))
-    this.setState({
-      username: this.state.email
-    })
+    name === "email"
+      ? this.setState({
+          email: value,
+          username: value,
+        })
+      : this.setState({[name]: value})
   }
 
   handleSubmit = (e) => {
     const {dispatch} = this.props
     e.preventDefault()
+    // this.setState({username: this.state.email})
     let data = this.state
-    console.log(data)
+
     dispatch(handleRegister(data))
   }
 

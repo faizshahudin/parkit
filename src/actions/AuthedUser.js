@@ -95,15 +95,16 @@ export function handleRegister(data) {
     dispatch(showLoading())
     return Api.register(data)
     .then(res => {
-      localStorage.setItem("auth", res.token)
-      dispatch(registerSuccess(res.token))
-      dispatch(handleInitialData())
+      if (res) {
+        localStorage.setItem("auth", res.token)
+        dispatch(registerSuccess(res.token))
+        dispatch(handleInitialData())
+      }
     })
     .then(() => dispatch(hideLoading()))
     .catch(e => {
       dispatch(registerError())
       dispatch(hideLoading())
-      alert(e)
     })
   }
 }
