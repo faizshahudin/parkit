@@ -6,22 +6,7 @@ export const register = (data) =>
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if(!res.ok) {
-        res.json()
-          .then(res => {
-            if (res.email) {
-              throw Error(res.email[0])
-            } else {
-              throw Error("There was an error processing your request")
-            }
-          })
-          .catch(e => alert(e))
-        return null
-      } else {
-        return res.json()
-      }
-    })
+    .then(res => res)
 
 export const resetPassword = (data) =>
     fetch(`http://127.0.0.1:8000/auth/password/reset/confirm/`, {

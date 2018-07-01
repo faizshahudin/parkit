@@ -22,6 +22,7 @@ import {handleInitialData} from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Alert from 'react-s-alert'
 import 'react-s-alert/dist/s-alert-default.css'
+import {hideError} from "../actions/error"
 
 
 
@@ -62,11 +63,13 @@ class App extends Component {
   }
 
   showAlert = () => {
+    const { dispatch } = this.props
     let self = this
     Alert.error(this.props.error, {
       position: 'top',
       html: true
     })
+    setTimeout(function(){ dispatch(hideError()) }, 3000)
   }
 
   render() {
