@@ -20,6 +20,9 @@ import {handleHideModal} from "../actions/modal"
 import Parkers from "./Parkers"
 import {handleInitialData} from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
+import Alert from 'react-s-alert'
+import 'react-s-alert/dist/s-alert-default.css'
+
 
 
 
@@ -58,9 +61,20 @@ class App extends Component {
     window.scrollTo(0, 0)
   }
 
+  showAlert = () => {
+    let self = this
+    Alert.error(this.props.error, {
+      position: 'top',
+      html: true
+    })
+  }
 
   render() {
-    const { AuthedUser, dispatch, modal } = this.props
+    const { AuthedUser, dispatch, modal, error } = this.props
+
+    if (error) {
+      this.showAlert()
+    }
 
     return (
       <div className="App">
@@ -90,6 +104,7 @@ class App extends Component {
               }
             </Switch>
             <Footer />
+            <Alert />
           </Fragment>
         </Router>
       </div>
@@ -97,11 +112,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({AuthedUser, modal, parkings}) {
+function mapStateToProps({AuthedUser, modal, parkings, error}) {
   return {
     AuthedUser,
     parkings,
     modal,
+    error,
   }
 }
 

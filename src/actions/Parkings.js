@@ -1,6 +1,7 @@
 import * as Api from "../components/Api"
 import { showLoading, hideLoading } from 'react-redux-loading'
 import jwt from "jsonwebtoken"
+import { showError } from "./error"
 
 export const GET_PARKINGS = "GET_PARKINGS"
 export const LIST_PARKING_COMPLETE = "LIST_PARKING_COMPLETE"
@@ -76,7 +77,7 @@ export function handleListParking(parkings) {
       .then(() => dispatch(hideLoading()))
       .catch(e => {
         dispatch(hideLoading())
-        alert(e)
+        dispatch(showError(e))
       })
   }
 }
@@ -109,7 +110,7 @@ export function handleGetParkings() {
     .then(() => dispatch(hideLoading()))
     .catch(e => {
       dispatch(hideLoading())
-      alert(e)
+      dispatch(showError(e))
     })
   }
 }
@@ -121,9 +122,9 @@ export function handleBookParking(parking) {
     Api.bookParking(parking, localStorage.auth)
       .then(res => dispatch(bookParkingSuccess(res)))
       .then(() => dispatch(hideLoading()))
-      .catch(res => {
+      .catch(e => {
         dispatch(hideLoading())
-        alert(res)
+        dispatch(showError(e))
       })
   }
 }

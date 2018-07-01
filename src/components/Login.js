@@ -14,6 +14,8 @@ import AriaModal from "react-aria-modal"
 
 
 
+
+
 class LoginRegister extends Component {
   constructor(props) {
     super(props)
@@ -46,7 +48,6 @@ class LoginRegister extends Component {
   render() {
     const {dispatch, AuthedUser, modal, history} = this.props
 
-
     return (
       <Fragment>
         {modal.type &&
@@ -76,19 +77,19 @@ class LoginRegister extends Component {
                   ? <Login
                     dispatch={dispatch}
                     AuthedUser={AuthedUser}
-                    tanduk={history}
+                    showAlert={this.showAlert}
                   />
                   : <Register
                     dispatch={dispatch}
-                    AuthedUser={AuthedUser}/>
+                    AuthedUser={AuthedUser}
+                    showAlert={this.showAlert}
+                  />
                 }
               </div>
             </div>
           </AriaModal>
         }
       </Fragment>
-
-
     )
   }
 }
@@ -108,7 +109,7 @@ class Login extends Component {
   }
 
   login = (e) => {
-    const {dispatch, AuthedUser, history, tanduk} = this.props
+    const {dispatch, AuthedUser, history} = this.props
     e.preventDefault()
     let data = this.state
     dispatch(handleLogin(data))
@@ -120,7 +121,7 @@ class Login extends Component {
   }
 
   render() {
-    const {dispatch, AuthedUser, modal, history} = this.props
+    const {dispatch, AuthedUser, modal, history, showAlert} = this.props
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
@@ -135,6 +136,7 @@ class Login extends Component {
     }
 
     return (
+      <Fragment>
         <form className="form" onSubmit={this.login}>
           <div className="input full">
             <input
@@ -167,6 +169,9 @@ class Login extends Component {
           <button className="btn submit">Log In</button>
           <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
         </form>
+
+      </Fragment>
+
     )
   }
 }
@@ -198,7 +203,7 @@ class Register extends Component {
   }
 
   render() {
-    const {dispatch, AuthedUser, modal, history} = this.props
+    const {dispatch, AuthedUser, modal, history, showAlert} = this.props
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
@@ -211,6 +216,7 @@ class Register extends Component {
         )
       }
     }
+
     return(
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="name-container">

@@ -2,6 +2,7 @@ import * as Api from "../components/Api"
 import {handleInitialData} from "./shared"
 import jwt from "jsonwebtoken"
 import { showLoading, hideLoading } from 'react-redux-loading'
+import { showError } from "./error"
 
 
 
@@ -104,6 +105,7 @@ export function handleRegister(data) {
     .then(() => dispatch(hideLoading()))
     .catch(e => {
       dispatch(registerError())
+      dispatch(showError(e))
       dispatch(hideLoading())
     })
   }
@@ -118,17 +120,15 @@ export function handleLogin(data) {
           localStorage.setItem("auth", token)
           const user = (jwt.decode(localStorage.auth))
           dispatch(handleInitialData())
-          // dispatch(loginSuccess(user))
-          // dispatch(handleGetUserDetails())
         }
         else {
-          alert(response.non_field_errors[0])
+          dispatch(showError(response.non_field_errors[0]))
           dispatch(loginError())
         }
       })
       .catch(e => {
         dispatch(hideLoading())
-        alert("There was an error processing your request")
+        dispatch(showError("There was an error processing your request"))
       })
   }
 }
@@ -142,7 +142,7 @@ export function handleEditProfile(data) {
       .then(() => dispatch(hideLoading()))
       .catch(e => {
         dispatch(hideLoading())
-        alert("There was an error processing your request")
+        dispatch(showError("There was an error processing your request"))
       })
   }
 }
@@ -156,7 +156,7 @@ export function handleUploadImage(data) {
       .then(() => dispatch(hideLoading()))
       .catch(e => {
         dispatch(hideLoading())
-        alert(e)
+        dispatch(showError(e))
       })
   }
 }
@@ -176,7 +176,7 @@ export function handleGetUserDetails () {
       .then(() => dispatch(hideLoading()))
       .catch(e => {
         dispatch(hideLoading())
-        alert(e)
+        dispatch(showError(e))
       })
   }
 }
