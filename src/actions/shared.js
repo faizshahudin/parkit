@@ -3,6 +3,8 @@ import {getInitialData} from "../components/Api"
 import {getParkings} from "./parkings"
 import { showLoading, hideLoading } from 'react-redux-loading'
 import jwt from "jsonwebtoken"
+import { showError } from "./error"
+
 
 
 export function handleInitialData() {
@@ -23,9 +25,9 @@ export function handleInitialData() {
         dispatch(getParkings(parkingObject))
         dispatch(hideLoading())
       })
-      .catch(res => {
+      .catch(e => {
         dispatch(hideLoading())
-        alert(res)
+        dispatch(showError(e))
       })
   }
 }

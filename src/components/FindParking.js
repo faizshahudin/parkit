@@ -465,15 +465,6 @@ class RentParking extends Component {
     history.push(`/find-parking/search`)
   }
 
-  showAlert = () => {
-    let self = this
-    Alert.error('An error occurred...', {
-      position: 'top',
-      html: true
-    })
-    setTimeout(function(){ self.closeModal() }, 3000)
-  }
-
   handleAddVehicle = () => {
     this.setState({addVehicle: !this.state.addVehicle})
   }
@@ -577,12 +568,11 @@ class RentParking extends Component {
                   }
                 </div>
               </div>
-              : <Fragment>{this.showAlert()}</Fragment>
+              : null
             }
             {id === "no-parking" &&
               <NoParking closeModal={this.closeModal}/>
             }
-                <Alert />
               </AriaModal>
               : null
         }
