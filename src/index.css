@@ -54,6 +54,12 @@ button:hover {
   grid-gap: 20px;
 }
 
+/* alert box */
+
+.s-alert-box {
+  z-index: 10000 !important;
+}
+
 input, select {
   padding: 10px;
   width: 100%;

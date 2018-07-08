@@ -76,6 +76,7 @@ export function handleListParking(parkings) {
       .then(res => dispatch(listParkingSuccess(res)))
       .then(() => dispatch(hideLoading()))
       .catch(e => {
+        console.log(e)
         dispatch(hideLoading())
         dispatch(showError(e))
       })

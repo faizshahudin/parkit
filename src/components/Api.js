@@ -69,8 +69,8 @@ export const getUserInfo = () =>
   .then(handleErrors)
   .then(res => res.json())
 
-export const uploadPhoto = (auth, data) =>
-fetch(`http://127.0.0.1:8000/profile/update/3/`, {
+export const uploadPhoto = (auth, data, id) =>
+fetch(`http://127.0.0.1:8000/profile/update/${id}`, {
   method: 'PUT',
   headers: {
     "Authorization": `Bearer ${auth}`,

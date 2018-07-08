@@ -26,7 +26,7 @@ SECRET_KEY = 'm)5*skk7ft-byfe*t+xi0i!w12qua%!fn7+@s62l9r#o_z28)='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://parkit-testsite.firebaseapp.com']
+ALLOWED_HOSTS = ['*', 'https://parkit-testsite.firebaseapp.com']
 
 
 # Application definition
@@ -50,14 +50,14 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'drf_multiple_model',
-    
+
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',    
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'parkit.wsgi.application'
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'parkit',                      
+#        'NAME': 'parkit',
 #        'USER': 'parkitadmin',
 #        'PASSWORD': 'qwerty123',
 #        'HOST': 'parkit-backend.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
@@ -129,7 +129,7 @@ if DEBUG is True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'parkitdb',                      
+            'NAME': 'parkitdb',
             'USER': 'parkitadmin',
             'PASSWORD': 'qwerty123',
             'HOST': 'parkit-db.cmwyopnebff9.ap-southeast-1.rds.amazonaws.com',
@@ -140,7 +140,7 @@ if DEBUG is True:
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'parkit-backend',                      
+#        'NAME': 'parkit-backend',
 #        'USER': 'parkitadmin',
 #        'PASSWORD': 'qwerty123',
 #        'HOST': 'localhost',
@@ -208,7 +208,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ), 
+    ),
 
     "DEFAULT_FILTER_BACKENDS": (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -218,13 +218,13 @@ REST_FRAMEWORK = {
 REST_USE_JWT = True
 
 JWT_AUTH = {
- 
+
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=259200),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',    
- 
+    'JWT_PAYLOAD_HANDLER': 'accounts.api.custom_jwt.custom_jwt_payload_handler',
+
 }
 
 #For email

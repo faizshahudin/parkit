@@ -75,7 +75,7 @@ class Dashboard extends Component {
   formData.append('username', AuthedUser.email)
   formData.append('image', file)
 
-  dispatch(handleUploadImage(formData))
+  dispatch(handleUploadImage(formData, AuthedUser.pk))
 }
 
   render() {

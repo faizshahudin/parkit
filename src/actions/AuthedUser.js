@@ -165,11 +165,11 @@ export function handleEditProfile(data) {
   }
 }
 
-export function handleUploadImage(data) {
+export function handleUploadImage(data, id) {
   return (dispatch) => {
     dispatch(showLoading())
     dispatch(uploadImage())
-    return Api.uploadPhoto(localStorage.auth, data)
+    return Api.uploadPhoto(localStorage.auth, data, id)
       .then(res => dispatch(uploadImageSuccess(res)))
       .then(() => dispatch(hideLoading()))
       .catch(e => {
