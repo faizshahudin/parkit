@@ -3,11 +3,14 @@ from django.contrib.auth import (
     get_user_model,
     login,
     logout,
+)
 
-    )
 from django.shortcuts import render, redirect
 
-from .forms import UserLoginForm, UserRegisterForm
+from rest_auth.forms import (
+    UserLoginForm,
+    UserRegisterForm
+)
 
 def login_view(request):
     print(request.user.is_authenticated())
@@ -23,7 +26,6 @@ def login_view(request):
             return redirect(next)
         return redirect("/")
     return render(request, "form.html", {"form":form, "title": title})
-
 
 def register_view(request):
     print(request.user.is_authenticated())
@@ -46,7 +48,6 @@ def register_view(request):
         "title": title
     }
     return render(request, "form.html", context)
-
 
 def logout_view(request):
     logout(request)

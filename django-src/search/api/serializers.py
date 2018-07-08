@@ -25,9 +25,7 @@ class SearchForParkingSerializer(ModelSerializer):
             'db_status',
             'db_longitude',
             'db_latitude',
-            'db_address',
-            'image',
-            'timestamp'
+            'db_address'
             
         ]
 
@@ -37,6 +35,10 @@ class ParkingEnquirySerializer(ModelSerializer):
         fields = [
             'id',
             'db_office',
+            'db_email',
+            'db_contact',
+            'first_name',
+            'last_name',
             'db_period',
             'db_price',
             'db_status',
@@ -44,7 +46,6 @@ class ParkingEnquirySerializer(ModelSerializer):
             'db_latitude',
             'db_location'
         ]
-
      
 """"
 from posts.models import Post

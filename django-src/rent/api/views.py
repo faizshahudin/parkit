@@ -37,10 +37,9 @@ from .serializers import (
     
 from profile.api.serializers import UserQuerySerializer
 
+from django.contrib.sites.models import Site
 from accounts.models import User
-
-
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.template import Context
 from django.template.loader import get_template
 
@@ -56,17 +55,30 @@ class ParkingForRentAPI(ListCreateAPIView):
         first_name = User.objects.get(username=user).first_name
         last_name = User.objects.get(username=user).last_name
         email = User.objects.get(username=user).email
+        contact = User.objects.get(username=user).contact
+        current_site = Site.objects.get_current()
         
-        #email = self.request.email
-        info = 'dummy_info'
-        template = get_template('rent.html')
-        subject = 'Thank you ' + email + ' for listing your carpark with ParkIt'
-        context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info, 'email':email})
+        area = serializer.data['db_area']
+        timestamp = serializer.data['timestamp']
+        price = serializer.data['db_price']
+        period = serializer.data['db_period']
+        template = get_template('success_rent_email.html')
+        subject = 'Thank you ' + first_name + ' ' + last_name + ' for listing your carpark with ParkIt at ' + area
+        context = ({'first_name': first_name, 'last_name':last_name, 'email':email, 'area':area, 'site_name':current_site})
         content = template.render(context)
         if not user.email:
             raise BadHeaderError('No email address given for {0}'.format(user))
         msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        msg.content_subtype = "html"
         msg.send()
+        send_mail(
+            'Alert! New listed parking from ' + email ,
+            "======================================\nUser : " + email + "\nListed Parking : " + area + "\nContact        : " + contact + "\nRent Price : " + price + "\nRent Period : " + period + "\nListed on : " + timestamp + "\n======================================",
+            settings.DEFAULT_FROM_EMAIL,
+            ['support@parkitmy.com'],
+            fail_silently=False,
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UpdateParkingForRentAPI (RetrieveUpdateDestroyAPIView):
     queryset = ParkingForRent.objects.all()

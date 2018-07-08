@@ -5,7 +5,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
-
 def upload_location (instance,filename):
     today = datetime.date.today()  # get today's date as a datetime type
     todaystr = today.isoformat() 

@@ -1,16 +1,14 @@
 from django.conf.urls import url
-from django.contrib import admin
+from django.urls import path, re_path
 
 from .views import (
     ParkingForRentAPI,
     UpdateParkingForRentAPI,
-#    EmailNotificationAPI
-    )
+)
 
 app_name = 'rent'
 
 urlpatterns = [
-    url(r'^rent/$', ParkingForRentAPI.as_view(), name='rent'),
-#    url(r'^rent/email/$', EmailNotificationAPI.as_view(), name='email'),
-    url(r'^rent/update/(?P<pk>\d+)/$', UpdateParkingForRentAPI.as_view(), name='update_rent'),
+    path('rent/', ParkingForRentAPI.as_view(), name='rent'),
+    path('rent/update/<int:pk>/', UpdateParkingForRentAPI.as_view(), name='update_rent'),
 ]

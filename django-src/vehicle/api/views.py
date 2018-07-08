@@ -1,5 +1,3 @@
-# from django.db.models import Q
-
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -28,26 +26,32 @@ from rest_framework.permissions import (
 
     )
 
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage, BadHeaderError
 from django.template import Context
 from django.template.loader import get_template
 from django.conf import settings
 
 from vehicle.models import CarDatabase
+from rent.models import ParkingForRent
+
 
 from accounts.models import User
 
 from .serializers import (
-    CarDatabaseSerializer, 
+    CarDatabaseSerializer,
     )
 
-from django.core.mail import EmailMessage
+from rent.api.serializers import ParkingForRentSerializer
+
+from django.core.mail import EmailMessage, send_mail
 from django.template import Context
 from django.template.loader import get_template
 
 class CarDatabaseAPI(ListCreateAPIView):
     queryset = CarDatabase.objects.all()
     serializer_class = CarDatabaseSerializer
+    serializer_class_rent = ParkingForRentSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -56,17 +60,32 @@ class CarDatabaseAPI(ListCreateAPIView):
         first_name = User.objects.get(username=user).first_name
         last_name = User.objects.get(username=user).last_name
         email = User.objects.get(username=user).email
-        info = 'dummy_info'
-        template = get_template('vehicle.html')
-        subject = 'Thank you ' + email + ' for parking with ParkIt'
-        context = ({'first_name': first_name, 'last_name':last_name, 'other_info': info, 'email':email})
-        content = template.render(context)
-        if not user.email:
-            raise BadHeaderError('No email address given for {0}'.format(user))
-        msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
-        msg.send()
+        contact = User.objects.get(username=user).contact
+        parked_at = serializer.data['parked_at']
+        current_site = Site.objects.get_current()
 
+        if parked_at:
+            park_property = ParkingForRent.objects.get(pk=parked_at).db_property
+            ParkingForRent.objects.filter(pk=parked_at).update(occupied_by=user)
+            ParkingForRent.objects.filter(pk=parked_at).update(db_status='Enquiry')            
+            template = get_template('vehicle.html')
+            subject = 'Thank you ' + first_name + ' ' + last_name + ' for parking with ParkIt'
+            context = ({'first_name': first_name, 'last_name':last_name, 'email':email, 'site_name':current_site})
+            content = template.render(context)
+            if not user.email:
+                raise BadHeaderError('No email address given for {0}'.format(user))
+            msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+            msg.content_subtype = "html"
+            msg.send()
+            send_mail(
+                'Alert! New parking match from ' + email,
+                "======================================\nUser : " + email + "\nContact : " + contact + "\nLocation : " + park_property + "\n======================================",
+                settings.DEFAULT_FROM_EMAIL,
+                ['support@parkitmy.com'],
+                fail_silently=False,
+            )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class UpdateCarDatabaseAPI (RetrieveUpdateDestroyAPIView):
     queryset = CarDatabase.objects.all()
@@ -84,7 +103,18 @@ class UpdateCarDatabaseAPI (RetrieveUpdateDestroyAPIView):
 
 
 
+class UserCarDatabaseAPI (ListAPIView):
+    serializer_class = CarDatabaseSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self, *args, **kwargs):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        user = self.request.user
+        queryset_list = CarDatabase.objects.all().filter(user=user)
+        return queryset_list
 
 
 

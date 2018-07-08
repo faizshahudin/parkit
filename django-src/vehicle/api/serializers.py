@@ -1,10 +1,7 @@
 from rest_framework.serializers import (
-    HyperlinkedIdentityField,
     ModelSerializer,
-    SerializerMethodField,
     ValidationError,
-    CharField
-    )
+)
 
 from django.conf import settings
 
@@ -16,36 +13,21 @@ class CarDatabaseSerializer(ModelSerializer):
         model = CarDatabase
         fields = [
             'id',
-            #'slug',
             'user',
             'car_model',
             'car_registery',
-            'occupied_by',
+            'parked_at',
             'start_date'
         ]
 
-#    def validate(self,data):
-#        pass
+    """ Car Registration validation
+    Checks to see if vehicle has been registered, error out if it has
+    """
+    def validate(self, value):
+        data = self.get_initial()
+        car_regsiter = data.get("car_registery")
+        user_qs = CarDatabase.objects.filter(car_registery__iexact=car_regsiter)
+        if user_qs.exists():
+            raise ValidationError("Vehicle Has Already been registered")
+        return value
             
-""""
-from posts.models import Post
-from posts.api.serializers import PostDetailSerializer
-
-
-data = {
-    "title": "Yeahh buddy",
-    "content": "New content",
-    "publish": "2016-2-12",
-    "slug": "yeah-buddy",
-    
-}
-
-obj = Post.objects.get(id=2)
-new_item = PostDetailSerializer(obj, data=data)
-if new_item.is_valid():
-    new_item.save()
-else:
-    print(new_item.errors)
-
-
-"""

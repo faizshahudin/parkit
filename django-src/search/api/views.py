@@ -10,6 +10,9 @@ from rest_framework.filters import (
 
 from django_filters.rest_framework import DjangoFilterBackend
 
+from django.core.mail import EmailMessage, BadHeaderError
+from django.conf import settings
+
 from rest_framework.generics import (
     CreateAPIView,
     ListCreateAPIView,
@@ -41,6 +44,12 @@ from .serializers import (
     ParkingEnquirySerializer
     )
 
+
+from django.core.mail import EmailMessage, send_mail
+from django.template import Context
+from django.template.loader import get_template
+from rest_framework import status
+
 class SearchForParkingAPI(ListAPIView):
     queryset = ParkingForRent.objects.all()
     serializer_class = SearchForParkingSerializer
@@ -65,11 +74,37 @@ class ParkingEnquiryAPI(CreateAPIView):
     serializer_class = ParkingEnquirySerializer
     permission_classes = [AllowAny]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        email = serializer.data['db_email']
+        contact = serializer.data['db_contact']
+        office = serializer.data['db_office']
+        location = serializer.data['db_location']
+        first_name = serializer.data['first_name']
+        last_name = serializer.data['last_name']
 
+        #email = self.request.email
+        template = get_template('enquiry.html')
+        subject = 'Thank you for your enquiry with ParkIt!'
+        context = ({'location': location, 'first_name':first_name, 'last_name':last_name})
+        content = template.render(context)
+        msg = EmailMessage(subject, content, settings.DEFAULT_FROM_EMAIL, to=[email,])
+        msg.content_subtype = "html"
+        msg.send()
+        send_mail(
+            'Alert! New parking enquiry from ' + email ,
+            "======================================\nUser : " + email + "\nContact : " + contact + "\nOffice : " + office + "\nLocation : " + location + "\n======================================",
+            settings.DEFAULT_FROM_EMAIL,
+            ['support@parkitmy.com'],
+            fail_silently=False,
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
+#    def perform_create(self, serializer):
+#        serializer.save(user=self.request.user)
 
 
 

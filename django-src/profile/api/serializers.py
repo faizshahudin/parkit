@@ -10,10 +10,9 @@ from rest_framework.serializers import (
     ModelSerializer,
     SerializerMethodField,
     ValidationError
-    )
+)
     
 User = get_user_model()
-
 
 class UserQuerySerializer(ModelSerializer):
     class Meta:

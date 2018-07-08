@@ -8,14 +8,12 @@ from django.utils import timezone
 #from django.utils.text import slugify
 #from markdown_deux import markdown
 
-from rent.models import (
-    ParkingForRent,
-)
+from rent.models import ParkingForRent
 
 # Create your models here.
 class CarDatabase (models.Model):
-    user          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=True,null=True)
-    occupied_by   = models.ForeignKey(ParkingForRent,on_delete=models.CASCADE,blank=True,default='None')
+    user          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    parked_at     = models.ForeignKey(ParkingForRent,on_delete=models.CASCADE,null=True,blank=True)
     car_model     = models.CharField(max_length=100,default='None')
     car_registery = models.CharField(max_length=100,default='ABC1234')
     start_date    = models.DateTimeField(auto_now=False, auto_now_add=True, editable=True)
