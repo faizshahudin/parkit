@@ -9,6 +9,7 @@ import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
 import logos from "../images/logos.png"
+import MetaTags from 'react-meta-tags'
 
 
 
@@ -19,6 +20,13 @@ class Owners extends Component {
   render() {
     return(
       <div className="landing owners white-background">
+        <MetaTags>
+          <title>List a Parking</title>
+          <meta name="description" content="Have a parking space to rent out? Rent it out with ParkIt, we will connect you to drivers who need parking spaces and will manage the rental services end to end. 
+            Available to all parking space owners across all of Klang Valley." />
+          <meta property="og:title" content="Parking Owner | ParkIt | Parking rental services" />
+          <meta property="og:image" />
+        </MetaTags>
         <section className="hero one background-grey container main-container">
           <div className="content">
             <p className="header">Not using your parking space?</p>

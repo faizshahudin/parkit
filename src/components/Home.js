@@ -9,6 +9,8 @@ import cloud from "../images/clouds.png"
 import {handleShowModal} from "../actions/modal"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
+import MetaTags from 'react-meta-tags'
+
 
 
 
@@ -26,6 +28,14 @@ class Home extends Component {
 
     return (
       <div className="landing home white-background ">
+        <MetaTags>
+          <title>Parkit</title>
+          <meta name="description" content="In the business of solving Malaysia's parking problem. 
+            We help home owners rent out and manage their empty parking spaces to drivers who are in need. 
+            Available all across Klang Valley." />
+          <meta property="og:title" content="Home | ParkIt | Parking rental services" />
+          <meta property="og:image" />
+        </MetaTags>
         <section className="hero one background-grey full-width-main">
           <div className="content">
             <h1><span>Connecting</span> drivers to unused parking spaces</h1>

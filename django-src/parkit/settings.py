@@ -26,8 +26,10 @@ SECRET_KEY = 'm)5*skk7ft-byfe*t+xi0i!w12qua%!fn7+@s62l9r#o_z28)='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'https://parkit-testsite.firebaseapp.com']
-
+if DEBUG is False:
+    ALLOWED_HOSTS = ['https://parkit-testsite.firebaseapp.com']
+else:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 

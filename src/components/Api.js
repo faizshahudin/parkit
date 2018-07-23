@@ -1,5 +1,5 @@
 export const register = (data) =>
-    fetch(`http://127.0.0.1:8000/register`, {
+    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/register`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -9,7 +9,7 @@ export const register = (data) =>
     .then(res => res)
 
 export const resetPassword = (data) =>
-    fetch(`http://127.0.0.1:8000/auth/password/reset/confirm/`, {
+    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/auth/password/reset/confirm/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const resetPassword = (data) =>
     .catch(e => console.log(e))
 
 export const login = (data) =>
-    fetch(`http://127.0.0.1:8000/login/`, {
+    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/login/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const login = (data) =>
     .then(res => res.json())
 
 export const addParking = (data, auth) =>
-fetch(`http://127.0.0.1:8000/rent/`, {
+fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/rent/`, {
   method: 'POST',
   headers: {
     "Authorization": `Bearer ${auth}`,
@@ -43,7 +43,7 @@ fetch(`http://127.0.0.1:8000/rent/`, {
 .then(res => res.json())
 
 export const bookParking = (data, auth) =>
-fetch(`http://127.0.0.1:8000/vehicle/`, {
+fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/vehicle/`, {
   method: 'POST',
   headers: {
     "Authorization": `Bearer ${auth}`,
@@ -55,34 +55,33 @@ fetch(`http://127.0.0.1:8000/vehicle/`, {
 .then(res => res.json())
 
 export const getParkings = () =>
-    fetch(`http://127.0.0.1:8000/search/?db_status=Pending`)
+    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/search/?db_status=Pending`)
     .then(handleErrors)
     .then(res => res.json())
 
 export const getUserInfo = () =>
-  fetch(`http://127.0.0.1:8000/profile/`, {
+  fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/profile/`, {
     method: 'GET',
     headers: {
-      "Authorization": `Bearer ${localStorage.auth}`,
+      "Authorization": `Bearer ${localStorage.auth}`
     },
   })
   .then(handleErrors)
   .then(res => res.json())
 
 export const uploadPhoto = (auth, data, id) =>
-fetch(`http://127.0.0.1:8000/profile/update/${id}`, {
+fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/profile/update/${id}`, {
   method: 'PUT',
   headers: {
     "Authorization": `Bearer ${auth}`,
-    // "Content-Type": "multipart/form-data"
   },
   body: data
 })
 .then(handleErrors)
 .then(res => res.json())
 
-export const updateProfile = (auth, data) =>
-fetch(`http://127.0.0.1:8000/profile/update/3/`, {
+export const updateProfile = (auth, data, id) =>
+fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/profile/update/${id}`, {
   method: 'PUT',
   headers: {
     "Authorization": `Bearer ${auth}`,
@@ -92,7 +91,6 @@ fetch(`http://127.0.0.1:8000/profile/update/3/`, {
 })
 .then(handleErrors)
 .then(res => res.json())
-// .then(res => console.log(res))
 
 export function getInitialData() {
   return Promise.all([

@@ -50,7 +50,7 @@ class Dashboard extends Component {
  handleSubmit = (e) => {
    const {dispatch} = this.props
    e.preventDefault()
-   dispatch(handleEditProfile(this.state))
+   dispatch(handleEditProfile(this.state, this.props.AuthedUser.pk))
    this.setState({edit: false})
  }
 
@@ -99,7 +99,6 @@ class Dashboard extends Component {
                     }
                   </label>
                   <h3>{AuthedUser.first_name}</h3>
-                  <p>Serdang, Selangor</p>
                 </div>
                 <div className="contact container">
                   <div className="edit">

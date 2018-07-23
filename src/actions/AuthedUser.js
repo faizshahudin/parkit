@@ -151,11 +151,11 @@ export function handleLogin(data) {
   }
 }
 
-export function handleEditProfile(data) {
+export function handleEditProfile(data, id) {
   return (dispatch) => {
     dispatch(showLoading())
     dispatch(editProfile())
-    return Api.updateProfile(localStorage.auth, data)
+    return Api.updateProfile(localStorage.auth, data, id)
       .then(res => dispatch(editProfileSuccess(res)))
       .then(() => dispatch(hideLoading()))
       .catch(e => {

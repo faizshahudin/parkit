@@ -60,6 +60,7 @@ class Search extends Component {
     locations: [],
     currentPage: 1,
     infowindowOpen: false,
+    noParking: false,
   }
 
   setCenter = () => {
@@ -163,7 +164,7 @@ class Search extends Component {
    };
    let autocomplete = new google.maps.places.Autocomplete(
      (document.getElementById('autocomplete')),
-     { types: ['geocode'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
+     { types: ['geocode', 'establishment'], bounds: defaultBounds, componentRestrictions: {country: 'my'}});
 
      google.maps.event.addListener(autocomplete, 'place_changed', function() {
        var place = autocomplete.getPlace()
@@ -205,11 +206,17 @@ class Search extends Component {
  }
 
   render() {
+    console.log(this.state.noParking)
     const {area} = fields
     let {currentLocation} = this.state
     const {parkings} = this.props
     return (
       <div>
+        {this.state.noParking  
+          ? <NoParking noParking={this.state.noParking}/>
+          : null
+        }
+
         <div className="body">
             <div className="listing-container grey-background">
               <div className="listing container">
@@ -283,9 +290,9 @@ class Search extends Component {
               }
             </div>
           <div>
-            <NavLink to="/find-parking/search/no-parking">
+            <a onClick={() => this.setState({noParking: !this.state.noParking})}>
               <p>Can't find the location? Let us know.</p>
-            </NavLink>
+            </a>
           </div>
         </div>
       </div>
@@ -339,6 +346,9 @@ class NoParking extends Component {
            db_longitude: place.geometry.location.lng(),
          })
        })
+       this.setState({
+         initialize: true
+       })
      }
 
   componentDidMount = () => {
@@ -349,64 +359,77 @@ class NoParking extends Component {
     let {submit} = this.state
 
     return (
-        <div className="rent-parking container no-parking">
-          {!submit &&
-            <div className="white-background container">
-              <div className="close-modal">
-                <div></div>
-                <div></div>
-                <div className="close-button" onClick={this.props.closeModal}>X</div>
-              </div>
-              <div className="header">
-                <h3>Can't find what you're looking for? Let us know and we'll search for it!</h3>
-              </div>
-              <form className="form">
-                <div>
-                  <label>Where do you need parking space?</label>
-                  <div className="input">
-                    <input id="carparkLocation" name="carparkLocation" type="text" placeholder="Area/Location"></input>
+      <Fragment>
+      
+          <AriaModal
+            titleText="demo one"
+            focusDialog={true}
+            getApplicationNode={this.getApplicationNode}
+            verticallyCenter={true}
+            onExit={this.closeModal}
+            >
+            <div className="rent-parking container no-parking">
+              {!submit &&
+                <div className="white-background container">
+                  <div className="close-modal">
+                    <div></div>
+                    <div></div>
+                    <div className="close-button" onClick={this.props.closeModal}>X</div>
+                  </div>
+                  <div className="header">
+                    <h3>Can't find what you're looking for? Let us know and we'll search for it!</h3>
+                  </div>
+                  <form className="form">
+                    <div>
+                      <label>Where do you need parking space?</label>
+                      <div className="input">
+                        <input id="carparkLocation" name="carparkLocation" type="text" placeholder="Area/Location"></input>
+                      </div>
+                    </div>
+                    <div>
+                      <label>When do you intend to start parking</label>
+                      <div className="input">
+                        <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
+                      </div>
+                    </div>
+                    <div>
+                      <label>What is your estimated budget?</label>
+                      <select name="budget" value={this.state.value} onChange={this.handleChange} style={this.state.budget ? {color: "black"} : {color: "#8a8888"}}>
+                        <option value="">Select</option>
+                        <option value="RM300">RM300</option>
+                        <option value="RM500">RM500</option>
+                      </select>
+                    </div>
+                    <div className="button-container">
+                      <button className="btn" onClick={this.handleSubmit} className="btn" disabled={this.isDisabled()}>Send Enquiry</button>
+                    </div>
+                  </form>
+                </div>
+              }
+              {submit &&
+                <div className="white-background container">
+                  <div className="header">
+                    <h3>Thank you for reaching out to us!</h3>
+                  </div>
+                  <div className="message">
+                    <p>We've received your enquiry!</p>
+                    <p>A confirmation email has been sent to parkitmsia@gmail.com</p>
+                    <p>Our friendly parking buddies will get in touch with you soon.</p>
+                  </div>
+                  <div className="redirect">
+                    <p>Redirecting you to the homepage</p>
+                    <p>in 10 seconds.</p>
+                  </div>
+                  <div className="button">
+                    <button className="btn">Go To Homepage</button>
                   </div>
                 </div>
-                <div>
-                  <label>When do you intend to start parking</label>
-                  <div className="input">
-                    <input name="startDate" value={this.state.value} onChange={this.handleChange} type="date" style={this.state.startDate ? {color: "black"} : {color: "#8a8888"}}></input>
-                  </div>
-                </div>
-                <div>
-                  <label>What is your estimated budget?</label>
-                  <select name="budget" value={this.state.value} onChange={this.handleChange} style={this.state.budget ? {color: "black"} : {color: "#8a8888"}}>
-                    <option value="">Select</option>
-                    <option value="RM300">RM300</option>
-                    <option value="RM500">RM500</option>
-                  </select>
-                </div>
-                <div className="button-container">
-                  <button className="btn" onClick={this.handleSubmit} className="btn" disabled={this.isDisabled()}>Send Enquiry</button>
-                </div>
-              </form>
+              }
             </div>
-          }
-          {submit &&
-            <div className="white-background container">
-              <div className="header">
-                <h3>Thank you for reaching out to us!</h3>
-              </div>
-              <div className="message">
-                <p>We've received your enquiry!</p>
-                <p>A confirmation email has been sent to parkitmsia@gmail.com</p>
-                <p>Our friendly parking buddies will get in touch with you soon.</p>
-              </div>
-              <div className="redirect">
-                <p>Redirecting you to the homepage</p>
-                <p>in 10 seconds.</p>
-              </div>
-              <div className="button">
-                <button className="btn">Go To Homepage</button>
-              </div>
-            </div>
-          }
-        </div>
+          </AriaModal>
+        
+      </Fragment>
+
 
     )
   }
@@ -570,13 +593,9 @@ class RentParking extends Component {
               </div>
               : null
             }
-            {id === "no-parking" &&
-              <NoParking closeModal={this.closeModal}/>
-            }
               </AriaModal>
               : null
         }
-
       </Fragment>
     )
   }
@@ -655,11 +674,14 @@ function mapStateToProps({AuthedUser, parkings, modal}) {
             : null
           })
     :   updatedParkings = parkings
+    
+    AuthedUser 
+    ? AuthedUser.cars
+        ? cars = AuthedUser.cars.filter((car, index, self) =>
+            index === self.findIndex(c =>c.car_registery === car.car_registery))
+        : cars = null
+    : null
 
-    AuthedUser.cars
-    ? cars = AuthedUser.cars.filter((car, index, self) =>
-        index === self.findIndex(c =>c.car_registery === car.car_registery))
-    : cars = null
   }
   return {
     AuthedUser,

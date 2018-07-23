@@ -9,20 +9,21 @@ import ResetPassword from "./ResetPassword"
 import Nav from "./Nav"
 import FindParking from "./FindParking"
 import Footer from "./Footer"
-import {BrowserRouter as Router, Route} from "react-router-dom"
+import {BrowserRouter as Router, Route, Link} from "react-router-dom"
 import {Switch} from "react-router-dom"
 import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux"
 import {handleGetParkings} from "../actions/parkings"
 import {handleGetUserDetails} from "../actions/AuthedUser"
 import Modal from 'react-modal';
-import {handleHideModal} from "../actions/modal"
+import {handleHideModal, handleShowModal} from "../actions/modal"
 import Parkers from "./Parkers"
 import {handleInitialData} from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Alert from 'react-s-alert'
 import 'react-s-alert/dist/s-alert-default.css'
 import {hideError} from "../actions/error"
+import image404 from "../images/404.png"
 
 
 
@@ -93,18 +94,15 @@ class App extends Component {
               <Route path="/owners" component={Owners} />
               <Route path="/parkers" component={Parkers} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
-
+              <Route path="/add-listing" component={AddListing} />
               {this.props.parkings.length !== 0 &&
                 <Route path="/find-parking" component={FindParking} />
               }
-
               {!AuthedUser
                 ? null
-                : <div>
-                  <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>
-                  <Route path="/add-listing" component={AddListing} />
-                </div>
+                : <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>                                    
               }
+              <Route component={NoMatch}/>
             </Switch>
             <Footer />
             <Alert />
@@ -114,6 +112,16 @@ class App extends Component {
     );
   }
 }
+
+const NoMatch = ({ location }) => (
+  <div className="catch-all">
+    <img src={image404}></img>
+    <p>Oops! It seems the page that you're looking for doesn't exist.</p>
+    <div>
+      <Link to="/"><button className="btn">Return Home</button></Link>
+    </div>
+  </div>
+)
 
 function mapStateToProps({AuthedUser, modal, parkings, error}) {
   return {

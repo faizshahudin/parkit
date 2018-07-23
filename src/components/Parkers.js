@@ -10,6 +10,7 @@ import list4 from "../images/listwithus-4.png"
 import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
+import MetaTags from 'react-meta-tags'
 
 
 class Parkers extends Component {
@@ -19,6 +20,13 @@ class Parkers extends Component {
   render() {
     return (
       <div className="landing parkers white-background">
+        <MetaTags>
+          <title>Find Parking</title>
+          <meta name="description" content="Looking for a reserved parking space? Rent from ParkIt! Multiple affordable, 
+            monthly reserved parking spaces are available all across Klang Valley." />
+          <meta property="og:title" content="Driver | ParkIt | Parking rental services" />
+          <meta property="og:image" />
+        </MetaTags>
         <section className="hero one background-grey container main-container">
           <div className="content">
             <p className="header">Do you need a parking space?</p>

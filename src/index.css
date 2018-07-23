@@ -20,6 +20,17 @@ button:hover {
   cursor: pointer;
 }
 
+.catch-all {
+  width: 100%;
+  padding: 100px;
+  text-align: center !important;
+}
+
+.catch-all .btn {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .white-background {
   background-color: white;
 }

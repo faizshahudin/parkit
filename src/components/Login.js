@@ -125,7 +125,7 @@ class Login extends Component {
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
-      if (currentLocation.includes("find-parking/search/")) {
+      if (currentLocation.includes("find-parking/search/") || currentLocation.includes("add-listing") ) {
         dispatch(handleHideModal())
         return null
       } else {
@@ -207,7 +207,7 @@ class Register extends Component {
 
     if (AuthedUser) {
       let currentLocation =  window.location.href
-      if (currentLocation.includes("find-parking/search/")) {
+      if (currentLocation.includes("find-parking/search/") || currentLocation.includes("add-listing") ) {
         dispatch(handleHideModal())
         return null
       } else {
