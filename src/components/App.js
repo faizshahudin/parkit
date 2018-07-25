@@ -74,7 +74,7 @@ class App extends Component {
   }
 
   render() {
-    const { AuthedUser, dispatch, modal, error } = this.props
+    const { AuthedUser, dispatch, modal, error, loading } = this.props
 
     if (error) {
       this.showAlert()
@@ -102,7 +102,9 @@ class App extends Component {
                 ? null
                 : <PrivateRoute path="/dashboard" component={Dashboard} dispatch={dispatch}/>                                    
               }
-              <Route component={NoMatch}/>
+              {!loading && 
+                <Route component={NoMatch}/>
+              }
             </Switch>
             <Footer />
             <Alert />
@@ -123,12 +125,13 @@ const NoMatch = ({ location }) => (
   </div>
 )
 
-function mapStateToProps({AuthedUser, modal, parkings, error}) {
+function mapStateToProps({AuthedUser, modal, parkings, error, loading}) {
   return {
     AuthedUser,
     parkings,
     modal,
     error,
+    loading
   }
 }
 

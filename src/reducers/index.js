@@ -3,6 +3,7 @@ import AuthedUser from "./AuthedUser"
 import parkings from "./parkings"
 import modal from "./modal"
 import error from "./error"
+import loading from "./loading"
 import {loadingBarReducer} from "react-redux-loading"
 
 
@@ -13,4 +14,5 @@ export default combineReducers({
   modal,
   error,
   loadingBar: loadingBarReducer,
+  loading,
 })

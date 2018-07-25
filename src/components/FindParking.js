@@ -206,7 +206,6 @@ class Search extends Component {
  }
 
   render() {
-    console.log(this.state.noParking)
     const {area} = fields
     let {currentLocation} = this.state
     const {parkings} = this.props

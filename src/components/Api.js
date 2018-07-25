@@ -66,7 +66,7 @@ export const getUserInfo = () =>
       "Authorization": `Bearer ${localStorage.auth}`
     },
   })
-  .then(handleErrors)
+  .then(handleUserDataError)
   .then(res => res.json())
 
 export const uploadPhoto = (auth, data, id) =>
@@ -101,9 +101,16 @@ export function getInitialData() {
 )}
 
 function handleErrors(response) {
-  console.lo
     if (!response.ok) {
       throw Error(response.statusText);
+    }
+    return response;
+}
+
+function handleUserDataError(response) {
+    if (!response.ok) {
+      localStorage.removeItem("auth")
+      window.location.reload()
     }
     return response;
 }
