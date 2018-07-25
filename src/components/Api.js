@@ -28,7 +28,6 @@ export const login = (data) =>
       },
       body: JSON.stringify(data)
     })
-    .then(handleErrors)
     .then(res => res.json())
 
 export const addParking = (data, auth) =>
