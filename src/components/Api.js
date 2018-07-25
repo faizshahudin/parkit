@@ -55,7 +55,7 @@ fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/vehi
 .then(res => res.json())
 
 export const getParkings = () =>
-    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/search/?db_status=Pending`)
+    fetch(`http://elastic-parkit.ug7zfpdc2v.ap-southeast-1.elasticbeanstalk.com/search/`)
     .then(handleErrors)
     .then(res => res.json())
 
@@ -101,6 +101,7 @@ export function getInitialData() {
 )}
 
 function handleErrors(response) {
+  console.lo
     if (!response.ok) {
       throw Error(response.statusText);
     }

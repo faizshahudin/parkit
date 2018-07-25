@@ -79,7 +79,7 @@ class Dashboard extends Component {
 }
 
   render() {
-    const {AuthedUser, listedParkings, bookedParkings} = this.props
+    const {AuthedUser, listedParkings, bookedParkings, parkings} = this.props
 
     return (
       <Fragment>
@@ -131,7 +131,7 @@ class Dashboard extends Component {
                   <div className="listing">
                     {this.state.listedParking
                       ? <ListedParking listedParkings={listedParkings}/>
-                      : <RentedParking AuthedUser={AuthedUser} bookedParkings={bookedParkings}/>
+                      : <RentedParking AuthedUser={AuthedUser} bookedParkings={bookedParkings} parkings={parkings}/>
                     }
                   </div>
                 }
@@ -180,25 +180,25 @@ const ListedParking = (props) => (
 
 const RentedParking = (props) => (
   <ul>
-    {props.bookedParkings.map(parking =>
-      <li key={parking.id}>
+    {props.bookedParkings.map(car =>
+      <li key={car.id}>
         <div className="listing-container white-background">
           <div className="thumbnail">
-            <img src={parking.image}></img>
+            {/* <img src={props.parkings[car.parked_at].image}></img> */}
           </div>
           <div className="details-container">
             <div className="name">
-              <h3>{parking.db_property}</h3>
+              <h3>{props.parkings[car.parked_at].db_property}</h3>
               <p>Lot B 13-1</p>
             </div>
             <div className="details">
               <div>
                 <h5>Vehicle Registered</h5>
-                <p>{parking.car.car_registery}</p>
+                <p>{car.car_registery}</p>
               </div>
               <div>
                 <h5>Rental</h5>
-                <p>RM{parking.db_price}</p>
+                <p>RM{props.parkings[car.parked_at].db_price}</p>
               </div>
             </div>
           </div>
@@ -218,14 +218,10 @@ function mapStateToProps({AuthedUser, modal, parkings}) {
 
   if (parkings.loading === false && AuthedUser.cars) {
     bookedParkings = AuthedUser.cars
-      .map(car => {
-        parkings[car.occupied_by].car = car
-        return parkings[car.occupied_by]
-      })
-      .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
+      .filter(car => car.parked_at !== null)
+      .sort((a, b) => Date.parse(b.start_date) - Date.parse(a.start_date))
   }
 
-  console.log(bookedParkings)
 
   return {
     modal,

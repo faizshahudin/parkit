@@ -447,9 +447,11 @@ class RentParking extends Component {
     }
   }
   handleChange = (e) => {
+    const id = this.props.match.params.id
     this.setState({
       occupied_by: this.props.match.params.id,
-      user: this.props.AuthedUser.pk
+      user: this.props.AuthedUser.pk,
+      parked_at: id,
     })
     let value = e.target.value
     let name = e.target.name
@@ -496,9 +498,6 @@ class RentParking extends Component {
     const id = this.props.match.params.id
     const {AuthedUser, dispatch, loading, parkings, cars} = this.props
     const parking = parkings[id]
-    console.log(cars)
-
-    console.log(parking)
 
     return (
       <Fragment>
@@ -551,7 +550,7 @@ class RentParking extends Component {
                               <form onSubmit={this.handleSubmit}>
                                 <div>
                                   <label>Start date</label>
-                                  <input required name="start_date" type="datetime-local"></input>
+                                  <input required name="start_date" type="date"></input>
                                 </div>
                                 <div>
                                   <label>Vehicle Registered</label>
