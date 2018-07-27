@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
+import MetaTags from 'react-meta-tags'
+
 import hero1 from "../images/hero-image1.png"
 import hero2 from "../images/hero-image2.png"
 import hero3 from "../images/hero-image3.png"
@@ -7,12 +11,7 @@ import hero4 from "../images/hero-image4.png"
 import logos from "../images/logos.png"
 import cloud from "../images/clouds.png"
 import {handleShowModal} from "../actions/modal"
-import { connect } from "react-redux"
-import { Redirect } from "react-router-dom"
-import MetaTags from 'react-meta-tags'
-
-
-
+import Button from './Button';
 
 class Home extends Component {
   openModalRegister = () => {
