@@ -11,7 +11,7 @@ import hero4 from "../images/hero-image4.png"
 import logos from "../images/logos.png"
 import cloud from "../images/clouds.png"
 import {handleShowModal} from "../actions/modal"
-import Button from './Button';
+import Button from "./common/Button";
 
 class Home extends Component {
   openModalRegister = () => {
@@ -66,7 +66,9 @@ class Home extends Component {
             <p>
               Search and book from our available parking spaces now!
             </p>
-            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
+            <Link to="/find-parking/search">
+              <Button buttonText="I NEED A PARKING" />
+            </Link>
           </div>
           <img className="hero-img" src={hero3}></img>
         </section>
@@ -78,13 +80,18 @@ class Home extends Component {
             <p>
               Fill up our form and rent your parking space on ParkIt today!
             </p>
-            <Link to="/add-listing"><button className="btn">I HAVE A PARKING</button></Link>
+            <Link to="/add-listing">
+              <Button buttonText="I HAVE A PARKING" />
+            </Link>
           </div>
         </section>
         <section className="signup">
           <div className="full-width">
             <h3>We're here for all your parking needs. Sign up now!</h3>
-            <button onClick={this.openModalRegister} className="btn">GET STARTED</button>
+            <Button 
+              onClick={this.openModalRegister}
+              buttonText="GET STARTED"
+            />
           </div>
         </section>
         <section className="partners">
