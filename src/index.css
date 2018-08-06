@@ -1628,6 +1628,7 @@ button:disabled {
   font-size: 15px;
   padding: 15px 0;
   border-bottom: 2px solid white;
+  background-color: #fff;
 }
 
 .dashboard .parking .navigation button:disabled {
@@ -1644,6 +1645,25 @@ button:disabled {
   border-bottom: solid;
   border-width: thin;
   border-color: rgba(74, 74, 74, 0.2);
+}
+
+/* no-listed means that no listed parkings */
+.dashboard .parking .no-listed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  margin-top: 20px;
+}
+
+.no-listed-image {
+  display: flex;
+  justify-content: center;
+}
+
+.no-listed-image img {
+  width: 50%;
 }
 
 .dashboard .parking .listing-container .thumbnail img {

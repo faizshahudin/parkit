@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+
+import jwt from "jsonwebtoken"
 import avatar from "../images/avatar-placeholder.jpeg"
 import parkingAvatar from "../images/parking-placeholder.png"
+import noParkingImage from "../images/no-parking.png"
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {handleGetUserDetails} from "../actions/AuthedUser"
-import { connect } from 'react-redux'
 import {handleGetParkings} from "../actions/parkings"
-import jwt from "jsonwebtoken"
 import {loginSuccess, handleLogin, handleEditProfile, handleUploadImage} from "../actions/AuthedUser"
 import * as Api from "../components/Api"
-
+import Button from "./common/Button";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -93,6 +95,7 @@ class Dashboard extends Component {
                           onChange={this.handleChangePhoto} accept=".jpg, .jpeg, .png" style={{display: "none"}} />
                   </form>
                   <label htmlFor="profile_pic">
+                    {/* if no user logged in, render user placeholder */}
                     {AuthedUser.image
                       ? <img className="user-avatar" src={AuthedUser.image}></img>
                       : <img className="user-avatar" src={avatar}></img>
@@ -120,6 +123,7 @@ class Dashboard extends Component {
 
                 </div>
               </div>
+              {/* render list of user parkings */}
               <div className="parking">
                 <div className="white-background navigation-container">
                   <div className="navigation container">
@@ -144,69 +148,96 @@ class Dashboard extends Component {
   }
 }
 
-const ListedParking = (props) => (
-  <ul>
-    {props.listedParkings.map((parking, index) =>
-      <li key={index}>
-        <div className="listing-container white-background">
-          <div className="thumbnail">
-            <img src={parking.image}></img>
-          </div>
-          <div className="details-container">
-            <div className="name">
-              <h3>{parking.db_property}</h3>
-              <p>Lot B 13-1</p>
+const ListedParking = (props) => {
+  // if there is no listed parkings, render:
+  return props.listedParkings.length ? (
+    <ul>
+      {props.listedParkings.map((parking, index) =>
+        <li key={index}>
+          <div className="listing-container white-background">
+            <div className="thumbnail">
+              <img src={parking.image}></img>
             </div>
-            <div className="details">
-              <div>
-                <h5>Vehicle Registered</h5>
-                <p>ABC 7364</p>
+            <div className="details-container">
+              <div className="name">
+                <h3>{parking.db_property}</h3>
+                <p>Lot B 13-1</p>
               </div>
-              <div>
-                <h5>Rental</h5>
-                <p>RM{parking.db_price}</p>
-              </div>
-              <div>
-                <h5>User Registered</h5>
-                <p>Clamone Parkinson</p>
+              <div className="details">
+                <div>
+                  <h5>Vehicle Registered</h5>
+                  <p>ABC 7364</p>
+                </div>
+                <div>
+                  <h5>Rental</h5>
+                  <p>RM{parking.db_price}</p>
+                </div>
+                <div>
+                  <h5>User Registered</h5>
+                  <p>Clamone Parkinson</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    )}
-  </ul>
+        </li>
+      )}
+    </ul>
+  ) : <NoParkings 
+        content="Looks like you don't have any listed parking yet."
+        buttonText="I HAVE A PARKING"
+      />
+}
+
+const NoParkings = (props) => (
+  <div className="no-listed-container">
+    <div className="no-listed-image">
+      <img src={noParkingImage}/>
+    </div>
+    <div className="no-listed-title">
+      <h2>Honk! Honk!</h2>
+    </div>
+    <div className="no-listed-subtitle">
+      <span>{props.content}</span>
+    </div>
+    <div className="no-listed-button">
+      <Button buttonText={props.buttonText} />
+    </div>
+  </div>
 )
 
-const RentedParking = (props) => (
-  <ul>
-    {props.bookedParkings.map(car =>
-      <li key={car.id}>
-        <div className="listing-container white-background">
-          <div className="thumbnail">
-            {/* <img src={props.parkings[car.parked_at].image}></img> */}
-          </div>
-          <div className="details-container">
-            <div className="name">
-              <h3>{props.parkings[car.parked_at].db_property}</h3>
-              <p>Lot B 13-1</p>
+const RentedParking = (props) => {
+  return props.bookedParkings.length ? (
+    <ul>
+      {props.bookedParkings.map(car =>
+        <li key={car.id}>
+          <div className="listing-container white-background">
+            <div className="thumbnail">
+              {/* <img src={props.parkings[car.parked_at].image}></img> */}
             </div>
-            <div className="details">
-              <div>
-                <h5>Vehicle Registered</h5>
-                <p>{car.car_registery}</p>
+            <div className="details-container">
+              <div className="name">
+                <h3>{props.parkings[car.parked_at].db_property}</h3>
+                <p>Lot B 13-1</p>
               </div>
-              <div>
-                <h5>Rental</h5>
-                <p>RM{props.parkings[car.parked_at].db_price}</p>
+              <div className="details">
+                <div>
+                  <h5>Vehicle Registered</h5>
+                  <p>{car.car_registery}</p>
+                </div>
+                <div>
+                  <h5>Rental</h5>
+                  <p>RM{props.parkings[car.parked_at].db_price}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    )}
-  </ul>
-)
+        </li>
+      )}
+    </ul> ) : <NoParkings
+                content="Looks like you have not rented any parking spaces yet."
+                buttonText="I NEED A PARKING"
+              />
+}
 
 function mapStateToProps({AuthedUser, modal, parkings}) {
   let listedParkings
