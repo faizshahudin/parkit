@@ -1660,10 +1660,12 @@ button:disabled {
 .no-listed-image {
   display: flex;
   justify-content: center;
+  width: 100px;
+  height: 100px;
 }
 
 .no-listed-image img {
-  width: 50%;
+  width: inherit;
 }
 
 .dashboard .parking .listing-container .thumbnail img {
