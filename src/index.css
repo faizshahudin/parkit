@@ -36,7 +36,7 @@ button:hover {
 }
 
 .grey-background {
-  background-color: #f7f6f6;
+  background-color: #ebebea;
 }
 
 .black-background {
@@ -1564,6 +1564,7 @@ button:disabled {
 .dashboard .user {
   display: grid;
   grid-template-rows: 0.3fr 0.7fr;
+  box-shadow: 0 1px 5px rgba(0,0,0,.08);
 }
 
 .dashboard .user .avatar {
@@ -1600,9 +1601,13 @@ button:disabled {
   margin: 10px 0;
 }
 
+.navigation-container {
+  box-shadow: 0 1px 5px rgba(0,0,0,.08);
+}
+
 .dashboard .parking .listing {
   margin-top: 20px !important;
-  overflow: scroll;
+  /* overflow: scroll; */
   height: 70vh;
 }
 
@@ -1645,6 +1650,7 @@ button:disabled {
   border-bottom: solid;
   border-width: thin;
   border-color: rgba(74, 74, 74, 0.2);
+  box-shadow: 0 1px 5px rgba(0,0,0,.08);
 }
 
 /* no-listed means that no listed parkings */
@@ -1683,7 +1689,7 @@ button:disabled {
 }
 
 .dashboard .parking .details-container {
-  padding: 20px 0;
+  padding: 20px 0;  
 }
 
 .dashboard .parking .details {
@@ -1693,6 +1699,16 @@ button:disabled {
 
 .dashboard .parking .name {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between; 
+}
+
+.icon-button {  
+  margin-right: 1rem;
+}
+
+.icon-button img {
+  height: 30px;
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
