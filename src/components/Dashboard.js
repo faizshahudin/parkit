@@ -1,15 +1,13 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 import jwt from "jsonwebtoken"
 import avatar from "../images/avatar-placeholder.jpeg"
 import parkingAvatar from "../images/parking-placeholder.png"
 import noParkingImage from "../images/no-parking.png"
-import deleteIcon from '../images/delete-icon.png';
 import {handleShowModal, handleHideModal} from "../actions/modal"
 import {handleGetUserDetails} from "../actions/AuthedUser"
-import {handleGetParkings, deleteParking} from "../actions/parkings"
+import {handleGetParkings} from "../actions/parkings"
 import {loginSuccess, handleLogin, handleEditProfile, handleUploadImage} from "../actions/AuthedUser"
 import * as Api from "../components/Api"
 import Button from "./common/Button";
@@ -80,13 +78,6 @@ class Dashboard extends Component {
   formData.append('image', file)
 
   dispatch(handleUploadImage(formData, AuthedUser.pk))
-}
-
-// function to delete parking
-handleDeleteParking = () => {
-  console.log('inside-dashboard: delete');
-  // const { dispatch } = this.props;
-  // dispatch(deleteParking());
 }
 
   render() {
@@ -194,7 +185,6 @@ const ListedParking = (props) => {
   ) : <NoParkings 
         content="Looks like you don't have any listed parking yet."
         buttonText="I HAVE A PARKING"
-        pageLink="/add-listing"
       />
 }
 
@@ -210,9 +200,7 @@ const NoParkings = (props) => (
       <span>{props.content}</span>
     </div>
     <div className="no-listed-button">
-      <Link to={props.pageLink}>
-        <Button buttonText={props.buttonText} />
-      </Link>
+      <Button buttonText={props.buttonText} />
     </div>
   </div>
 )
@@ -221,22 +209,15 @@ const RentedParking = (props) => {
   return props.bookedParkings.length ? (
     <ul>
       {props.bookedParkings.map(car =>
-        <li key={car.id}>   
+        <li key={car.id}>
           <div className="listing-container white-background">
             <div className="thumbnail">
               {/* <img src={props.parkings[car.parked_at].image}></img> */}
             </div>
             <div className="details-container">
               <div className="name">
-                <div className="name__left">
-                  <h3>{props.parkings[car.parked_at].db_property}</h3>
-                  <p>Lot B 13-1</p>
-                </div>
-                <div className="name__right">
-                  <a className="icon-button" onClick={this.handleDeleteParking}>
-                    <img src={deleteIcon} />
-                  </a>
-                </div>
+                <h3>{props.parkings[car.parked_at].db_property}</h3>
+                <p>Lot B 13-1</p>
               </div>
               <div className="details">
                 <div>
@@ -255,7 +236,6 @@ const RentedParking = (props) => {
     </ul> ) : <NoParkings
                 content="Looks like you have not rented any parking spaces yet."
                 buttonText="I NEED A PARKING"
-                pageLink="/find-parking/search"
               />
 }
 

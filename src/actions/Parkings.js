@@ -11,7 +11,6 @@ export const BOOK_PARKING_COMPLETE = "BOOK_PARKING_COMPLETE"
 export const BOOK_PARKING = "BOOK_PARKING"
 export const BOOK_PARKING_SUCCESS = "BOOK_PARKING_SUCCESS"
 export const GET_USER_PARKINGS = "GET_USER_PARKINGS"
-export const PARKING_DELETED = "PARKING_DELETED"
 
 
 
@@ -128,14 +127,5 @@ export function handleBookParking(parking) {
         dispatch(hideLoading())
         dispatch(showError(e))
       })
-  }
-}
-
-export const deleteParking = () => async dispatch => {
-  /* calling api to delete parking*/
-  alert('are you sure to delete item?');
-  return {
-    type: PARKING_DELETED,
-    payload: null
   }
 }
