@@ -32,27 +32,27 @@ export default class ContactUs extends React.Component {
                     </div>
                 </div>
                 <div  className="contactus-lower">
-                    <div className="contactus-left">
-                        <div className="contactus-left__content">
+                    <div className="contactus-lower__item">
+                        <div className="contactus-lower__content">
                             <span>
                                 Are you an owner of a parking space
                                 and <br></br>want us to help rent it out for you?
                             </span>
                         </div>
-                        <div className="contactus-left__button">
+                        <div className="contactus-lower__button">
                             <Link to="/add-listing">
                                 <Button buttonText="RENT MY PARKING SPACE" />
                             </Link>
                         </div>
                     </div>
-                    <div className="contactus-right">
-                        <div className="contactus-right__content">
+                    <div className="contactus-lower__item">
+                        <div className="contactus-lower__content">
                             <span>
                                 Are you a driver looking for a parking<br></br>
                                 space to rent?
                             </span>
                         </div>
-                        <div className="contactus-right__button">
+                        <div className="contactus-lower__button">
                             <Link to="/find-parking/search">
                                 <Button buttonText="I NEED A PARKING" />
                             </Link>
