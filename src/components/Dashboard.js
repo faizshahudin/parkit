@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 import jwt from "jsonwebtoken"
 import avatar from "../images/avatar-placeholder.jpeg"
@@ -185,6 +186,7 @@ const ListedParking = (props) => {
   ) : <NoParkings 
         content="Looks like you don't have any listed parking yet."
         buttonText="I HAVE A PARKING"
+        pageLink="/add-listing"
       />
 }
 
@@ -200,7 +202,9 @@ const NoParkings = (props) => (
       <span>{props.content}</span>
     </div>
     <div className="no-listed-button">
-      <Button buttonText={props.buttonText} />
+      <Link to={props.pageLink}>
+        <Button buttonText={props.buttonText} />
+      </Link>
     </div>
   </div>
 )
@@ -236,6 +240,7 @@ const RentedParking = (props) => {
     </ul> ) : <NoParkings
                 content="Looks like you have not rented any parking spaces yet."
                 buttonText="I NEED A PARKING"
+                pageLink="/find-parking/search"
               />
 }
 
