@@ -1,32 +1,33 @@
 import React, { Component, Fragment } from 'react';
-import Home from "./Home"
-import Owners from "./Owners"
-import LoginRegister from "./Login"
-import Register from "./Register"
-import AddListing from "./AddListing"
-import Dashboard from "./Dashboard"
-import ResetPassword from "./ResetPassword"
-import Nav from "./Nav"
-import FindParking from "./FindParking"
-import Footer from "./Footer"
-import {BrowserRouter as Router, Route, Link} from "react-router-dom"
-import {Switch} from "react-router-dom"
-import { Redirect } from 'react-router-dom'
-import { connect } from "react-redux"
-import {handleGetParkings} from "../actions/parkings"
-import {handleGetUserDetails} from "../actions/AuthedUser"
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import {handleHideModal, handleShowModal} from "../actions/modal"
-import Parkers from "./Parkers"
-import {handleInitialData} from "../actions/shared"
-import LoadingBar from 'react-redux-loading'
-import Alert from 'react-s-alert'
-import 'react-s-alert/dist/s-alert-default.css'
-import {hideError} from "../actions/error"
-import image404 from "../images/404.png"
+import LoadingBar from 'react-redux-loading';
+import Alert from 'react-s-alert';
 
+import 'react-s-alert/dist/s-alert-default.css';
+import image404 from '../images/404.png'
 
+import Home from './Home';
+import Owners from './Owners';
+import Parkers from './Parkers';
+import LoginRegister from './Login';
+import Register from './Register';
+import AddListing from './AddListing';
+import ContactUs from './ContactUs';  
+import Dashboard from './Dashboard';
+import ResetPassword from './ResetPassword';
+import Nav from './Nav';
+import FindParking from './FindParking';
+import Footer from './Footer';
 
+import {handleGetParkings} from '../actions/parkings';
+import {handleGetUserDetails} from '../actions/AuthedUser';
+import {handleHideModal, handleShowModal} from '../actions/modal';
+import {handleInitialData} from '../actions/shared';
+import {hideError} from '../actions/error';
 
 const PrivateRoute = ({ component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (
@@ -95,6 +96,7 @@ class App extends Component {
               <Route path="/parkers" component={Parkers} />
               <Route path="/auth/password/reset/confirm" component={ResetPassword} />
               <Route path="/add-listing" component={AddListing} />
+              <Route path="/contact" component={ContactUs} />
               {this.props.parkings.length !== 0 &&
                 <Route path="/find-parking" component={FindParking} />
               }

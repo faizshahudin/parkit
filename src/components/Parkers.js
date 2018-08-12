@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Carousel, showArrows, onChange, onClickItem, onClickThumb, showThumbs, showStatus, width} from 'react-responsive-carousel'
+import MetaTags from 'react-meta-tags'
+
 import parkers1 from "../images/parkers1.png"
 import parkersSlider from "../images/parkers-slider.png"
 import list1 from "../images/listwithus-1.png"
@@ -10,8 +12,7 @@ import list4 from "../images/listwithus-4.png"
 import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
-import MetaTags from 'react-meta-tags'
-
+import Button from './common/Button';
 
 class Parkers extends Component {
   componentDidMount() {
@@ -36,7 +37,9 @@ class Parkers extends Component {
               for parking. You can now drive straight up to your own parking spots where ever
               you choose to rent. We belive parking should be easier
             </p>
-            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
+            <Link to="/find-parking/search">
+              <Button buttonText="I NEED A PARKING" />
+            </Link>
           </div>
           <div className="image-container">
             <img src={parkers1}></img>
@@ -75,7 +78,9 @@ class Parkers extends Component {
           <div className="container content">
             <p>Save others from the pain of parking.</p>
             <p>It takes less than 2 minutes to list your parking with us.</p>
-            <Link to="/find-parking/search"><button className="btn">I NEED A PARKING</button></Link>
+            <Link to="/find-parking/search">
+              <Button buttonText="I NEED A PARKING" />
+            </Link>
           </div>
         </section>
       </div>

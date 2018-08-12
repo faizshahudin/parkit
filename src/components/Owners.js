@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import MetaTags from 'react-meta-tags';
+
 import owners1 from "../images/owners-overview1.png"
 import owners2 from "../images/owners-overview2.png"
 import list1 from "../images/listwithus-1.png"
@@ -9,9 +11,7 @@ import one from "../images/1.png"
 import two from "../images/2.png"
 import three from "../images/3.png"
 import logos from "../images/logos.png"
-import MetaTags from 'react-meta-tags'
-
-
+import Button from './common/Button';
 
 class Owners extends Component {
   componentDidMount() {
@@ -35,7 +35,9 @@ class Owners extends Component {
               Enjoy passive income and hassle-free management by renting with ParkIt!
               We ensure security by renting only to reliable tenants, providing you with all their relevant information and collecting payments timely.
             </p>
-            <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
+            <Link to="/add-listing">
+              <Button buttonText="RENT MY PARKING SPACE" />
+            </Link>
           </div>
           <div className="image-container">
             <img src={owners1}></img>
@@ -68,7 +70,9 @@ class Owners extends Component {
           <div className="container content">
             <p>What are you waiting for?</p>
             <p>Rent out your parking space today!</p>
-            <Link to="/add-listing"><button className="btn">RENT MY PARKING SPACE</button></Link>
+            <Link to="/add-listing">
+              <Button buttonText="RENT MY PARKING SPACE" />
+            </Link>
           </div>
         </section>
         <section className="partners">
