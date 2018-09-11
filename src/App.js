@@ -8,26 +8,26 @@ import LoadingBar from 'react-redux-loading';
 import Alert from 'react-s-alert';
 
 import 'react-s-alert/dist/s-alert-default.css';
-import image404 from '../images/404.png'
+import image404 from './images/404.png'
 
-import Home from './Home';
-import Owners from './Owners';
-import Parkers from './Parkers';
-import LoginRegister from './Login';
-import Register from './Register';
-import AddListing from './AddListing';
-import ContactUs from './ContactUs';  
-import Dashboard from './Dashboard';
-import ResetPassword from './ResetPassword';
-import Nav from './Nav';
-import FindParking from './FindParking';
-import Footer from './Footer';
+import Home from './pages/Home';
+import Owners from './components/Owners';
+import Parkers from './components/Parkers';
+import LoginRegister from './components/Login';
+import Register from './components/Register';
+import AddListing from './components/AddListing';
+import ContactUs from './components/ContactUs';  
+import Dashboard from './components/Dashboard';
+import ResetPassword from './components/ResetPassword';
+import Nav from './components/common/Nav';
+import FindParking from './components/FindParking';
+import Footer from './components/common/Footer';
 
-import {handleGetParkings} from '../actions/parkings';
-import {handleGetUserDetails} from '../actions/AuthedUser';
-import {handleHideModal, handleShowModal} from '../actions/modal';
-import {handleInitialData} from '../actions/shared';
-import {hideError} from '../actions/error';
+import {handleGetParkings} from './actions/parkings';
+import {handleGetUserDetails} from './actions/AuthedUser';
+import {handleHideModal, handleShowModal} from './actions/modal';
+import {handleInitialData} from './actions/shared';
+import {hideError} from './actions/error';
 
 const PrivateRoute = ({ component: Component, ...rest}) => (
   <Route {...rest} render={(props) => (

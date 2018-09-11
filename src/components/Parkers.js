@@ -38,7 +38,7 @@ class Parkers extends Component {
               you choose to rent. We belive parking should be easier
             </p>
             <Link to="/find-parking/search">
-              <Button buttonText="I NEED A PARKING" />
+              <Button className="btn" buttonText="I NEED A PARKING" />
             </Link>
           </div>
           <div className="image-container">
@@ -79,7 +79,7 @@ class Parkers extends Component {
             <p>Save others from the pain of parking.</p>
             <p>It takes less than 2 minutes to list your parking with us.</p>
             <Link to="/find-parking/search">
-              <Button buttonText="I NEED A PARKING" />
+              <Button className="btn" buttonText="I NEED A PARKING" />
             </Link>
           </div>
         </section>

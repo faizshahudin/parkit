@@ -203,7 +203,7 @@ const NoParkings = (props) => (
     </div>
     <div className="no-listed-button">
       <Link to={props.pageLink}>
-        <Button buttonText={props.buttonText} />
+        <Button className="btn" buttonText={props.buttonText} />
       </Link>
     </div>
   </div>

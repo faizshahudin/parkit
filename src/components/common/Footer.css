@@ -1,0 +1,99 @@
+/* Footer */
+.footer {
+    color: #b9b9b9;
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 14px;
+    background-color: #eeefef;
+    position: relative;
+  }
+
+  .footer .top-content {
+      width: 50%;
+      margin-right: auto;
+      margin-left: auto;
+      display: flex;
+      padding-top: 60px;
+  }
+
+  .footer .logo-container {
+      width: 8%;
+      margin-right: 20px;
+  }
+
+  .footer .logo-container img {
+      width: 100%;
+  }
+
+  .footer .parkit {
+      width: 30%;
+  }
+
+  .footer .parkit .title{
+      font-weight: 900;
+      font-size: 14px !important;
+  }
+
+  .footer .contact {
+      margin: 0 30px;
+      width: 30%;
+      text-align: center;
+  }
+
+  .footer .contact .subtitle {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer .contact .subtitle span {
+      margin-top: 10px;
+  }
+
+  .footer .address {
+      width: 30%;   
+  }
+
+  .footer .title {
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+  }
+
+  .footer .subtitle {
+      font-size: 11px;
+      color: black;
+  }
+
+  .footer .bottom-content {
+      width: 50%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-bottom: 30px;
+  }
+
+  .footer .bottom-content ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .footer .bottom-content ul li {
+      margin: 0 10px;
+  }
+
+  .footer .bottom-content ul a {
+      color: black;
+  }
+
+  .footer .social-link {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 20px;
+      right: 60px;
+      width: 3%;
+  }
+
+  .footer .social-link img {
+      width: 100%;
+      margin: 5px 0;   
+  }
