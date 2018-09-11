@@ -41,7 +41,7 @@ export default class ContactUs extends React.Component {
                         </div>
                         <div className="contactus-lower__button">
                             <Link to="/add-listing">
-                                <Button buttonText="RENT MY PARKING SPACE" />
+                                <Button className="btn" buttonText="RENT MY PARKING SPACE" />
                             </Link>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ export default class ContactUs extends React.Component {
                         </div>
                         <div className="contactus-lower__button">
                             <Link to="/find-parking/search">
-                                <Button buttonText="I NEED A PARKING" />
+                                <Button className="btn" buttonText="I NEED A PARKING" />
                             </Link>
                         </div>
                     </div>

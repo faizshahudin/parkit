@@ -12,10 +12,6 @@ import {handleShowModal, handleHideModal} from "../actions/modal"
 import {handleGetParkings} from "../actions/parkings"
 import AriaModal from "react-aria-modal"
 
-
-
-
-
 class LoginRegister extends Component {
   constructor(props) {
     super(props)
@@ -78,11 +74,13 @@ class LoginRegister extends Component {
                     dispatch={dispatch}
                     AuthedUser={AuthedUser}
                     showAlert={this.showAlert}
+                    toggleNav={this.toggleNav}
                   />
                   : <Register
                     dispatch={dispatch}
                     AuthedUser={AuthedUser}
                     showAlert={this.showAlert}
+                    toggleNav={this.toggleNav}
                   />
                 }
               </div>
@@ -167,7 +165,7 @@ class Login extends Component {
           </div>
           <p><a>Forgot Password?</a></p>
           <button className="btn submit">Log In</button>
-          <p>Don't have an account? <Link to="/register">Sign up</Link> here.</p>
+          <p>Don't have an account? <a onClick={this.props.toggleNav}>Sign up</a> here.</p>
         </form>
 
       </Fragment>
@@ -290,7 +288,7 @@ class Register extends Component {
             <i className="fas fa-key"></i>
           </div>
           <button className="btn submit">Register</button>
-          <p className="footer-text">Already have an account? <Link to="/login">Login</Link> here.</p>
+          <p className="footer-text">Already have an account? <a onClick={this.props.toggleNav}>Login</a> here.</p>
         </form>
     )
   }

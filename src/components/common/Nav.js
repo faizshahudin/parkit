@@ -1,15 +1,17 @@
-import React, { Component, Fragment } from 'react'
-import { NavLink } from 'react-router-dom'
-import Logo from "../images/parkit-logo.png"
-import MenuIcon from "../images/menu-icon.png"
-import { connect } from 'react-redux'
-import { logout } from "../actions/AuthedUser"
-import {handleLogout} from "../actions/AuthedUser"
-import { withRouter } from "react-router-dom";
+import React, { Component, Fragment } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import LoginRegister from "./Login"
-import {handleShowModal} from "../actions/modal"
-import avatar from "../images/avatar-placeholder.jpeg"
+
+import {handleShowModal} from "../../actions/modal"
+import { handleLogout, logout } from "../../actions/AuthedUser"
+import './Nav.css';
+import LoginRegister from "../Login"
+import avatar from "../../images/avatar-placeholder.jpeg"
+import Logo from "../../images/parkit-logo.png"
+import MenuIcon from "../../images/menu-icon.png"
+import parkitFull from '../../images/parkitFull.png';
+import searchIcon from '../../images/search-icon.png';
 
 class Nav extends Component {
   constructor(props) {
@@ -72,9 +74,9 @@ class DesktopNav extends Component {
     const {AuthedUser, logout} = this.props
 
     return (
-      <div>
+      <div className="outer">
         <nav className="nav">
-          <ul className="nav-container one">
+          <ul className="nav-container">
             <li>
               <NavLink exact to="/"
                 activeClassName="null"
@@ -83,20 +85,24 @@ class DesktopNav extends Component {
               </NavLink>
             </li>
             <li>
+              <div className="full-title">
+                <span className="full-title-divider">|</span>
+                <span className="full-title--title">Parkit Malaysia</span>
+              </div>
+            </li>
+          </ul>
+          <ul className="nav-container">
+            <div><SearchBar /></div>
+          </ul>
+          <ul className="nav-container">
+            <li>
               <NavLink to='/owners' activeClassName='active'>
-                Owners
+                <span className="grey">Owners</span>
               </NavLink>
             </li>
             <li>
               <NavLink to='/parkers' activeClassName='active'>
-                Parkers
-              </NavLink>
-            </li>
-          </ul>
-          <ul className="nav-container two">
-            <li>
-              <NavLink to='/find-parking/search' activeClassName='active'>
-                Find a Parking
+                <span className="grey">Parkers</span>
               </NavLink>
             </li>
             {AuthedUser
@@ -116,12 +122,9 @@ class DesktopNav extends Component {
                 <Fragment>
                   <li>
                     <a onClick={this.props.openModal}>
-                      Log in
-                    </a>
-                  </li>
-                  <li>
-                    <a onClick={this.props.openModalRegister} className="btn-transparent">
-                      Sign Up
+                      <span className="primary-color">
+                        Log in
+                      </span>
                     </a>
                   </li>
                 </Fragment>
@@ -135,6 +138,20 @@ class DesktopNav extends Component {
   }
 }
 
+// functional component for search bar
+const SearchBar = (props) => {
+  return (
+    <Fragment>
+      <form className="search-form">
+        <input 
+          placeholder="Search nearest available parking"
+        />
+      </form>
+    </Fragment>
+  )
+}
+
+// below functional component is for rendering user avatar
 const UserAvatar = (props) => {
   return (
     <Fragment>
@@ -159,6 +176,7 @@ const UserAvatar = (props) => {
   )
 }
 
+// below codes is for navigation in mobile
 class MobileNav extends Component {
   constructor(props) {
     super(props)

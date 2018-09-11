@@ -36,7 +36,7 @@ class Owners extends Component {
               We ensure security by renting only to reliable tenants, providing you with all their relevant information and collecting payments timely.
             </p>
             <Link to="/add-listing">
-              <Button buttonText="RENT MY PARKING SPACE" />
+              <Button className="btn" buttonText="RENT MY PARKING SPACE" />
             </Link>
           </div>
           <div className="image-container">
@@ -71,7 +71,7 @@ class Owners extends Component {
             <p>What are you waiting for?</p>
             <p>Rent out your parking space today!</p>
             <Link to="/add-listing">
-              <Button buttonText="RENT MY PARKING SPACE" />
+              <Button className="btn" buttonText="RENT MY PARKING SPACE" />
             </Link>
           </div>
         </section>

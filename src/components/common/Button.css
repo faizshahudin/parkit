@@ -1,0 +1,54 @@
+.btn {
+    color: white;
+    background-color: #e86c6d;
+    border: none;
+    font-size: 20px;
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .btn-transparent {
+    color: #e86c6d !important;
+    background: none;
+    font-size: 20px;
+    font-weight: 700;
+    border: 2.5px #e86c6d solid;
+    border-radius: 10px;
+    padding: 10px 30px !important;
+  }
+  
+  .btn-transparent:hover {
+    color: white !important;
+    background: #e86c6d;
+    border: 2.5px #e86c6d solid;
+    border-radius: 10px;
+    padding: 10px 30px !important;
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+  }
+  
+.btn-white {
+    background-color: white;
+    color: #e86c6d;
+    border: white 2.5px solid;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.btn-white:hover {
+    background-color: #e86c6d;
+    color: white;
+    border: white 2.5px solid;
+}
+
+.rounded {
+    border-radius: 30px !important;
+}

@@ -1,0 +1,247 @@
+/* Landing */
+.landing {
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+.landing h1 {
+    font-weight: 700;
+}
+
+.landing h3 {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 32px;
+    font-weight: 500 !important;
+}
+
+.landing .hero p {
+    font-family: 'Raleway', sans-serif !important;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+.landing .hero p span {
+    font-weight: 700;
+}
+
+.landing button {
+    padding: 10px 30px;
+}
+
+.landing .hero {
+    display: grid;
+    grid-gap: 10px;
+    margin-top: 30px;
+}
+
+.landing .hero.one {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 0 !important;
+    padding: 0 50px;
+    background-color: #e86c6d;
+}
+
+.landing .hero .content .bottom-content {
+    width: 400px;
+    color: white !important;
+    border-top: white 1px solid;
+    margin-top: -20px;
+}
+
+.landing .hero .content form {
+    display: flex;
+    flex-direction: column;
+    margin: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing .hero .content form .link {
+    margin-top: 20px;
+    color: white;
+}
+
+.landing .hero .content form .link a {
+    color: white;
+    text-decoration: underline;
+}
+
+.landing .hero .content form .row-input {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.input-contact {
+    background-image: url(../images/input-contact.png);
+    background-repeat: no-repeat;
+    background-position: right 8px top 5px;
+    background-size: 30px;
+}
+
+.input-name {
+    background-image: url(../images/input-name.png);
+    background-repeat: no-repeat;
+    background-position: right 8px top 5px;
+    background-size: 30px;
+}
+
+.input-email {
+    background-image: url(../images/input-email.png);
+    background-repeat: no-repeat;
+    background-position: right 8px top 5px;
+    background-size: 30px;
+}
+
+.input-password {
+    background-image: url(../images/input-password.png);
+    background-repeat: no-repeat;
+    background-position: right 8px top 5px;
+    background-size: 30px;
+}
+
+.landing .hero .content img {
+    margin-left: -20px;
+    width: 88%;
+}
+
+/* pitching section */
+.pitch {
+    text-align: center;
+}
+
+.pitch .title {
+    color: #e86c6d;
+    font-weight: 700;
+    font-size: 32px;
+    margin-top: 60px;
+}
+
+.pitch .problems {
+    margin: 20px 0;
+    color: #767a7e;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.pitch .solutions {
+    color: #e86c6d;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.background-grey {
+    background-color: #f7f6f6;
+}
+
+.landing .hero .content {
+    width: 90%;
+}
+
+/* section two */
+.landing .hero.two {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding-bottom: 60px;
+}
+
+.landing .hero.two .content {
+    width: 50%;
+    text-align: center;
+}
+
+.landing .two .content img {
+    width: 80%;
+}
+
+.landing .two .content .title {
+    color: #525457;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: -30px;
+}
+
+.landing .two .content .subtitle {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    color: #767a7e;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.landing .hero .content {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.landing .hero .hero-img {
+    width: 100%;
+    padding: 50px 0;
+}
+
+.landing .hero.two .hero-img {
+    padding: initial;
+}
+
+.landing .hero-right .hero-img {
+    width: 100%;
+}
+
+/* signup section */
+.landing .signup {
+    background-color: #1b75bb;
+}
+
+.landing .signup .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+}
+
+.landing .signup .content .img-container {
+    display: grid;
+    justify-items: right;
+}
+
+.landing .signup .content img {
+    justify-items: right;
+    width: 60%;
+}
+
+.landing .signup .content .cta {
+    text-align: left;
+    margin: auto 0;
+    width: 65%;
+}
+
+.landing .signup .content .cta .title {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.landing .signup .content .cta .subtitle {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.landing .partners {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing .partners img {
+    width: 12%;
+    margin: 0 30px;
+}
+
+.white {
+    color: white !important;
+}
