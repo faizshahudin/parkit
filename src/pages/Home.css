@@ -36,11 +36,21 @@
     margin-top: 30px;
 }
 
+/* first section */
 .landing .hero.one {
     grid-template-columns: 1fr 1fr;
     margin-top: 0 !important;
     padding: 0 50px;
-    background-color: #e86c6d;
+    /* background-color: #e86c6d; */
+    background-image: url(../images/red-background.png);
+    background-size: cover;
+}
+
+@media all and (max-width: 600px) {
+    .landing .hero.one {
+        grid-template-columns: 1fr;
+        padding: 0 30px !important;
+    }
 }
 
 .landing .hero .content .bottom-content {
@@ -48,6 +58,18 @@
     color: white !important;
     border-top: white 1px solid;
     margin-top: -20px;
+}
+
+@media all and (max-width: 600px) {
+    .landing .hero.one .top-content {
+        width: 100%;
+        padding: 10px 0px;
+    }
+
+    .landing .hero.one .bottom-content {
+        width: 100%;
+        padding: 0px;
+    }
 }
 
 .landing .hero .content form {
@@ -58,10 +80,23 @@
     align-items: center;
 }
 
+@media all and (max-width: 600px) {
+    .landing .hero .content form {
+        width: 100%;
+        margin: 0;
+    }
+  }
+
 .landing .hero .content form .link {
     margin-top: 20px;
     color: white;
 }
+
+@media all and (max-width: 600px) {
+    .landing .hero .content form .link {
+        text-align: center;
+    }
+  }
 
 .landing .hero .content form .link a {
     color: white;
@@ -74,6 +109,13 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
 }
+
+@media all and (max-width: 600px) {
+    .landing .hero .content form .row-input {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
+  }
 
 .input-contact {
     background-image: url(../images/input-contact.png);
@@ -108,6 +150,12 @@
     width: 88%;
 }
 
+@media all and (max-width: 600px) {
+    .landing .hero .content img {
+        margin-left: 0;
+    }
+  }
+
 /* pitching section */
 .pitch {
     text-align: center;
@@ -120,6 +168,12 @@
     margin-top: 60px;
 }
 
+@media all and (max-width: 600px) {
+    .pitch .title {
+        margin-top: 10px;
+    }
+  } 
+
 .pitch .problems {
     margin: 20px 0;
     color: #767a7e;
@@ -127,12 +181,24 @@
     font-size: 20px;
 }
 
+@media all and (max-width: 600px) {
+    .pitch .problems {
+        padding: 0 30px;
+    }
+  }
+
 .pitch .solutions {
     color: #e86c6d;
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 20px;
 }
+
+@media all and (max-width: 600px) {
+    .pitch .solutions {
+        padding: 0 30px;
+    }
+  }
 
 .background-grey {
     background-color: #f7f6f6;
@@ -149,10 +215,25 @@
     padding-bottom: 60px;
 }
 
+@media all and (max-width: 600px) {
+    .landing .hero.two {
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
+        padding-bottom: 30px;
+    }
+  }
+
 .landing .hero.two .content {
     width: 50%;
     text-align: center;
 }
+
+@media all and (max-width: 600px) {
+    .landing .hero.two .content {
+        width: 100%;
+        padding: 10px 30px;
+    }
+  }
 
 .landing .two .content img {
     width: 80%;
@@ -194,7 +275,15 @@
 
 /* signup section */
 .landing .signup {
-    background-color: #1b75bb;
+    background-image: url(../images/blue-background.png);
+    background-size: cover;
+}
+
+@media all and (max-width: 600px) {
+    .landing .signup {
+        width: 100%;
+        padding: 10px 30px;    
+    }
 }
 
 .landing .signup .content {
@@ -203,9 +292,22 @@
     grid-gap: 50px;
 }
 
+@media all and (max-width: 600px) {
+    .landing .signup .content {
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
+    }
+}
+
 .landing .signup .content .img-container {
     display: grid;
     justify-items: right;
+}
+
+@media all and (max-width: 600px) {
+    .landing .signup .content .img-container {
+        justify-items: center;
+    }
 }
 
 .landing .signup .content img {
@@ -213,11 +315,25 @@
     width: 60%;
 }
 
+@media all and (max-width: 600px) {
+    .landing .signup .content img {
+        justify-items: center;
+        width: 100%;
+    }
+}
+
 .landing .signup .content .cta {
     text-align: left;
     margin: auto 0;
     width: 65%;
 }
+
+@media all and (max-width: 600px) {
+    .landing .signup .content .cta {
+        text-align: center;
+        width: 100%;
+    }
+  }
 
 .landing .signup .content .cta .title {
     font-size: 36px;
@@ -230,6 +346,8 @@
     font-weight: 700;
 }
 
+/* partner section */
+
 .landing .partners {
     display: flex;
     flex-direction: row;
@@ -237,9 +355,22 @@
     align-items: center;
 }
 
+@media all and (max-width: 600px) {
+    .landing .partners {
+        flex-direction: column;
+    }
+}
+
 .landing .partners img {
     width: 12%;
     margin: 0 30px;
+}
+
+@media all and (max-width: 600px) {
+    .landing .partners img {
+        width: 30%;
+        margin: 0;
+    }
 }
 
 .white {

@@ -7,16 +7,13 @@ import MetaTags from 'react-meta-tags';
 import { handleShowModal } from "../actions/modal";
 import { handleRegister } from "../actions/AuthedUser";
 import Button from "../components/common/Button";
+import Partner from "../components/common/Partner";
 import CustomCarousel from '../components/home/CustomCarousel';
 import './Home.css';
 import hero1 from "../images/hero-image1.png";
 import lookParking from "../images/look-parking.png";
 import rentParking from "../images/rent-parking.png";
 import registerBanner from "../images/register-banner.png";
-import partner1 from "../images/partner1.png";
-import partner2 from "../images/partner2.png";
-import partner3 from "../images/partner3.png";
-import partner4 from "../images/partner4.png";
 
 class Home extends Component {
   constructor(props) {
@@ -206,12 +203,7 @@ class Home extends Component {
           </div>
         </section>
 
-        <section className="partners">
-          <img className="logo" src={partner1} />
-          <img className="logo" src={partner2} />
-          <img className="logo" src={partner3} />
-          <img className="logo" src={partner4} />
-        </section>
+        <Partner />
       </div>
 
     )

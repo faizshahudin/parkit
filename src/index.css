@@ -146,6 +146,12 @@ li {
   margin-right: auto;
 }
 
+@media all and (max-width: 600px) {
+  .full-width {
+      width: 100%;
+  }
+}
+
 .main-container {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -165,15 +171,15 @@ li {
   font-size: 38px;
 }
 
-.home .signup {
+/* .home .signup {
   padding: 40px;
   background-color: #e86c6d;
-}
+} */
 
-.home .signup button {
-  background-color: white;
-  color: #e86c6d;
-}
+  /* .home .signup button {
+    background-color: white;
+    color: #e86c6d;
+  } */
 
 
 
@@ -1353,7 +1359,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 20px; */
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 600px) {
   .hero {
     grid-template-columns: 1fr !important;
   }
