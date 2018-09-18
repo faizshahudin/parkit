@@ -11,7 +11,7 @@ import 'react-s-alert/dist/s-alert-default.css';
 import image404 from './images/404.png'
 
 import Home from './pages/Home';
-import Owners from './components/Owners';
+import Owners from './pages/Owners';
 import Parkers from './components/Parkers';
 import LoginRegister from './components/Login';
 import Register from './components/Register';
