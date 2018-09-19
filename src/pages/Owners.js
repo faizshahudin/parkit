@@ -10,6 +10,10 @@ import list3 from "../images/listwithus-3.png"
 import one from "../images/owner-section2-1.png"
 import two from "../images/owner-section2-2.png"
 import three from "../images/owner-section2-3.png"
+import item1 from "../images/owner-section4-1.png";
+import item2 from "../images/owner-section4-2.png";
+import item3 from "../images/owner-section4-3.png";
+import video from "../images/owner-section5-1.png";
 import dropdown from '../images/dropdown.png';  
 import logos from "../images/logos.png"
 import Button from '../components/common/Button';
@@ -97,6 +101,33 @@ class Owners extends Component {
               <Link to="/add-listing">
                 <Button className="btn" buttonText="RENT MY PARKING SPACE" />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="owner-section4">
+          <div className="container">
+            <div className="item">
+              <img src={item1} />
+              <div>Help Others</div>
+            </div>
+            <div className="item">
+              <img src={item2} />
+              <div>It's Easy</div>
+            </div>
+            <div className="item">
+              <img src={item3} />
+              <div>We Settle The Rest</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="owner-section5">
+          <div className="container">
+            <img src={video}/>
+            <div className="content">
+              <h1>Lorem ipsum dolor sit amet</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
           </div>
         </section>
