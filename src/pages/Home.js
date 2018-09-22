@@ -11,7 +11,7 @@ import Partner from "../components/common/Partner";
 import CustomCarousel from '../components/home/CustomCarousel';
 import './Home.css';
 import hero1 from "../images/hero-image1.png";
-import lookParking from "../images/look-parking.png";
+import parkers1 from "../images/parkers-1.png";
 import rentParking from "../images/rent-parking.png";
 import registerBanner from "../images/register-banner.png";
 
@@ -164,7 +164,7 @@ class Home extends Component {
 
         <section className="hero two">
           <div className="content full-width">
-            <img src={lookParking} />
+            <img src={parkers1} />
             <div className="title">Looking for a parking space?</div>
             <div className="subtitle">Search and book from our available parking spaces now!</div>
             <Link to="/find-parking/search">  

@@ -1,0 +1,291 @@
+/* parkers */
+.parkers {
+    color: #8a8888;
+}
+  
+  /*--------------------------------------------------*/
+  /* first section */
+  /*--------------------------------------------------*/
+  .parker-section1 {
+      /* border: 1px solid black; */
+      background-image: url(../images/owner-section1.png);
+      background-size: cover;
+      color: #e86c6d;
+      padding: 40px 0;
+  }
+
+  .parker-section1 .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .parker-section1 .cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 85%;
+    margin-left: 40px;
+  }
+
+  .parker-section1 h1 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .parker-section1 .text {
+    font-weight: initial;
+    font-size: 20px;
+    border-top: 1.5px solid #e86c6d;
+    padding-top: 5px;
+  }
+
+  .parker-section1 p {
+      margin-top: 0 !important;
+      /* width: 79%; */
+  }
+
+  .parker-section1 .image-container {
+      width: 60%;
+      margin-right: 40px;
+  }
+
+  .parker-section1 img {
+      width: 100%;
+  }
+
+  @media all and (max-width: 600px) {
+    .parker-section1 {
+        padding: 0;    
+    }
+
+    .parker-section1 .content {
+        grid-template-columns: 1fr;
+        grid-template-areas: "content"
+                            "image";
+        justify-items: center;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .parker-section1 .cta {
+        grid-area: content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        padding-right: 30px;
+        padding-left: 30px;
+        padding-top: 20px;
+        margin: 0;
+      }
+
+    .parker-section1 .image-container {
+        grid-area: image;
+        width: 80%;
+        margin-right: 0;
+    }
+  }
+  /*--------------------------------------------------*/
+  /* second section */
+  /*--------------------------------------------------*/
+  .parker-section2 {
+      color: #e86c6d;
+      padding: 20px 0;
+  }
+
+  .parker-section2 .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;    
+      border-bottom: 1.5px solid #c9c7c7;
+      width: 90%;
+      margin: 0 auto;
+  }
+
+  .parker-section2 .image {
+      width: 90%;
+  }
+
+  .parker-section2 .image img {
+      width: 100%;
+  }
+
+  .parker-section2 .content {
+      width: 100%;
+      padding-left: 120px;
+  }
+
+  @media all and (max-width: 600px) {
+    .parker-section2 {
+        padding: 0;
+    }
+
+    .parker-section2 .container {
+        grid-template-columns: 1fr;
+        /* justify-items: center; */
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 10px;    
+    }
+
+    .parker-section2 .image {
+        width: 90%;
+    }
+
+    .parker-section2 .content {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .parker-section2 h1 {
+        margin-top: 0;
+    }
+  }
+  /*--------------------------------------------------*/
+  /* third section */
+  /*--------------------------------------------------*/
+  .parker-section3 .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 90%;
+      margin: 0 auto;
+  }
+
+  .parker-section3 .content {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      width: 80%;
+      margin-left: 60px;
+  }
+
+  .parker-section3 .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .parker-section3 h1 {
+    margin-bottom: 0 !important;
+    color: #e86c6d;
+    font-size: 28px;
+  }
+
+  .parker-section3 p {
+      font-size: 18px;
+  }
+
+  @media all and (max-width: 600px) {
+    .parker-section3 .container {
+        grid-template-columns: 1fr;
+        /* justify-items: center; */
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 30px;
+        text-align: center;
+    }
+
+    .parker-section3 .content {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        width: 100%;
+        margin-left: 0;
+    }
+  }
+  /*--------------------------------------------------*/
+  /* fourth section */
+  /*--------------------------------------------------*/
+  .parker-section4 {
+    padding: 40px 0;
+  }
+
+  .parker-section4 .container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .parker-section4 .item {
+      display: inherit;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .parker-section4 .item img {
+    width: 130px;
+  }
+
+  .parker-section4 .item div {
+      color: #616060;
+      font-size: 18px;
+      font-weight: 700;
+      width: 100px;
+  }
+
+  @media all and (max-width: 600px) {
+    .parker-section4 .container {
+        flex-direction: column;
+        /* justify-items: center; */
+        width: 100%;
+        margin: 0 auto;
+    }
+  }
+  /*--------------------------------------------------*/
+  /* fifth section */
+  /*--------------------------------------------------*/
+  .parker-section5 {
+      background-image: url(../images/owner-section5.png);
+      background-size: cover;
+      padding: 50px 0;
+  }
+
+  .parker-section5 .container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+  }
+
+  .parker-section5 img {
+      width: 45%; 
+      height: 45%;
+  }
+
+  .parker-section5 .content {
+    width: 38%; 
+  }
+
+  .parker-section5 h1 {
+    margin-bottom: 0 !important;
+    font-size: 28px;
+    color: #e86c6d;
+  }
+
+  .parker-section5 p {
+      font-size: 18px;
+  }
+
+  @media all and (max-width: 600px) {
+    .parker-section5 .container {
+        flex-direction: column;
+        /* justify-items: center; */
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 30px;
+    }
+
+    .parker-section5 img {
+        width: 100%; 
+    }
+
+    .parker-section5 .content {
+        width: 100%; 
+      }
+  }
+/*--------------------------------------------------*/

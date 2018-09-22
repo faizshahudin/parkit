@@ -164,6 +164,12 @@
     background-size: 1rem;
 }
 
+@media all and (max-width: 600px) {
+    .search-form input {
+        width: 100%;
+    }
+}
+
 .primary-color {
     color: #e86c6d !important;
 }

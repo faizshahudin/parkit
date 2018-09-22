@@ -12,7 +12,7 @@ import image404 from './images/404.png'
 
 import Home from './pages/Home';
 import Owners from './pages/Owners';
-import Parkers from './components/Parkers';
+import Parkers from './pages/Parkers';
 import LoginRegister from './components/Login';
 import Register from './components/Register';
 import AddListing from './components/AddListing';
