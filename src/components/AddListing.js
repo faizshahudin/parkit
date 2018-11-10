@@ -3,12 +3,14 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom"
-import * as Api from "./Api"
 import { connect } from 'react-redux'
-import { handleListParking, listParking, listParkingComplete } from "../actions/parkings"
 import jwt from "jsonwebtoken"
+import { withRouter } from 'react-router';
+
+import * as Api from "./Api"
+import { handleListParking, listParking, listParkingComplete } from "../actions/parkings"
 import {fields} from "../utils/data"
-import {handleShowModal} from "../actions/modal"
+import {handleShowModal, handleHideModal} from "../actions/modal"
 
 
 class AddListing extends Component {
@@ -36,6 +38,7 @@ class Add extends Component {
     this.state = {
       currentPage: 1,
       submit: false,
+      attemptLogin: 0,
     }
     this.fields = {
       property: {
@@ -291,16 +294,28 @@ class Add extends Component {
 }
 
   componentDidMount() {
-    const { AuthedUser, dispatch } = this.props
-    this.initialize()
+    const { AuthedUser, dispatch } = this.props;
+    this.initialize();
+    
+    console.log('mount: ', this.state);
     if (!AuthedUser) {
+      this.setState({ attemptLogin: 1 })
       dispatch(handleShowModal("Login"))
     }
   }
 
-  componentDidUpdate() {
-    this.initialize()
-  }
+  // componentDidUpdate() {
+  //   const { AuthedUser, dispatch } = this.props;
+  //   const { attemptLogin } = this.state;
+  //   // this.initialize()
+  //   if (!AuthedUser && attemptLogin === 1) {
+  //     this.props.history.push({
+  //       pathname: '/'
+  //     });
+  //     this.setState({ attemptLogin: 0 });
+  //     dispatch(handleHideModal());
+  //   }  
+  // }
 
   render() {
     const { match, AuthedUser, dispatch } = this.props
@@ -514,4 +529,4 @@ function mapStateToProps({AuthedUser, parkings}) {
 }
 
 
-export default connect(mapStateToProps)(AddListing)
+export default withRouter(connect(mapStateToProps)(AddListing));

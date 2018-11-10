@@ -91,7 +91,7 @@ export function getUserDetails(data) {
 }
 
 
-export function handleRegister(data) {
+export function handleRegister(data, path) {
   return (dispatch) => {
     dispatch(showLoading())
     return Api.register(data)

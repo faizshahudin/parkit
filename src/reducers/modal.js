@@ -1,7 +1,7 @@
 import {SHOW_MODAL, HIDE_MODAL} from "../actions/modal"
 
 const initialState = {
-  type: null,
+  type: null, path: null
 }
 
 function modalReducer (state = initialState, action) {
@@ -9,7 +9,8 @@ function modalReducer (state = initialState, action) {
     case SHOW_MODAL:
       return {
         ...state,
-        type: action.id
+        type: action.id,
+        path: action.path
       };
     case HIDE_MODAL:
       return initialState;

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
@@ -12,6 +13,7 @@ import Logo from "../../images/parkit-logo.png"
 import MenuIcon from "../../images/menu-icon.png"
 import parkitFull from '../../images/parkitFull.png';
 import searchIcon from '../../images/search-icon.png';
+import { fields } from '../../utils/data';
 
 class Nav extends Component {
   constructor(props) {
@@ -71,7 +73,8 @@ class DesktopNav extends Component {
 
 
   render() {
-    const {AuthedUser, logout} = this.props
+    const {AuthedUser, logout} = this.props;
+    const { area } = fields;
 
     return (
       <div className="outer">
@@ -92,7 +95,15 @@ class DesktopNav extends Component {
             </li>
           </ul>
           <ul className="nav-container">
-            <div><SearchBar /></div>
+            <div>
+                <SearchBar 
+                  area={area.options} 
+                  onChange={(e) => this.props.history.push({
+                    pathname: '/find-parking/search',
+                    state: e.target.value
+                  })}
+                />
+              </div>
           </ul>
           <ul className="nav-container">
             <li>
@@ -143,9 +154,12 @@ const SearchBar = (props) => {
   return (
     <Fragment>
       <form className="search-form">
-        <input 
-          placeholder="Search nearest available parking"
-        />
+        <select onChange={props.onChange}>
+          <option value="none">Search nearest available parking</option>
+          {props.area.map(a => 
+            <option key={a.value} value={a.value}>{a.title}</option>
+          )}
+        </select>
       </form>
     </Fragment>
   )

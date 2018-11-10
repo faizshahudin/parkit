@@ -153,7 +153,7 @@
     margin-left: 10px;
 }
 
-.search-form input {
+.search-form select {
     color: #5e5d5d;
     border: #c4c1c1 1px solid !important; 
     border-radius: 10px;

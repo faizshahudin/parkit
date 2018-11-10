@@ -42,7 +42,8 @@ class LoginRegister extends Component {
    }
 
   render() {
-    const {dispatch, AuthedUser, modal, history} = this.props
+    const {dispatch, AuthedUser, modal, history} = this.props;
+    console.log('insideLoginRegister: ', modal);
 
     return (
       <Fragment>
@@ -75,12 +76,14 @@ class LoginRegister extends Component {
                     AuthedUser={AuthedUser}
                     showAlert={this.showAlert}
                     toggleNav={this.toggleNav}
+                    modal={modal}
                   />
                   : <Register
                     dispatch={dispatch}
                     AuthedUser={AuthedUser}
                     showAlert={this.showAlert}
                     toggleNav={this.toggleNav}
+                    modal={modal}
                   />
                 }
               </div>
@@ -119,17 +122,30 @@ class Login extends Component {
   }
 
   render() {
-    const {dispatch, AuthedUser, modal, history, showAlert} = this.props
-
+    const {dispatch, AuthedUser, modal, history, showAlert} = this.props;
+    console.log('modal: ',modal);
+    /*--------------------------------------------------------------------/
+      AuthedUser=true means that the user has successfully login/register
+      if already authenticate, check current location, if the user 
+      already on find-parking/search/ page or add-listing page, hide the
+      modal, if the modal.path have values redirect to that path, else 
+      redirect to dashboard
+    /--------------------------------------------------------------------*/
     if (AuthedUser) {
-      let currentLocation =  window.location.href
+      let currentLocation =  window.location.href;
       if (currentLocation.includes("find-parking/search/") || currentLocation.includes("add-listing") ) {
         dispatch(handleHideModal())
         return null
       } else {
-        return (
-          <Redirect to="/dashboard" />
-        )
+        if (modal.path) {
+          return (
+            <Redirect to={modal.path} />
+          );
+        } else {
+          return (
+            <Redirect to="/dashboard" />
+          );
+        }
       }
     }
 
@@ -192,12 +208,12 @@ class Register extends Component {
   }
 
   handleSubmit = (e) => {
-    const {dispatch} = this.props
+    const {dispatch, modal} = this.props
     e.preventDefault()
     // this.setState({username: this.state.email})
     let data = this.state
 
-    dispatch(handleRegister(data))
+    dispatch(handleRegister(data, modal.path));
   }
 
   render() {
@@ -207,11 +223,18 @@ class Register extends Component {
       let currentLocation =  window.location.href
       if (currentLocation.includes("find-parking/search/") || currentLocation.includes("add-listing") ) {
         dispatch(handleHideModal())
-        return null
+        return null;
       } else {
-        return (
-          <Redirect to="/dashboard" />
-        )
+        if (modal.path) {
+          return (
+            <Redirect to={modal.path} />
+          );
+        } else {
+          return (
+            <Redirect to="/dashboard" />
+          );
+        }
+        
       }
     }
 

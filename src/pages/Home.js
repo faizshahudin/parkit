@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux"
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
+import { withRouter } from 'react-router';
 import MetaTags from 'react-meta-tags';
 
 import { handleShowModal } from "../actions/modal";
@@ -22,6 +23,16 @@ class Home extends Component {
     this.state = {};  
   }
 
+  componentDidMount() {
+    const { AuthedUser, modal } = this.props;
+
+    if (AuthedUser && modal.path) {
+      this.props.history.push({
+        pathname: modal.path
+      });
+    }
+  }
+
   openModal = () => {
     console.log('test');
     const { dispatch } = this.props;
@@ -32,6 +43,18 @@ class Home extends Component {
     console.log("yes")
     const {dispatch} = this.props
     dispatch(handleShowModal("Register"))
+  }
+
+  handleListing = () => {
+    const { AuthedUser, dispatch, match } = this.props;
+
+    if (AuthedUser) {
+      this.props.history.push({
+        pathname: '/add-listing',
+      })
+    } else {
+      dispatch(handleShowModal("Login", '/add-listing'));
+    }
   }
 
   handleChange = (e) => {
@@ -175,9 +198,11 @@ class Home extends Component {
             <img src={rentParking} />
             <div className="title">Want to rent out your parking space?</div>
             <div className="subtitle">Fill up our form and rent your parking space on ParkIt today!</div>
-            <Link to="/add-listing">
-              <Button className="btn-transparent rounded" buttonText="I HAVE A PARKING" />
-            </Link>
+              <Button 
+                className="btn-transparent rounded" 
+                buttonText="I HAVE A PARKING"
+                onClick={this.handleListing} 
+              />
           </div>
         </section>
 
@@ -217,4 +242,4 @@ function mapStateToProps({modal, AuthedUser}) {
   }
 }
 
-export default connect(mapStateToProps)(Home)
+export default withRouter(connect(mapStateToProps)(Home));

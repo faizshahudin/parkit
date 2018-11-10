@@ -1,18 +1,19 @@
 export const SHOW_MODAL = "SHOW_MODAL"
 export const HIDE_MODAL = "HIDE_MODAL"
 
-export const showModal = (id) => ({
+export const showModal = (id, path) => ({
   type: SHOW_MODAL,
-  id
+  id,
+  path
 })
 
 export const hideModal = () => ({
   type: HIDE_MODAL
 })
 
-export function handleShowModal(id) {
+export function handleShowModal(id, path) {
   return (dispatch) => {
-    dispatch(showModal(id))
+    dispatch(showModal(id, path))
   }
 }
 

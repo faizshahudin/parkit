@@ -27,9 +27,18 @@ class FindParking extends Component {
       login: true,
       modalIsOpen: props.isOpen,
     }
+
+    this.currentLocation = this.props.location.state;
   }
 
   componentDidMount() {
+    // if (this.currentLocation) {
+    //   this.setState({
+    //     currentLocation: this.currentLocation,
+    //     currentPage: 1,
+    //   });
+    //   // this.filterParking(this.currentLocation);
+    // }
     this.props.dispatch(handleGetParkings())
     window.scrollTo(0, 0)
   }
@@ -38,8 +47,35 @@ class FindParking extends Component {
     const {dispatch, modal, AuthedUser, match, loading, updatedParkings, cars} = this.props
     return (
       <div className="find-parking-container main-container">
-        <Route path={`${match.path}/search`} render={(props) => <Search {...props} parkings={updatedParkings} dispatch={dispatch} modal={modal} AuthedUser={AuthedUser} loading={loading} cars={cars}/>} />
-        <Route path={`${match.path}/search/:id`} render={(props) => <RentParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading} cars={cars}/>}/>
+        <Route 
+          path={`${match.path}/search`} 
+          render={(props) => 
+            <Search 
+              {...props} 
+              parkings={updatedParkings} 
+              dispatch={dispatch} 
+              modal={modal} 
+              AuthedUser={AuthedUser} 
+              loading={loading} 
+              cars={cars}
+              currentLocation={this.currentLocation}
+            />
+          } 
+        />
+        <Route 
+          path={`${match.path}/search/:id`} 
+          render={(props) => 
+            <RentParking 
+              {...props} 
+              parkings={updatedParkings} 
+              dispatch={dispatch}
+              AuthedUser={AuthedUser} 
+              modal={modal} 
+              loading={loading} 
+              cars={cars}
+            />
+          }
+        />
         {/* <Route path={`${match.path}/search/no-parking`} render={(props) => <NoParking {...props} parkings={updatedParkings} dispatch={dispatch} AuthedUser={AuthedUser} modal={modal} loading={loading}/>}/> */}
       </div>
     )
@@ -83,43 +119,43 @@ class Search extends Component {
      currentPage: 1,
    })
    this.filterParking(value)
- }
-
- openModal = (e) => {
-  const {history, AuthedUser, dispatch, modal, match} = this.props
-  if (AuthedUser) {
-    history.push(`${match.url}/${e.target.name}`)
-    dispatch(bookParking())
-  } else {
-    history.push(`${match.url}/${e.target.name}`)
-    dispatch(handleShowModal("Login"))
   }
-  window.scrollTo(0, 0)
- }
 
- afterOpenModal = () => {
-   this.setState({modalIsOpen: true});
- }
+  openModal = (e) => {
+    const {history, AuthedUser, dispatch, modal, match} = this.props
+    if (AuthedUser) {
+      history.push(`${match.url}/${e.target.name}`)
+      dispatch(bookParking())
+    } else {
+      history.push(`${match.url}/${e.target.name}`)
+      dispatch(handleShowModal("Login"))
+    }
+    window.scrollTo(0, 0)
+  }
 
- closeModal = () => {
-   this.setState({modalIsOpen: false});
- }
+  afterOpenModal = () => {
+    this.setState({modalIsOpen: true});
+  }
 
- filterParking = (currentLocation) => {
-   const {parkings, AuthedUser} = this.props
-   let filteredParkings = Object.values(parkings)
-    .filter((parking) => parking.db_area === currentLocation).sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
-      filteredParkings.map(parking => {
-      parking.highlight = false
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
+  filterParking = (currentLocation) => {
+    const {parkings, AuthedUser} = this.props
+    let filteredParkings = Object.values(parkings)
+      .filter((parking) => parking.db_area === currentLocation).sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
+        filteredParkings.map(parking => {
+        parking.highlight = false
+      })
+    this.setState({
+      filteredParkings: filteredParkings,
+      markersToShow: this.displayMarkers(filteredParkings),
     })
-   this.setState({
-     filteredParkings: filteredParkings,
-     markersToShow: this.displayMarkers(filteredParkings),
-   })
-   this.initialize()
- }
+    this.initialize()
+  }
 
- // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
+  // Filters markers to 5 per page, and determines which markers to display on what page. Returns an array of markersToShow
    displayMarkers = (filteredParkings) => {
      let markers = filteredParkings
      let resultsPerPage = 20
@@ -201,13 +237,21 @@ class Search extends Component {
    }
 
  componentDidMount = () => {
+  const { currentLocation } = this.props;
+
+  if (currentLocation) {
+    console.log('inside search did mount');
+    this.setState({ currentLocation, currentPage: 1 });
+    this.filterParking(currentLocation);
+  }
    this.setCenter()
    this.initialize()
  }
 
   render() {
     const {area} = fields
-    let {currentLocation} = this.state
+    let {currentLocation} = this.state;
+    const location = this.props.currentLocation;
     const {parkings} = this.props
     return (
       <div>
@@ -222,7 +266,19 @@ class Search extends Component {
                 <h3>Our Parking Spaces</h3>
                 <form className="search-body">
                   <select onChange={this.handleChange}>
-                    <option value="none">Select an area</option>
+                    {location ?
+                      <option 
+                        key={location} 
+                        value={location}
+                      >
+                        {area.options.map((a) => {
+                          if (a.value === location) {
+                            return a.title;
+                          }
+                        })}
+                      </option> :
+                      <option value="none">Select an area</option>
+                    }
                     {area.options.map(a =>
                       <option key={a.value} value={a.value}>{a.title}</option>
                     )}
